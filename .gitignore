@@ -3,3 +3,8 @@ node_modules
 .next/*
 .cache
 next-env.d.ts
+
+# audio is hosted outside git
+music/
+.env
+.env.local
