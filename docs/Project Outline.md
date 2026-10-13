@@ -7,6 +7,8 @@
 * deployment workflow to mirror the ci config in [jazz-nextjs](https://github.com/jazzsequence/jazz-nextjs)
 * Treat this document as the primary reference for the project
 * Treat all other markdown files in this folder as relevant for flavor, tone, context or, where applicable, for actual site content.
+* images for the project are located in ./images
+* music for the project are separated into album-name directories within ./music
 
 ## Background
 PARIS is a nonbinary, fictional shock rock musician in a TTRPG campaign set in the San Francisco Bay Area in 1997 using the World of Darkness (Mage: the Ascencion / Vampire: the Masquerade) system. PARIS is a Korean-born vampire, formerly a ranking member of the Ventrue used as a diplomatic ambassador between clans. When PARIS fell in love with a Toreador named Lucien, it threatened a scandal and PARIS took that as an opportunity to break from the Camarilla and move to the United States. Lucien joined them.
