@@ -1,42 +1,36 @@
+import "./styles.css";
 import type { Metadata } from "next";
-import { Poppins, Aleo, Source_Code_Pro } from "next/font/google";
 
-import "./globals.css";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
-const sourceCodePro = Source_Code_Pro({
-  subsets: ["latin"],
-  variable: "--font-source-code-mono",
-  weight: ["400", "600"],
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins-sans",
-  weight: ["400", "500", "600", "700"],
-});
-
-const aleo = Aleo({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
-
+// A page-level openGraph replaces (not merges) this one, so buildPageMetadata
+// re-declares og:type and the env site-name fallback; this covers routes that
+// return no openGraph (e.g. not-found early returns).
 export const metadata: Metadata = {
-  title: "Next.js on Pantheon",
-  description: "Welcome to Next.js on Pantheon",
+  ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
+  openGraph: {
+    type: "website",
+    siteName: process.env.NEXT_PUBLIC_SITE_NAME,
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${poppins.variable} ${sourceCodePro.variable} antialiased`}
-      >
-        {children}
+      {/* Puck's canvas-preview iframe copies this document's <body> attributes
+          onto its own iframe <body> (@puckeditor/core's CopyHostStyles
+          syncAttributes()), so a class/attribute placed directly on <body>
+          cannot be used to keep a rule out of the iframe. `.p1-app-shell` is
+          a child of <body> instead — Puck's canvas iframe never contains it
+          (the iframe only ever renders the Puck root/block tree into its own
+          #frame-root, not this layout). See styles.css for the scoped reset
+          this enables. */}
+      <body data-rm-theme="light">
+        <div className="p1-app-shell">{children}</div>
       </body>
     </html>
   );
