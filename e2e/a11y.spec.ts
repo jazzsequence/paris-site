@@ -12,6 +12,7 @@ const routes = [
   "/lyrics",
   "/lyrics/say-when",
   "/lyrics/seniority",
+  "/lyrics/banmal", // Korean text
   "/well-enough",
   "/tour",
   "/tickets/sf-1997-10-07",
