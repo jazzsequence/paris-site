@@ -8,6 +8,7 @@ import { JsonLd } from "../../../components/site/json-ld";
 import { getP1Page, rootProp } from "../../../lib/site/p1-content";
 import { Client } from "../[...puckPath]/client";
 import { artistData } from "../../../lib/site/structured-data";
+import { LightboxImage } from "../../../design-system/components/LightboxImage";
 
 export const revalidate = 300;
 
@@ -36,7 +37,7 @@ export default async function Bio() {
     <Page>
       <JsonLd data={artistData()} />
       <div className="grid items-start gap-10 md:grid-cols-[22rem_1fr]">
-        <img src="/images/paris-portrait.jpg" alt="PARIS" width={1024} height={1536} fetchPriority="high" className="w-full rounded-card border border-line" />
+        <LightboxImage src="/images/paris-portrait.jpg" alt="PARIS" width={1024} height={1536} fetchPriority="high" className="w-full rounded-card border border-line" />
         <div className="space-y-6">
           <p className="font-gothic text-3xl text-magenta">About</p>
           <h1 className="text-chrome font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-[-0.04em] md:text-7xl">

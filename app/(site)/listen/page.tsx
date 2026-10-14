@@ -6,6 +6,7 @@ import { SectionHeading } from "../../../design-system/components/SectionHeading
 import { getCatalog } from "../../../lib/site/catalog";
 import { AppLink } from "../../../design-system/components/AppLink";
 import { pageMetadata } from "../../../lib/site/seo";
+import { LightboxImage } from "../../../design-system/components/LightboxImage";
 
 export const metadata: Metadata = pageMetadata({ title: "Listen", description: "Stream and download PARIS: every album, the EP, B-sides and unreleased recordings.", path: "/listen" });
 export const revalidate = 300;
@@ -18,7 +19,7 @@ export default async function Listen() {
       {catalog.map((album) => (
         <section key={album.slug} id={album.slug} className="grid gap-8 md:grid-cols-[16rem_1fr]">
           <div className="space-y-3">
-            <img src={album.cover} alt={`${album.title} cover art`} width={1024} height={1024} loading="lazy" decoding="async" className="w-full rounded-card border border-line" />
+            <LightboxImage src={album.cover} alt={`${album.title} cover art`} width={1024} height={1024} loading="lazy" decoding="async" className="w-full rounded-card border border-line" />
             <h2 className="font-display text-2xl font-extrabold uppercase tracking-[-0.03em]">
               <AppLink href={album.featured ? "/well-enough" : `/albums/${album.slug}`} className="hover:text-magenta">
                 {album.title}

@@ -9,6 +9,7 @@ import { Breadcrumbs } from "../../../../components/site/breadcrumbs";
 import { JsonLd } from "../../../../components/site/json-ld";
 import { pageMetadata } from "../../../../lib/site/seo";
 import { albumData } from "../../../../lib/site/structured-data";
+import { LightboxImage } from "../../../../design-system/components/LightboxImage";
 
 type Props = { params: Promise<{ slug: string }> };
 export const revalidate = 300;
@@ -34,7 +35,7 @@ export default async function AlbumPage({ params }: Props) {
       <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Albums", href: "/albums" }, { name: album.title, href: `/albums/${album.slug}` }]} />
       <JsonLd data={albumData(album, `/albums/${album.slug}`)} />
       <div className="grid items-end gap-10 md:grid-cols-[20rem_1fr]">
-        <img src={album.cover} alt={`${album.title} cover art`} width={1024} height={1024} fetchPriority="high" className="w-full rounded-card border border-line" />
+        <LightboxImage src={album.cover} alt={`${album.title} cover art`} width={1024} height={1024} fetchPriority="high" className="w-full rounded-card border border-line" />
         <div className="space-y-5">
           <p className="font-gothic text-3xl text-magenta">{released ? album.kind : "Unreleased"}</p>
           <h1 className="text-chrome font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-[-0.04em] md:text-7xl">
