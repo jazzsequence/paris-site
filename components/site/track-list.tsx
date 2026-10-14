@@ -2,7 +2,7 @@
 
 import { TrackRow } from "../../design-system/components/TrackRow";
 import type { CatalogTrack } from "../../lib/site/catalog";
-import { usePlayer, type PlayerTrack } from "./player";
+import { usePlayerMaybe, type PlayerTrack } from "./player";
 
 const toPlayer = (t: CatalogTrack): PlayerTrack => ({
   id: `${t.album}/${t.slug}`,
@@ -13,7 +13,9 @@ const toPlayer = (t: CatalogTrack): PlayerTrack => ({
 });
 
 export function TrackList({ tracks }: { tracks: CatalogTrack[] }) {
-  const { play, enqueue, currentId, playing } = usePlayer();
+  // In the P1 editor there is no player: the rows show, and the buttons do nothing.
+  const player = usePlayerMaybe();
+  const { play, enqueue, currentId, playing } = player ?? { play: () => undefined, enqueue: () => undefined, currentId: undefined, playing: false };
   const list = tracks.filter((t) => t.hasAudio).map(toPlayer);
   return (
     <ol className="border-t border-line">

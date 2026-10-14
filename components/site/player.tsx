@@ -30,6 +30,9 @@ type PlayerState = {
 
 const Ctx = createContext<PlayerState | null>(null);
 
+/** The player, or null where there is none (the P1 editor canvas). */
+export const usePlayerMaybe = () => useContext(Ctx);
+
 export function usePlayer(): PlayerState {
   const ctx = useContext(Ctx);
   if (!ctx) throw new Error("usePlayer must be used inside <PlayerProvider>");

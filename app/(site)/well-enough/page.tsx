@@ -6,11 +6,13 @@ import { ButtonLink } from "../../../design-system/components/Button";
 import { getCatalog, getFeaturedAlbum } from "../../../lib/site/catalog";
 import { Breadcrumbs } from "../../../components/site/breadcrumbs";
 import { JsonLd } from "../../../components/site/json-ld";
-import { pageMetadata } from "../../../lib/site/seo";
 import { albumData } from "../../../lib/site/structured-data";
 import { LightboxImage } from "../../../design-system/components/LightboxImage";
+import { P1Page } from "../../../components/site/p1-page";
+import { getP1Page } from "../../../lib/site/p1-content";
+import { p1PageMetadata } from "../../../lib/site/p1-metadata";
 
-export const metadata: Metadata = pageMetadata({
+export const generateMetadata = (): Promise<Metadata> => p1PageMetadata({
   title: "Well Enough",
   description: "Well Enough, the new album from PARIS, released by Interscope Records on Hostile Takeover.",
   path: "/well-enough",
@@ -19,7 +21,7 @@ export const metadata: Metadata = pageMetadata({
 });
 export const revalidate = 300;
 
-export default async function WellEnough() {
+async function WellEnoughFallback() {
   const featured = getFeaturedAlbum();
   const album = (await getCatalog()).find((a) => a.slug === featured.slug);
   if (!album) return null;
@@ -51,5 +53,26 @@ export default async function WellEnough() {
         <LightboxImage src="/images/inside-cover.jpg" alt="Inside cover artwork" width={1600} height={595} loading="lazy" className="w-full rounded-card border border-line" />
       </section>
     </Page>
+  );
+}
+
+/** The published P1 page when there is one, otherwise the code version above. */
+export default async function WellEnoughRoute() {
+  const doc = await getP1Page("/well-enough");
+  if (!doc) return <WellEnoughFallback />;
+  const featured = getFeaturedAlbum();
+  const album = (await getCatalog()).find((a) => a.slug === featured.slug);
+  return (
+    <>
+      {album && (
+        <>
+          <div className="mx-auto w-full max-w-6xl px-6 pt-8">
+            <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Albums", href: "/albums" }, { name: album.title, href: "/well-enough" }]} />
+          </div>
+          <JsonLd data={albumData(album, "/well-enough")} />
+        </>
+      )}
+      <P1Page data={doc} path="/well-enough" />
+    </>
   );
 }

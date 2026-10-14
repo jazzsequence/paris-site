@@ -8,7 +8,7 @@ import { getP1Page, getShows, rootProp } from "../../../lib/site/p1-content";
 import { pageMetadata } from "../../../lib/site/seo";
 import { eventData } from "../../../lib/site/structured-data";
 import { dateParts, showId } from "../../../lib/site/tour";
-import { Client } from "../[...puckPath]/client";
+import { P1Page } from "../../../components/site/p1-page";
 
 export const revalidate = 300;
 
@@ -29,7 +29,7 @@ export default async function Tour() {
     return (
       <>
         {events}
-        <Client data={doc} pageMetadata={{ route: "/tour" }} />
+        <P1Page data={doc} path="/tour" />
       </>
     );
   }

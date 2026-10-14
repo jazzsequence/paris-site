@@ -6,14 +6,29 @@ Sign in at `/p1` and edit these pages in the visual editor. Changes go live when
 
 | Page | What you edit | Blocks |
 |---|---|---|
+| `/` | The hero, the tour preview, the albums section | Hero, Tour preview, Section heading, Album grid |
 | `/tour` | Tour dates. Add, change or remove shows; each gets a ticket page automatically | Page heading, Tour dates |
+| `/listen` | The intro. The albums and their songs come from the catalog | Page heading, Album with tracks |
+| `/albums`, `/albums/<album>`, `/well-enough` | Headings and text around each album. Cover, year and songs come from the catalog | Album header, Track list, Album grid, Image gallery |
+| `/lyrics` | The intro. The list comes from the lyrics files | Page heading, Lyrics index |
+| `/press`, `/privacy` | The text, in Markdown | Article |
 | `/bio` | Bio text and photo | Image and text |
 | `/merch` | Merch items, prices and images | Page heading, Merch grid |
+
+**Catalog blocks** (Album grid, Album header, Track list, Album with tracks, Lyrics index, Tour preview) show data that lives
+elsewhere: pick the album from the list and the title, cover, year and songs follow `data/albums.json`, the audio bucket
+and the lyrics files. Add a song there (see "Adding a song" below) and it appears everywhere.
+
+**Not in P1:** the per-song lyrics pages (`/lyrics/<song>`, one code route reading the Markdown files), the ticket
+checkout and e-ticket, and the error pages.
+
+`content/p1-pages/*.json` holds each page above exactly as it was designed. They are tested against the code versions in CI,
+and are the copy to rebuild a page from if one is ever damaged.
 
 Notes:
 - **Tour dates:** each show has an optional **URL id**. Set it once and never change it, because ticket links use it. If left empty it is made from the city and date.
 - **Always one h1:** every page needs exactly one. Use a Page heading block, or set an Image and text block's title to h1.
-- **Fallback:** if P1 is unreachable, or a page is not published, the site shows the copy in `data/tour.json`, `data/merch.json` and `app/(site)/bio/page.tsx`. Those files are a safety net and the seed for the P1 pages, so keep them roughly current.
+- **Fallback:** if P1 is unreachable, or a page is not published, every page above falls back to the code version in this repo (`data/tour.json`, `data/merch.json` and the page files under `app/(site)/`). Keep those roughly current.
 - **Workstreams:** work on a P1 workstream and merge to main to publish.
 
 ## In this repo

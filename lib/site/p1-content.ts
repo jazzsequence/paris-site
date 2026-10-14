@@ -9,8 +9,12 @@ import { normalizeShows, shows as repoShows, type Show } from "./tour";
  */
 export async function getP1Page(path: string): Promise<Data | null> {
   const result = await loadPublishedPage(path);
-  return result.status === "ok" ? result.data : null;
+  if (result.status !== "ok") return null;
+  // The site was created with a starter "Welcome to your new P1 site" home page. It is not content.
+  return isStarterPage(result.data) ? null : result.data;
 }
+
+export const isStarterPage = (data: Data) => (data.content as { type?: string }[]).some((b) => b.type === "P1WelcomeBlock");
 
 type Block = { type?: string; props?: Record<string, unknown> };
 
