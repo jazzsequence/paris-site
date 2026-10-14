@@ -1,3 +1,5 @@
+import { AppLink } from "./AppLink";
+
 export type AlbumCardProps = {
   title: string;
   /** Omit for unreleased material. */
@@ -12,7 +14,7 @@ export type AlbumCardProps = {
 
 export function AlbumCard({ title, year, cover, trackCount, featured, href = "#", headingLevel: Heading = "h3" }: AlbumCardProps) {
   return (
-    <a
+    <AppLink
       href={href}
       className="group block overflow-hidden rounded-card border border-line bg-surface transition hover:border-magenta hover:shadow-glow-magenta"
     >
@@ -35,6 +37,6 @@ export function AlbumCard({ title, year, cover, trackCount, featured, href = "#"
           {trackCount > 0 && ` · ${trackCount} tracks`}
         </p>
       </div>
-    </a>
+    </AppLink>
   );
 }

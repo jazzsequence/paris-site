@@ -1,3 +1,5 @@
+import { AppLink } from "./AppLink";
+
 export type TrackRowProps = {
   number: number;
   title: string;
@@ -28,9 +30,9 @@ export function TrackRow({ number, title, duration, hasAudio = true, lyricsHref,
       </div>
       <div className="flex items-center gap-4 text-sm">
         {lyricsHref && (
-          <a href={lyricsHref} className="text-violet underline-offset-4 hover:underline">
+          <AppLink href={lyricsHref} className="text-violet underline-offset-4 hover:underline">
             Lyrics
-          </a>
+          </AppLink>
         )}
         {hasAudio && (
           <>

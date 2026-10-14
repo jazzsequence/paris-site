@@ -5,6 +5,7 @@ import { Page } from "../../../../components/site/section";
 import { LyricsBlock } from "../../../../design-system/components/LyricsBlock";
 import { albumTitle } from "../../../../lib/site/catalog";
 import { getLyric, getLyrics } from "../../../../lib/site/lyrics";
+import { AppLink } from "../../../../design-system/components/AppLink";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -23,9 +24,9 @@ export default async function LyricPage({ params }: Props) {
   return (
     <Page narrow>
       <LyricsBlock title={lyric.title} album={albumTitle(lyric.album)} sections={lyric.sections} />
-      <a href="/lyrics" className="inline-block text-sm text-violet underline-offset-4 hover:underline">
+      <AppLink href="/lyrics" className="inline-block text-sm text-violet underline-offset-4 hover:underline">
         All lyrics
-      </a>
+      </AppLink>
     </Page>
   );
 }

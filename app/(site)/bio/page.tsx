@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { Page } from "../../../components/site/section";
 import { ButtonLink } from "../../../design-system/components/Button";
+import { AppLink } from "../../../design-system/components/AppLink";
 
 export const metadata: Metadata = { title: "Bio", description: "About PARIS." };
 
@@ -23,9 +24,9 @@ export default function Bio() {
             </p>
             <p>
               PARIS runs the boutique label Hostile Takeover, and Interscope Records released the full-length{" "}
-              <a className="text-cyan underline underline-offset-4 hover:text-text" href="/well-enough">
+              <AppLink className="text-cyan underline underline-offset-4 hover:text-text" href="/well-enough">
                 Well Enough
-              </a>{" "}
+              </AppLink>{" "}
               on it. <em>Tribute</em>, a collection of B-sides and unreleased songs that includes the complete EP, came
               soon after.
             </p>

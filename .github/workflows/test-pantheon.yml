@@ -64,13 +64,13 @@ jobs:
       # Runs axe (WCAG 2.2 AA + best practices) and keyboard/focus/skip-link checks against the
       # standalone server that `pnpm build` just produced, on desktop and mobile viewports.
       # Audio credentials are absent here, so tracks render in their "Coming soon" state.
-      - name: Accessibility checks
+      - name: End-to-end and accessibility checks
         id: a11y
         if: steps.build.outcome == 'success'
         continue-on-error: true
         run: |
           pnpm exec playwright install --with-deps chromium
-          pnpm test:a11y
+          pnpm test:e2e
         env:
           CI: true
           NEXT_PUBLIC_CSS_SITE_ID: 00000000-0000-0000-0000-000000000000

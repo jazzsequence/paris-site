@@ -12,7 +12,7 @@ of everything committed.
 | `pnpm dev` | Dev server (needs `.env`, see `.env.example`) |
 | `pnpm lint` / `pnpm typecheck` / `pnpm test` | Required before presenting changes |
 | `pnpm build` | Production build; works with placeholder `NEXT_PUBLIC_CSS_SITE_ID` and `CSS_API_KEY` |
-| `pnpm test:a11y` | Playwright + axe against the standalone build (run `pnpm build` first; kill any stale server on :3100) |
+| `pnpm test:e2e` (alias `test:a11y`) | Playwright: axe, keyboard, navigation and favicon checks against the standalone build (run `pnpm build` first; kill any stale server on :3100) |
 | `pnpm storybook` / `pnpm build-storybook` | Design system (`design-system/`, config in `.storybook/`) |
 | `pnpm sync:registry` | Push Puck registry to P1 (CI does this) |
 

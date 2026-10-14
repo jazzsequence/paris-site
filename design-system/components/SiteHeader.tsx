@@ -1,4 +1,5 @@
 import { Wordmark } from "./Wordmark";
+import { AppLink } from "./AppLink";
 
 const links = [
   ["Tour", "/tour"],
@@ -19,13 +20,13 @@ export function SiteHeader({ current }: { current?: string }) {
         <ul className="flex flex-wrap gap-x-6 gap-y-0 font-display text-xs uppercase tracking-[0.18em]">
           {links.map(([label, href]) => (
             <li key={href}>
-              <a
+              <AppLink
                 href={href}
                 aria-current={current === href ? "page" : undefined}
                 className={`inline-block py-2 hover:text-magenta ${current === href ? "border-b-2 border-magenta text-text" : "text-muted"}`}
               >
                 {label}
-              </a>
+              </AppLink>
             </li>
           ))}
         </ul>

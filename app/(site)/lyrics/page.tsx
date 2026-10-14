@@ -4,6 +4,7 @@ import { Page } from "../../../components/site/section";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
 import { albums } from "../../../lib/site/catalog";
 import { getLyrics } from "../../../lib/site/lyrics";
+import { AppLink } from "../../../design-system/components/AppLink";
 
 export const metadata: Metadata = { title: "Lyrics", description: "Every PARIS lyric." };
 
@@ -27,10 +28,10 @@ export default async function Lyrics() {
           <ul className="divide-y divide-line border-y border-line">
             {g.items.map((l) => (
               <li key={l.slug}>
-                <a href={`/lyrics/${l.slug}`} className="flex items-baseline justify-between gap-4 py-3 hover:text-magenta">
+                <AppLink href={`/lyrics/${l.slug}`} className="flex items-baseline justify-between gap-4 py-3 hover:text-magenta">
                   <span className="text-lg">{l.title}</span>
                   {l.track && <span className="text-sm tabular-nums text-dim">{String(l.track).padStart(2, "0")}</span>}
-                </a>
+                </AppLink>
               </li>
             ))}
           </ul>

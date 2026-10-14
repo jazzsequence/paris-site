@@ -4,6 +4,7 @@ import { Page } from "../../../components/site/section";
 import { TrackList } from "../../../components/site/track-list";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
 import { getCatalog } from "../../../lib/site/catalog";
+import { AppLink } from "../../../design-system/components/AppLink";
 
 export const metadata: Metadata = { title: "Listen", description: "Stream and download PARIS." };
 export const revalidate = 300;
@@ -18,9 +19,9 @@ export default async function Listen() {
           <div className="space-y-3">
             <img src={album.cover} alt={`${album.title} cover art`} className="w-full rounded-card border border-line" />
             <h2 className="font-display text-2xl font-extrabold uppercase tracking-[-0.03em]">
-              <a href={album.featured ? "/well-enough" : `/albums/${album.slug}`} className="hover:text-magenta">
+              <AppLink href={album.featured ? "/well-enough" : `/albums/${album.slug}`} className="hover:text-magenta">
                 {album.title}
-              </a>
+              </AppLink>
             </h2>
             <p className="text-sm text-muted">
               {album.year ? `${album.kind} · ${album.year}` : album.kind}

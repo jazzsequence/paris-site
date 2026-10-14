@@ -1,3 +1,5 @@
+import { AppLink } from "./AppLink";
+
 export type PlayerBarProps = {
   title: string;
   album: string;
@@ -72,9 +74,9 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
         </div>
       </div>
       <div className="hidden justify-end md:flex">
-        <a href="/listen" className="text-xs uppercase tracking-widest text-violet hover:underline">
+        <AppLink href="/listen" className="text-xs uppercase tracking-widest text-violet hover:underline">
           Queue
-        </a>
+        </AppLink>
       </div>
     </section>
   );
