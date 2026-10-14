@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ImgHTMLAttributes } from "react";
+import { assetUrl } from "../asset";
 
 type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt"> & {
   src: string;
@@ -43,7 +44,7 @@ export function LightboxImage({ src, alt, className = "", ...imgProps }: Props) 
         aria-haspopup="dialog"
         className="block w-full cursor-zoom-in text-left"
       >
-        <img src={src} alt="" className={className} {...imgProps} />
+        <img src={assetUrl(src)} alt="" className={className} {...imgProps} />
       </button>
       {/* Backdrop click is a mouse convenience only: keyboard users close with Escape or the Close button. */}
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
@@ -59,7 +60,7 @@ export function LightboxImage({ src, alt, className = "", ...imgProps }: Props) 
       >
         {open && (
           <div className="relative">
-            <img src={src} alt={alt} className="max-h-[90vh] max-w-[94vw] rounded-card border border-line object-contain shadow-glow-magenta" />
+            <img src={assetUrl(src)} alt={alt} className="max-h-[90vh] max-w-[94vw] rounded-card border border-line object-contain shadow-glow-magenta" />
             <button
               type="button"
               onClick={() => setOpen(false)}

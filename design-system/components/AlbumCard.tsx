@@ -1,3 +1,4 @@
+import { assetUrl } from "../asset";
 import { AppLink } from "./AppLink";
 
 export type AlbumCardProps = {
@@ -20,7 +21,7 @@ export function AlbumCard({ title, year, cover, trackCount, featured, href = "#"
     >
       <div className="relative aspect-square overflow-hidden">
         <img
-          src={cover}
+          src={assetUrl(cover)}
           alt={`${title} cover art`}
           width={640}
           height={640}

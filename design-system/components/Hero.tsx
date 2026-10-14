@@ -1,3 +1,4 @@
+import { assetUrl } from "../asset";
 import { ButtonLink } from "./Button";
 
 export function Hero({ image, kicker, title, blurb }: { image: string; kicker: string; title: string; blurb: string }) {
@@ -6,7 +7,7 @@ export function Hero({ image, kicker, title, blurb }: { image: string; kicker: s
     // (56vw) so the face stays in frame on wide monitors, and the fade is limited to the bottom third so it
     // never reaches the face. A separate left shade keeps the title readable over the hair.
     <section className="relative isolate grid min-h-[max(80vh,56vw)] items-end overflow-hidden">
-      <img src={image} alt="" width={1024} height={1536} fetchPriority="high" decoding="async" className="absolute inset-0 -z-20 size-full object-cover object-[50%_6%]" />
+      <img src={assetUrl(image)} alt="" width={1024} height={1536} fetchPriority="high" decoding="async" className="absolute inset-0 -z-20 size-full object-cover object-[50%_6%]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-void via-void/70 via-[14%] to-transparent to-[34%]" aria-hidden />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-void/95 via-void/75 via-[45%] to-transparent to-[78%] max-2xl:hidden" aria-hidden />
       {/* The text sits on a dark, lightly blurred card, so its contrast does not depend on which part of the photo
