@@ -53,6 +53,8 @@ const publicHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // A new value for every build; design-system/asset.ts appends it to local image URLs.
+  env: { NEXT_PUBLIC_ASSET_VERSION: process.env.NEXT_PUBLIC_ASSET_VERSION ?? Date.now().toString(36) },
   output: "standalone", // Required for Pantheon deployment
 
   // Only on Pantheon in production: locally there is no bucket to talk to.

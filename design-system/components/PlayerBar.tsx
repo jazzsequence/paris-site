@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { langOf } from "../lang";
+import { assetUrl } from "../asset";
 
 export type PlayerBarProps = {
   title: string;
@@ -56,7 +57,7 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
       className="relative grid grid-cols-[auto_1fr] items-center gap-4 border-t border-line bg-surface/95 px-4 py-3 backdrop-blur md:grid-cols-[16rem_1fr_16rem]"
     >
       <div className="flex min-w-0 items-center gap-3">
-        <img src={cover} alt="" width={48} height={48} className="size-12 rounded-card object-cover" />
+        <img src={assetUrl(cover)} alt="" width={48} height={48} className="size-12 rounded-card object-cover" />
         <div className="min-w-0">
           <p lang={langOf(title)} className="truncate text-sm font-semibold">{title}</p>
           <p className="truncate text-xs text-muted">{album}</p>
