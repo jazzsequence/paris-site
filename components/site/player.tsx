@@ -103,6 +103,12 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  /** Keep only the track that is loaded; everything queued around it goes. */
+  const clearQueue = useCallback(() => {
+    setQueue((q) => q.filter((e) => e.uid === currentUid));
+    setAnnouncement("Queue cleared");
+  }, [currentUid]);
+
   const step = useCallback(
     (dir: 1 | -1) => {
       const i = queue.findIndex((e) => e.uid === currentUid);
@@ -167,6 +173,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
               if (e) load(e, true);
             }}
             onRemove={removeFromQueue}
+            onClear={clearQueue}
             onSeek={(pct) => {
               if (audio.current && Number.isFinite(audio.current.duration)) {
                 audio.current.currentTime = (pct / 100) * audio.current.duration;

@@ -22,12 +22,14 @@ export type PlayerBarProps = {
   onSelect?: (id: string) => void;
   /** Removes a queue entry. Not offered for the current one. */
   onRemove?: (id: string) => void;
+  /** Empties the queue except for the current track. The button shows only when something else is queued. */
+  onClear?: () => void;
 };
 
 export type QueueItem = { id: string; title: string; subtitle?: string };
 
 /** Persistent bottom player. Lives in the root layout so playback follows the visitor. */
-export function PlayerBar({ title, album, cover, elapsed, duration, progress, playing, onToggle, onPrev, onNext, onSeek, queue = [], currentId, onSelect, onRemove }: PlayerBarProps) {
+export function PlayerBar({ title, album, cover, elapsed, duration, progress, playing, onToggle, onPrev, onNext, onSeek, queue = [], currentId, onSelect, onRemove, onClear }: PlayerBarProps) {
   const [open, setOpen] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -136,6 +138,18 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
               aria-label="Queue"
               className="absolute bottom-full right-0 mb-3 max-h-[50vh] w-[min(24rem,calc(100vw-2rem))] overflow-y-auto border border-line bg-raised shadow-glow-magenta"
             >
+              {onClear && queue.length > 1 && (
+                <div className="flex items-center justify-between border-b border-line px-4 py-2">
+                  <span className="text-xs uppercase tracking-widest text-muted">{queue.length} in queue</span>
+                  <button
+                    type="button"
+                    onClick={onClear}
+                    className="py-1 text-xs uppercase tracking-widest text-violet hover:underline"
+                  >
+                    Clear queue
+                  </button>
+                </div>
+              )}
               <ol>
                 {queue.map((item, i) => (
                   <li key={item.id} className="flex items-stretch border-b border-line last:border-b-0">
