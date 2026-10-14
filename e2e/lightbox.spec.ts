@@ -1,6 +1,8 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import merch from "../data/merch.json";
+
 const opener = (page: import("@playwright/test").Page, name: RegExp) => page.getByRole("button", { name });
 
 test("album cover opens larger, and Escape closes it and returns focus", async ({ page }) => {
@@ -62,7 +64,7 @@ test("images across the site open in a lightbox", async ({ page }) => {
     ["/albums/tribute", 1],
     ["/listen", 4],
     ["/bio", 1],
-    ["/merch", 2],
+    ["/merch", merch.length],
   ] as const) {
     await page.goto(route);
     await expect(opener(page, /View larger/), route).toHaveCount(count);
