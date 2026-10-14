@@ -86,9 +86,11 @@ export function P1EditWidget({ route }: { route: string }) {
     <div
       data-p1-widget
       style={{
+        // Bottom-left, above the player bar. The top-right corner is where the site header's last nav
+        // link sits, and a fixed pill there covered it.
         position: "fixed",
-        top: 16,
-        right: 16,
+        bottom: 96,
+        left: 16,
         zIndex: 99999,
         fontFamily: "system-ui, -apple-system, sans-serif",
       }}
@@ -119,7 +121,7 @@ export function P1EditWidget({ route }: { route: string }) {
             display: "inline-flex",
             color: "#888",
             transition: "transform 200ms ease",
-            transform: open ? "rotate(180deg)" : "none",
+            transform: open ? "none" : "rotate(180deg)",
           }}
         >
           <ChevronIcon />
@@ -131,8 +133,8 @@ export function P1EditWidget({ route }: { route: string }) {
           role="menu"
           style={{
             position: "absolute",
-            top: "calc(100% + 8px)",
-            right: 0,
+            bottom: "calc(100% + 8px)",
+            left: 0,
             minWidth: 200,
             background: "#fff",
             border: "1px solid #e0e0e0",

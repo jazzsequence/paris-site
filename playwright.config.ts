@@ -21,7 +21,13 @@ export default defineConfig({
     command: "node .next/standalone/server.js",
     url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
-    env: { PORT: String(PORT), HOSTNAME: "127.0.0.1" },
+    env: {
+      PORT: String(PORT),
+      HOSTNAME: "127.0.0.1",
+      // Deterministic by default: with a placeholder key P1 reads fail, so bio, tour and merch render from the
+      // repo copy exactly as they do in CI. Set P1_LIVE=1 (with real credentials in .env) to test live content.
+      ...(process.env.P1_LIVE ? {} : { CSS_API_KEY: "e2e-placeholder" }),
+    },
     timeout: 60_000,
   },
 });
