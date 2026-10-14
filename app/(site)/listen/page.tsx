@@ -17,13 +17,23 @@ export default async function Listen() {
         <section key={album.slug} id={album.slug} className="grid gap-8 md:grid-cols-[16rem_1fr]">
           <div className="space-y-3">
             <img src={album.cover} alt={`${album.title} cover art`} className="w-full rounded-card border border-line" />
-            <h2 className="font-display text-2xl font-extrabold uppercase tracking-[-0.03em]">{album.title}</h2>
+            <h2 className="font-display text-2xl font-extrabold uppercase tracking-[-0.03em]">
+              <a href={album.featured ? "/well-enough" : `/albums/${album.slug}`} className="hover:text-magenta">
+                {album.title}
+              </a>
+            </h2>
             <p className="text-sm text-muted">
               {album.year ? `${album.kind} · ${album.year}` : album.kind}
             </p>
             <p className="text-sm text-muted">{album.blurb}</p>
           </div>
-          <TrackList tracks={album.tracks} />
+          {album.tracks.length > 0 ? (
+            <TrackList tracks={album.tracks} />
+          ) : (
+            <p className="self-start border border-line bg-surface px-6 py-5 text-muted">
+              Nothing here yet. Recordings with no public release will be listed here.
+            </p>
+          )}
         </section>
       ))}
     </Page>

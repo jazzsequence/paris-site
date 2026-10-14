@@ -15,7 +15,7 @@ export default function Home() {
         image="/images/paris-on-stage.png"
         kicker="New album"
         title={latest.title}
-        blurb={`The debut LP, out now on Hostile Takeover / Interscope.`}
+        blurb="The new album, out now on Hostile Takeover."
       />
       <Page>
         <section className="space-y-6">

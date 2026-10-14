@@ -31,7 +31,8 @@ export function AlbumCard({ title, year, cover, trackCount, featured, href = "#"
       <div className="space-y-1 p-4">
         <Heading className="font-display text-lg font-semibold uppercase tracking-wide">{title}</Heading>
         <p className="text-sm text-muted">
-          {year ?? "Unreleased"} · {trackCount} tracks
+          {year ?? "Unreleased"}
+          {trackCount > 0 && ` · ${trackCount} tracks`}
         </p>
       </div>
     </a>

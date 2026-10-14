@@ -1,7 +1,5 @@
 ---
 title: "Good Standing"
-album: unreleased
-track: 6
 ---
 
 

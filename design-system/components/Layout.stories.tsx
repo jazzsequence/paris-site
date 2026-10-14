@@ -14,7 +14,7 @@ export const HeroSection: StoryObj = {
       image="images/paris-on-stage.png"
       kicker="New album"
       title="Well Enough"
-      blurb="The debut LP, out now on Hostile Takeover."
+      blurb="The new album, out now on Hostile Takeover."
     />
   ),
 };

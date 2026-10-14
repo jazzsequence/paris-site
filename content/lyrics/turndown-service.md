@@ -1,7 +1,5 @@
 ---
 title: "Turndown Service"
-album: unreleased
-track: 5
 ---
 
 

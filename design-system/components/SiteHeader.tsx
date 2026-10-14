@@ -3,6 +3,7 @@ import { Wordmark } from "./Wordmark";
 const links = [
   ["Tour", "/tour"],
   ["Listen", "/listen"],
+  ["Albums", "/albums"],
   ["Lyrics", "/lyrics"],
   ["Well Enough", "/well-enough"],
   ["Press", "/press"],

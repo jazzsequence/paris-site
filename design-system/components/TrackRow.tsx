@@ -8,9 +8,11 @@ export type TrackRowProps = {
   playing?: boolean;
   onPlay?: () => void;
   downloadHref?: string;
+  /** Shown when there is no audio, e.g. a song that only has lyrics here. */
+  unavailableLabel?: string;
 };
 
-export function TrackRow({ number, title, duration, hasAudio = true, lyricsHref, playing, onPlay, downloadHref }: TrackRowProps) {
+export function TrackRow({ number, title, duration, hasAudio = true, lyricsHref, playing, onPlay, downloadHref, unavailableLabel = "Audio unavailable" }: TrackRowProps) {
   return (
     <li
       className={`grid grid-cols-[2rem_1fr_auto] items-center gap-4 border-b border-line px-2 py-3 ${
@@ -22,7 +24,7 @@ export function TrackRow({ number, title, duration, hasAudio = true, lyricsHref,
       </span>
       <div className="min-w-0">
         <p className={`truncate font-medium ${hasAudio ? "" : "text-muted"}`}>{title}</p>
-        {!hasAudio && <p className="text-xs uppercase tracking-widest text-dim">Coming soon</p>}
+        {!hasAudio && <p className="text-xs uppercase tracking-widest text-dim">{unavailableLabel}</p>}
       </div>
       <div className="flex items-center gap-4 text-sm">
         {lyricsHref && (

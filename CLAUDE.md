@@ -31,7 +31,12 @@ of everything committed.
 - **Tour dates are fictional; venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
   (`/tickets/[id]` -> `/ticket?...`) keeps all state in the URL and collects nothing.
 - **Songs and lyrics are independent resources.** A track with no lyrics, or lyrics with no audio, is normal.
-- **Persistent player** lives in the root layout; no cookies, no tracking, no mailing list.
+- **Persistent player** lives in the site layout; no cookies, no tracking, no mailing list. The `<audio>` element must
+  NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
+  silently fails (downloads still work because they go through `/api/download`). Without it playback needs no CORS.
+- **Unreleased** means no public release (not "coming soon"). It is an album-style page with no `year`; do not seed it with
+  songs that merely lack audio. The EP is not added yet; its lyrics sit unassigned under "More songs".
+- Content editing guide for humans: `CONTENT.md`.
 - **Single Next config:** `next.config.ts` only. The starter's `.mjs` config and the Pantheon template's `.ts`
   config coexisted and Next silently loaded the `.mjs`, dropping `output: "standalone"`. Merged; do not re-add.
   `cacheHandler.mjs` must stay plain JS: the standalone server loads it at runtime.

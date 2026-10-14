@@ -1,7 +1,5 @@
 ---
 title: "Public Figure"
-album: unreleased
-track: 2
 ---
 
 

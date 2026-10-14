@@ -1,7 +1,5 @@
 ---
 title: "Outlast"
-album: unreleased
-track: 4
 ---
 
 

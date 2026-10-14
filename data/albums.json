@@ -5,7 +5,7 @@
     "kind": "LP",
     "year": 1997,
     "cover": "/images/well-enough-cover.jpg",
-    "blurb": "The debut full-length. Thirteen songs about manners, obedience and the quiet agreements that keep a room standing.",
+    "blurb": "The full-length album. Thirteen songs about manners, obedience and the quiet agreements that keep a room standing.",
     "featured": true,
     "tracks": [
       {
@@ -126,39 +126,8 @@
     "title": "Unreleased",
     "kind": "Unreleased",
     "cover": "/images/paris-close.jpg",
-    "blurb": "Songs that are written and not out yet. Lyrics are here now; audio goes up when each one is ready.",
+    "blurb": "Recordings with no public release. Anything here is available only on this site.",
     "featured": false,
-    "tracks": [
-      {
-        "number": 1,
-        "slug": "seniority",
-        "title": "Seniority"
-      },
-      {
-        "number": 2,
-        "slug": "public-figure",
-        "title": "Public Figure"
-      },
-      {
-        "number": 3,
-        "slug": "manners",
-        "title": "Manners"
-      },
-      {
-        "number": 4,
-        "slug": "outlast",
-        "title": "Outlast"
-      },
-      {
-        "number": 5,
-        "slug": "turndown-service",
-        "title": "Turndown Service"
-      },
-      {
-        "number": 6,
-        "slug": "good-standing",
-        "title": "Good Standing"
-      }
-    ]
+    "tracks": []
   }
 ]

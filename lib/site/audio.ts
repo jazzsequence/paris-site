@@ -4,7 +4,7 @@ import { AwsClient } from "aws4fetch";
  * Lists object keys in the audio bucket via the R2 S3 API (read-only token, server-side only).
  * Cached via fetch revalidation so uploads show up within a few minutes without a deploy.
  * If credentials are missing or the call fails, no track is treated as available: the UI
- * shows "Coming soon" rather than a dead player.
+ * shows "Audio unavailable" rather than a dead player.
  */
 export const AUDIO_REVALIDATE_SECONDS = 300;
 

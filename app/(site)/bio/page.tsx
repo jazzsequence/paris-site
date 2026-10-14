@@ -18,20 +18,19 @@ export default function Bio() {
           <div className="space-y-4 text-lg leading-8 text-muted">
             <p>
               PARIS makes industrial pop that sounds expensive, intentional and quietly hostile to interpretation.
-              The independently released debut EP, built around &ldquo;Consent of the Quiet&rdquo; and &ldquo;Don&rsquo;t Ask What I
-              Am,&rdquo; drew national press and a following that arrived faster than anyone expected.
+              The independently released debut EP drew national press and a following that arrived faster than
+              anyone expected.
             </p>
             <p>
-              Interscope Records signed PARIS to its Hostile Takeover imprint, and the full-length debut{" "}
+              PARIS runs the boutique label Hostile Takeover, and Interscope Records released the full-length{" "}
               <a className="text-cyan underline underline-offset-4 hover:text-text" href="/well-enough">
                 Well Enough
               </a>{" "}
-              followed. <em>Tribute</em>, a collection of B-sides and unreleased songs that includes the complete EP, came
+              on it. <em>Tribute</em>, a collection of B-sides and unreleased songs that includes the complete EP, came
               soon after.
             </p>
             <p>
-              Live, PARIS plays clubs and theatres up and down the West Coast and into the Rockies. The shows are loud,
-              clean and a little uncomfortable, on purpose.
+              Live, PARIS plays clubs and theatres up and down the West Coast and into the Rockies.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

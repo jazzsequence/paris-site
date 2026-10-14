@@ -6,7 +6,7 @@ import { SiteHeader } from "../../design-system/components/SiteHeader";
 
 export function Header() {
   const path = usePathname();
-  const current = ["/tour", "/listen", "/lyrics", "/well-enough", "/press", "/bio", "/merch"].find(
+  const current = ["/tour", "/listen", "/albums", "/lyrics", "/well-enough", "/press", "/bio", "/merch"].find(
     (p) => path === p || path.startsWith(`${p}/`),
   );
   return (

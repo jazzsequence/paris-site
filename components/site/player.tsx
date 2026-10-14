@@ -90,12 +90,12 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   return (
     <Ctx.Provider value={value}>
       {children}
-      {/* crossOrigin matches the bucket's CORS config so Range requests and seeking work. */}
+      {/* No crossOrigin attribute: playback and seeking work cross-origin without CORS, so new preview
+          or production domains do not need to be added to the bucket's allowed origins. */}
       {/* Songs have no captions to provide; the lyrics page linked from each track is the text alternative. */}
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio
         ref={audio}
-        crossOrigin="anonymous"
         preload="none"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}

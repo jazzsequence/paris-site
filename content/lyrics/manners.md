@@ -1,7 +1,5 @@
 ---
 title: "Manners"
-album: unreleased
-track: 3
 ---
 
 

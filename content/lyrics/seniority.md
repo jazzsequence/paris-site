@@ -1,7 +1,5 @@
 ---
 title: "Seniority"
-album: unreleased
-track: 1
 ---
 
 
