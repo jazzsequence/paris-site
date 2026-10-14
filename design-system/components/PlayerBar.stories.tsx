@@ -21,3 +21,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Playing: Story = {};
 export const Paused: Story = { args: { playing: false } };
+
+const queue = [
+  { id: "a", title: "Say when", subtitle: "Well Enough" },
+  { id: "b", title: "Second Shift", subtitle: "Well Enough" },
+  { id: "c", title: "Don’t ask what I am", subtitle: "Well Enough" },
+];
+export const WithQueue: Story = { args: { queue, currentId: "b" } };

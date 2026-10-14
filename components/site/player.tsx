@@ -116,6 +116,12 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
             onToggle={() => (audio.current?.paused ? void audio.current.play() : audio.current?.pause())}
             onPrev={() => step(-1)}
             onNext={() => step(1)}
+            queue={queue.map((t) => ({ id: t.id, title: t.title, subtitle: t.album }))}
+            currentId={current.id}
+            onSelect={(id) => {
+              const next = queue.find((t) => t.id === id);
+              if (next) start(next);
+            }}
             onSeek={(pct) => {
               if (audio.current && Number.isFinite(audio.current.duration)) {
                 audio.current.currentTime = (pct / 100) * audio.current.duration;

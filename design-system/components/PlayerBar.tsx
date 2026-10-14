@@ -1,4 +1,7 @@
-import { AppLink } from "./AppLink";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { langOf } from "../lang";
 
 export type PlayerBarProps = {
   title: string;
@@ -13,19 +16,39 @@ export type PlayerBarProps = {
   onNext?: () => void;
   /** Called with a 0-100 position when the progress bar is clicked. */
   onSeek?: (percent: number) => void;
+  /** Tracks that will play in order. The queue button is hidden when this is empty. */
+  queue?: QueueItem[];
+  currentId?: string;
+  onSelect?: (id: string) => void;
 };
 
+export type QueueItem = { id: string; title: string; subtitle?: string };
+
 /** Persistent bottom player. Lives in the root layout so playback follows the visitor. */
-export function PlayerBar({ title, album, cover, elapsed, duration, progress, playing, onToggle, onPrev, onNext, onSeek }: PlayerBarProps) {
+export function PlayerBar({ title, album, cover, elapsed, duration, progress, playing, onToggle, onPrev, onNext, onSeek, queue = [], currentId, onSelect }: PlayerBarProps) {
+  const [open, setOpen] = useState(false);
+  const wrap = useRef<HTMLDivElement>(null);
+  const toggle = useRef<HTMLButtonElement>(null);
+
+  // Close on outside click; Escape (handled below) returns focus to the toggle.
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: MouseEvent) => {
+      if (!wrap.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", away);
+    return () => document.removeEventListener("mousedown", away);
+  }, [open]);
+
   return (
     <section
       aria-label="Audio player"
-      className="grid grid-cols-[auto_1fr] items-center gap-4 border-t border-line bg-surface/95 px-4 py-3 backdrop-blur md:grid-cols-[16rem_1fr_16rem]"
+      className="relative grid grid-cols-[auto_1fr] items-center gap-4 border-t border-line bg-surface/95 px-4 py-3 backdrop-blur md:grid-cols-[16rem_1fr_16rem]"
     >
       <div className="flex min-w-0 items-center gap-3">
-        <img src={cover} alt="" className="size-12 rounded-card object-cover" />
+        <img src={cover} alt="" width={48} height={48} className="size-12 rounded-card object-cover" />
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold">{title}</p>
+          <p lang={langOf(title)} className="truncate text-sm font-semibold">{title}</p>
           <p className="truncate text-xs text-muted">{album}</p>
         </div>
       </div>
@@ -73,11 +96,61 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
           <span>{duration}</span>
         </div>
       </div>
-      <div className="hidden justify-end md:flex">
-        <AppLink href="/listen" className="text-xs uppercase tracking-widest text-violet hover:underline">
-          Queue
-        </AppLink>
-      </div>
+      {queue.length > 0 && (
+        <div
+          ref={wrap}
+          // Presentation only: this wrapper just catches Escape from the controls inside it.
+          role="presentation"
+          className="relative col-span-2 flex justify-end md:col-span-1"
+          onKeyDown={(e) => {
+            if (e.key === "Escape" && open) {
+              setOpen(false);
+              toggle.current?.focus();
+            }
+          }}
+        >
+          <button
+            ref={toggle}
+            type="button"
+            aria-expanded={open}
+            aria-controls="player-queue"
+            onClick={() => setOpen((o) => !o)}
+            className="inline-flex items-center gap-2 py-2 text-xs uppercase tracking-widest text-violet hover:underline"
+          >
+            Queue
+            <span className="tabular-nums text-muted">({queue.length})</span>
+          </button>
+          {open && (
+            <div
+              id="player-queue"
+              role="region"
+              aria-label="Queue"
+              className="absolute bottom-full right-0 mb-3 max-h-[50vh] w-[min(24rem,calc(100vw-2rem))] overflow-y-auto border border-line bg-raised shadow-glow-magenta"
+            >
+              <ol>
+                {queue.map((item, i) => (
+                  <li key={item.id} className="border-b border-line last:border-b-0">
+                    <button
+                      type="button"
+                      aria-current={item.id === currentId ? "true" : undefined}
+                      onClick={() => onSelect?.(item.id)}
+                      className={`grid w-full grid-cols-[2rem_1fr] items-center gap-2 px-4 py-3 text-left hover:bg-surface ${
+                        item.id === currentId ? "text-magenta" : "text-text"
+                      }`}
+                    >
+                      <span className="text-xs tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="min-w-0">
+                        <span lang={langOf(item.title)} className="block truncate text-sm font-semibold">{item.title}</span>
+                        {item.subtitle && <span className="block truncate text-xs text-muted">{item.subtitle}</span>}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 }
