@@ -33,19 +33,19 @@ vi.mock("../lib/remote-datasource-fetchers", () => ({
   REMOTE_DATASOURCE_FETCHERS: [],
 }));
 
-vi.mock("../app/[...puckPath]/client", () => ({ Client: () => null }));
+vi.mock("../app/(site)/[...puckPath]/client", () => ({ Client: () => null }));
 vi.mock("../components/puck/welcome-block-render", () => ({
   WelcomeBlockRender: () => null,
 }));
 
 // The home route ("/") is a code-built page in app/(site)/page.tsx, not a P1 page.
 const routes = {
-  catchAll: "app/[...puckPath]/page.tsx",
+  catchAll: "app/(site)/[...puckPath]/page.tsx",
 } as const;
 
 describe("published page routes are shims over the SDK factory", () => {
   it("wires the catch-all route to the factory", async () => {
-    const route = await import("../app/[...puckPath]/page");
+    const route = await import("../app/(site)/[...puckPath]/page");
     expect(route.default).toBe(factory.Page);
     expect(route.generateMetadata).toBe(factory.generateMetadata);
     expect(route.generateStaticParams).toBe(factory.generateStaticParams);

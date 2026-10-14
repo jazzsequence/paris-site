@@ -5,7 +5,7 @@
  * app/published-pages.tsx for what this route is made of.
  */
 
-import { published } from "../published-pages";
+import { published } from "../../published-pages";
 
 /**
  * Backstop only: publishing calls revalidatePath for the affected routes, so

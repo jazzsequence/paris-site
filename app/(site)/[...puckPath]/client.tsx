@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Data } from "@puckeditor/core";
 import { RenderClient, performLogout, P1_LOGGED_IN_KEY } from "@pantheon-systems/puck-css";
-import config from "../../puck.config";
+import config from "../../../puck.config";
 import { runWidgetLogout } from "./widget-logout";
 
 function EditIcon() {

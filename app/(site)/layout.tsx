@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Header } from "../../components/site/chrome";
 import { PlayerProvider } from "../../components/site/player";
 import { SiteFooter } from "../../design-system/components/SiteFooter";
+import "../../design-system/fonts";
 import "./site.css";
 
 export const metadata: Metadata = {

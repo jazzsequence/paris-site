@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/nextjs-vite";
 import { themes } from "storybook/theming";
 
+import "../design-system/fonts";
 import "../design-system/ds.css";
 
 // The site is dark only. Without a wrapper, Storybook's own canvas and docs pages are white

@@ -1,10 +1,6 @@
 @import "tailwindcss";
-@import "@fontsource-variable/unbounded";
-@import "@fontsource/encode-sans-expanded/600.css";
-@import "@fontsource/encode-sans-expanded/700.css";
-@import "@fontsource/encode-sans-expanded/800.css";
-@import "@fontsource-variable/space-grotesk";
-@import "@fontsource/unifrakturcook";
+/* Font files are imported from fonts.ts, not here: Vite cannot resolve font URLs that arrive through a
+   Tailwind CSS @import, so the Storybook build shipped no font files and fell back to system fonts. */
 
 /*
  * PARIS design tokens. Dark only. Neon on near-black with a violet cast, taken from the
