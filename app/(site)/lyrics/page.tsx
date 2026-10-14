@@ -5,8 +5,9 @@ import { SectionHeading } from "../../../design-system/components/SectionHeading
 import { albums } from "../../../lib/site/catalog";
 import { getLyrics } from "../../../lib/site/lyrics";
 import { AppLink } from "../../../design-system/components/AppLink";
+import { pageMetadata } from "../../../lib/site/seo";
 
-export const metadata: Metadata = { title: "Lyrics", description: "Every PARIS lyric." };
+export const metadata: Metadata = pageMetadata({ title: "Lyrics", description: "Every PARIS lyric, by album.", path: "/lyrics" });
 
 export default async function Lyrics() {
   const lyrics = await getLyrics();

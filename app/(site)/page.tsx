@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { AlbumCard } from "../../design-system/components/AlbumCard";
 import { Hero } from "../../design-system/components/Hero";
 import { SectionHeading } from "../../design-system/components/SectionHeading";
@@ -6,13 +8,29 @@ import { ButtonLink } from "../../design-system/components/Button";
 import { Page } from "../../components/site/section";
 import { albums, getFeaturedAlbum } from "../../lib/site/catalog";
 import { dateParts, shows } from "../../lib/site/tour";
+import { JsonLd } from "../../components/site/json-ld";
+import { SITE_URL, pageMetadata } from "../../lib/site/seo";
+import { artistData } from "../../lib/site/structured-data";
+
+export const metadata: Metadata = pageMetadata({
+  title: "PARIS",
+  description: "PARIS: tour dates, music, lyrics and the new album Well Enough.",
+  path: "/",
+  absoluteTitle: true,
+});
 
 export default function Home() {
   const latest = getFeaturedAlbum();
   return (
     <>
+      <JsonLd
+        data={[
+          artistData(),
+          { "@context": "https://schema.org", "@type": "WebSite", name: "PARIS", url: SITE_URL, publisher: { "@id": `${SITE_URL}/#artist` } },
+        ]}
+      />
       <Hero
-        image="/images/paris-on-stage.png"
+        image="/images/paris-on-stage.jpg"
         kicker="New album"
         title={latest.title}
         blurb="The new album, out now on Hostile Takeover."

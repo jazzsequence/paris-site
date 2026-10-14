@@ -20,3 +20,20 @@ Until content moves into P1, everything below is a file in this repo. Edit, comm
 3. Add `content/lyrics/<slug>.md` if it has lyrics. The track slug and lyric slug must match.
 
 Songs and lyrics are independent: lyrics with no audio, or audio with no lyrics, both work.
+
+## Images
+
+Keep images small: JPEG, at most 1600 px wide, ideally under 300 KB. The originals are large; resize before adding.
+Social and icon images are generated: `node scripts/make-brand-assets.mjs` rebuilds the icons, web manifest icons and
+the 1200x630 social card (`public/og-default.jpg`) from the wordmark font and the stage photo.
+
+## Standards and discovery
+
+| What | Where | Notes |
+|---|---|---|
+| Page titles, descriptions, canonical URLs, Open Graph | `lib/site/seo.ts` (`pageMetadata`) | Every page calls it; do not hand-write metadata |
+| Structured data (artist, albums, events, breadcrumbs) | `lib/site/structured-data.ts` | Albums and events are built from `data/albums.json` and `data/tour.json` |
+| `robots.txt`, `sitemap.xml`, `llms.txt`, manifest | `app/robots.ts`, `app/sitemap.ts`, `app/llms.txt`, `app/manifest.ts` | Non-live Pantheon environments are blocked from indexing |
+| Security headers and CSP | `next.config.ts` | `/p1` is exempt on purpose |
+| `/.well-known/security.txt` | `app/.well-known/security.txt` | Set `SECURITY_CONTACT` (a `mailto:` or `https:` URL) as a Pantheon secret; 404 until it exists |
+| standard.site | `data/standard-site.json` | Run `scripts/publish-standard-site.mjs` with a Bluesky handle and an **app password**, commit the file it writes |

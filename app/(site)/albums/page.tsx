@@ -4,8 +4,9 @@ import { Page } from "../../../components/site/section";
 import { AlbumCard } from "../../../design-system/components/AlbumCard";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
 import { albums } from "../../../lib/site/catalog";
+import { pageMetadata } from "../../../lib/site/seo";
 
-export const metadata: Metadata = { title: "Albums", description: "The PARIS catalogue." };
+export const metadata: Metadata = pageMetadata({ title: "Albums", description: "The PARIS catalogue: albums, EP, B-sides and unreleased recordings.", path: "/albums" });
 
 export default function Albums() {
   return (

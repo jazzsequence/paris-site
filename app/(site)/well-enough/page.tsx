@@ -4,12 +4,18 @@ import { Page } from "../../../components/site/section";
 import { TrackList } from "../../../components/site/track-list";
 import { ButtonLink } from "../../../design-system/components/Button";
 import { getCatalog, getFeaturedAlbum } from "../../../lib/site/catalog";
+import { Breadcrumbs } from "../../../components/site/breadcrumbs";
+import { JsonLd } from "../../../components/site/json-ld";
+import { pageMetadata } from "../../../lib/site/seo";
+import { albumData } from "../../../lib/site/structured-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Well Enough",
   description: "Well Enough, the new album from PARIS, released by Interscope Records on Hostile Takeover.",
-  openGraph: { images: ["/images/well-enough-cover.jpg"] },
-};
+  path: "/well-enough",
+  image: "/images/well-enough-cover.jpg",
+  type: "music.album",
+});
 export const revalidate = 300;
 
 export default async function WellEnough() {
@@ -18,8 +24,10 @@ export default async function WellEnough() {
   if (!album) return null;
   return (
     <Page>
+      <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Albums", href: "/albums" }, { name: album.title, href: "/well-enough" }]} />
+      <JsonLd data={albumData(album, "/well-enough")} />
       <div className="grid items-end gap-10 md:grid-cols-[22rem_1fr]">
-        <img src={album.cover} alt={`${album.title} cover art`} className="w-full rounded-card border border-line shadow-glow-magenta" />
+        <img src={album.cover} alt={`${album.title} cover art`} width={1024} height={1024} fetchPriority="high" className="w-full rounded-card border border-line shadow-glow-magenta" />
         <div className="space-y-5">
           <p className="font-gothic text-3xl text-magenta">New album</p>
           <h1 className="text-chrome font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-[-0.04em] md:text-7xl">
@@ -38,8 +46,8 @@ export default async function WellEnough() {
         <TrackList tracks={album.tracks} />
       </section>
       <section className="grid gap-6 sm:grid-cols-2">
-        <img src="/images/well-enough-back.jpg" alt="Back cover and track listing" className="w-full rounded-card border border-line" />
-        <img src="/images/inside-cover.png" alt="Inside cover artwork" className="w-full rounded-card border border-line" />
+        <img src="/images/well-enough-back.jpg" alt="Back cover and track listing" width={1024} height={1024} loading="lazy" className="w-full rounded-card border border-line" />
+        <img src="/images/inside-cover.jpg" alt="Inside cover artwork" width={1600} height={595} loading="lazy" className="w-full rounded-card border border-line" />
       </section>
     </Page>
   );

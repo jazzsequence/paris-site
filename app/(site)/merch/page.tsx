@@ -4,8 +4,9 @@ import { Page } from "../../../components/site/section";
 import { MerchCard } from "../../../design-system/components/MerchCard";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
 import merch from "../../../data/merch.json";
+import { pageMetadata } from "../../../lib/site/seo";
 
-export const metadata: Metadata = { title: "Merch", description: "PARIS merchandise, available at shows." };
+export const metadata: Metadata = pageMetadata({ title: "Merch", description: "PARIS merchandise, sold at the merch table on tour.", path: "/merch" });
 
 export default function Merch() {
   return (

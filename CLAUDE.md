@@ -58,6 +58,15 @@ h1; cards take `headingLevel="h2"` when they sit directly under it. Seeking uses
 Not covered by automation: screen-reader pass, captions (songs rely on linked lyrics as the text alternative), and the
 player in its "has audio" state (CI has no bucket credentials).
 
+## Standards
+
+Follows https://specification.website where it applies: canonical + Open Graph via `pageMetadata`, JSON-LD, robots/sitemap/manifest,
+security headers + CSP in `next.config.ts` (production only; `/p1` exempt), privacy page, custom 404/500, `lang` on Korean titles,
+optimised images. Deliberately not done: AI-crawler rules in robots.txt and Content-Signal (owner's call), hreflang (one language),
+cookie consent and GPC (no cookies or data processing), RSS (no feed content yet). standard.site support is verification plumbing
+driven by `data/standard-site.json`; the records themselves are created by `scripts/publish-standard-site.mjs` with the owner's
+account, which Claude must not run without being given credentials. `security.txt` needs `SECURITY_CONTACT`.
+
 ## CI / deployment (mirrors jazz-nextjs)
 
 - `test-pantheon.yml`: lint, typecheck, unit, build, accessibility (Playwright + axe), Storybook build; then waits for dev / `pr-N` and checks 200.

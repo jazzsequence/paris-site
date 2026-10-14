@@ -5,16 +5,21 @@ import type { Metadata } from "next";
 import Markdown from "react-markdown";
 
 import { Page } from "../../../components/site/section";
+import { StandardDocumentLink } from "../../../components/site/standard-document-link";
+import { pageMetadata } from "../../../lib/site/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "PARIS is Making Monsters Polite",
   description: "The rising industrial pop artist discusses discomfort, power, and why explanation is a form of containment.",
-};
+  path: "/press",
+  type: "article",
+});
 
 export default async function Press() {
   const md = await fs.readFile(path.join(process.cwd(), "content", "press", "interview.md"), "utf8");
   return (
     <Page narrow>
+      <StandardDocumentLink path="/press" />
       <article
         className="prose prose-invert max-w-none prose-headings:font-display prose-headings:font-extrabold prose-headings:uppercase prose-headings:tracking-[-0.03em] prose-h1:text-4xl prose-h2:text-xl prose-h2:font-body prose-h2:normal-case prose-h2:tracking-normal prose-strong:text-text prose-a:text-cyan"
       >

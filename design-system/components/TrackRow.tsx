@@ -1,3 +1,4 @@
+import { langOf } from "../lang";
 import { AppLink } from "./AppLink";
 
 export type TrackRowProps = {
@@ -25,7 +26,7 @@ export function TrackRow({ number, title, duration, hasAudio = true, lyricsHref,
         {String(number).padStart(2, "0")}
       </span>
       <div className="min-w-0">
-        <p className={`truncate font-medium ${hasAudio ? "" : "text-muted"}`}>{title}</p>
+        <p lang={langOf(title)} className={`truncate font-medium ${hasAudio ? "" : "text-muted"}`}>{title}</p>
         {!hasAudio && <p className="text-xs uppercase tracking-widest text-dim">{unavailableLabel}</p>}
       </div>
       <div className="flex items-center gap-4 text-sm">

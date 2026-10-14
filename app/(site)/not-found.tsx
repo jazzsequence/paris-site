@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 
 import { Page } from "../../components/site/section";
 import { ButtonLink } from "../../design-system/components/Button";
+import { pageMetadata } from "../../lib/site/seo";
 
-export const metadata: Metadata = { title: "Page not found", robots: { index: false } };
+export const metadata: Metadata = pageMetadata({ title: "Page not found", description: "That page does not exist.", path: "/404", noindex: true });
 
 /** Rendered inside the site layout, so unknown URLs keep the header, footer and player. */
 export default function NotFound() {

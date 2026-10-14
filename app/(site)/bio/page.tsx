@@ -3,14 +3,18 @@ import type { Metadata } from "next";
 import { Page } from "../../../components/site/section";
 import { ButtonLink } from "../../../design-system/components/Button";
 import { AppLink } from "../../../design-system/components/AppLink";
+import { pageMetadata } from "../../../lib/site/seo";
+import { JsonLd } from "../../../components/site/json-ld";
+import { artistData } from "../../../lib/site/structured-data";
 
-export const metadata: Metadata = { title: "Bio", description: "About PARIS." };
+export const metadata: Metadata = pageMetadata({ title: "Bio", description: "About PARIS: the independent EP, the album Well Enough on Hostile Takeover, and life on tour.", path: "/bio", image: "/images/paris-portrait.jpg" });
 
 export default function Bio() {
   return (
     <Page>
+      <JsonLd data={artistData()} />
       <div className="grid items-start gap-10 md:grid-cols-[22rem_1fr]">
-        <img src="/images/paris-portrait.png" alt="PARIS" className="w-full rounded-card border border-line" />
+        <img src="/images/paris-portrait.jpg" alt="PARIS" width={1024} height={1536} fetchPriority="high" className="w-full rounded-card border border-line" />
         <div className="space-y-6">
           <p className="font-gothic text-3xl text-magenta">About</p>
           <h1 className="text-chrome font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-[-0.04em] md:text-7xl">
