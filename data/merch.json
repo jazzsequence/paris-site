@@ -6,6 +6,12 @@
     "image": "/images/merch/well-enough-vinyl.jpg"
   },
   {
+    "slug": "tribute-vinyl",
+    "name": "Tribute (vinyl)",
+    "price": "$26",
+    "image": "/images/merch/tribute-vinyl.jpg"
+  },
+  {
     "slug": "well-enough-cd",
     "name": "Well Enough (CD)",
     "price": "$14.98",
