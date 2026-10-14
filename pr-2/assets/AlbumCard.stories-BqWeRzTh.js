@@ -1,0 +1,11 @@
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{a as t}from"./iframe-BRrCTAln.js";function n({title:e,year:t,cover:n,trackCount:i,featured:a,href:o=`#`}){return(0,r.jsxs)(`a`,{href:o,className:`group block overflow-hidden rounded-card border border-line bg-surface transition hover:border-magenta hover:shadow-glow-magenta`,children:[(0,r.jsxs)(`div`,{className:`relative aspect-square overflow-hidden`,children:[(0,r.jsx)(`img`,{src:n,alt:`${e} cover art`,className:`size-full object-cover transition duration-500 group-hover:scale-105`}),a&&(0,r.jsx)(`span`,{className:`absolute left-3 top-3 bg-magenta px-2 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-void`,children:`Latest`})]}),(0,r.jsxs)(`div`,{className:`space-y-1 p-4`,children:[(0,r.jsx)(`h3`,{className:`font-display text-lg font-semibold uppercase tracking-wide`,children:e}),(0,r.jsxs)(`p`,{className:`text-sm text-muted`,children:[t??`Unreleased`,` · `,i,` tracks`]})]})]})}var r;function i(){return(i=e((()=>{r=t(),n.__docgenInfo={description:``,methods:[],displayName:`AlbumCard`,props:{title:{required:!0,tsType:{name:`string`},description:``},year:{required:!1,tsType:{name:`number`},description:`Omit for unreleased material.`},cover:{required:!0,tsType:{name:`string`},description:``},trackCount:{required:!0,tsType:{name:`number`},description:``},featured:{required:!1,tsType:{name:`boolean`},description:``},href:{required:!1,tsType:{name:`string`},description:``,defaultValue:{value:`"#"`,computed:!1}}}}})))()}var a,o,s,c,l;function u(){return(u=e((()=>{a=t(),i(),o={title:`Components/AlbumCard`,component:n,args:{title:`Well Enough`,year:1997,cover:`images/well-enough-cover.jpg`,trackCount:13},decorators:[e=>(0,a.jsx)(`div`,{className:`w-72`,children:(0,a.jsx)(e,{})})]},s={args:{featured:!0}},c={args:{title:`Tribute`,cover:`images/tribute-cover.png`,trackCount:7}},l=[`Featured`,`Standard`],s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+  args: {
+    featured: true
+  }
+}`,...s.parameters?.docs?.source}}},c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
+  args: {
+    title: "Tribute",
+    cover: "images/tribute-cover.png",
+    trackCount: 7
+  }
+}`,...c.parameters?.docs?.source}}}})))()}u();export{s as Featured,c as Standard,l as __namedExportsOrder,o as default};
