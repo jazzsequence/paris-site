@@ -5,7 +5,7 @@ import { MerchCard } from "./MerchCard";
 const meta = {
   title: "Components/MerchCard",
   component: MerchCard,
-  args: { name: "Tour tee (placeholder art)", price: "$22", image: "/images/paris-casual.png" },
+  args: { name: "Tour tee (placeholder art)", price: "$22", image: "images/paris-casual.png" },
   decorators: [(Story) => <div className="w-64"><Story /></div>],
 } satisfies Meta<typeof MerchCard>;
 export default meta;

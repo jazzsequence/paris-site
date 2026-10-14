@@ -11,7 +11,7 @@ export const Header: StoryObj = { render: () => <SiteHeader current="/tour" /> }
 export const HeroSection: StoryObj = {
   render: () => (
     <Hero
-      image="/images/paris-on-stage.png"
+      image="images/paris-on-stage.png"
       kicker="New album"
       title="Well Enough"
       blurb="The debut LP, out now on Hostile Takeover."

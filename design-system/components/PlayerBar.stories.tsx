@@ -9,7 +9,7 @@ const meta = {
   args: {
     title: "Consent of the Quiet",
     album: "Well Enough",
-    cover: "/images/well-enough-cover.jpg",
+    cover: "images/well-enough-cover.jpg",
     elapsed: "1:12",
     duration: "3:58",
     progress: 30,
