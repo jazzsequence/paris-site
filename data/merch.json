@@ -18,6 +18,18 @@
     "image": "/images/tribute-cover.jpg"
   },
   {
+    "slug": "consent-of-the-quiet-cassette",
+    "name": "Consent of the Quiet (cassette single)",
+    "price": "$8",
+    "image": "/images/merch/consent-of-the-quiet-cassette.jpg"
+  },
+  {
+    "slug": "well-enough-cassette",
+    "name": "Well Enough (cassette single)",
+    "price": "$8",
+    "image": "/images/merch/well-enough-cassette.jpg"
+  },
+  {
     "slug": "tour-tee",
     "name": "Tour tee",
     "price": "$24",
