@@ -1,6 +1,7 @@
 export type AlbumCardProps = {
   title: string;
-  year: number;
+  /** Omit for unreleased material. */
+  year?: number;
   cover: string;
   trackCount: number;
   featured?: boolean;
@@ -28,7 +29,7 @@ export function AlbumCard({ title, year, cover, trackCount, featured, href = "#"
       <div className="space-y-1 p-4">
         <h3 className="font-display text-lg font-semibold uppercase tracking-wide">{title}</h3>
         <p className="text-sm text-muted">
-          {year} · {trackCount} tracks
+          {year ?? "Unreleased"} · {trackCount} tracks
         </p>
       </div>
     </a>

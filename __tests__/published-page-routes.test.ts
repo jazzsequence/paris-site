@@ -38,9 +38,9 @@ vi.mock("../components/puck/welcome-block-render", () => ({
   WelcomeBlockRender: () => null,
 }));
 
+// The home route ("/") is a code-built page in app/(site)/page.tsx, not a P1 page.
 const routes = {
   catchAll: "app/[...puckPath]/page.tsx",
-  home: "app/page.tsx",
 } as const;
 
 describe("published page routes are shims over the SDK factory", () => {
@@ -49,12 +49,6 @@ describe("published page routes are shims over the SDK factory", () => {
     expect(route.default).toBe(factory.Page);
     expect(route.generateMetadata).toBe(factory.generateMetadata);
     expect(route.generateStaticParams).toBe(factory.generateStaticParams);
-  });
-
-  it("wires the home route to the factory", async () => {
-    const route = await import("../app/page");
-    expect(route.default).toBe(factory.HomePage);
-    expect(route.generateMetadata).toBe(factory.generateHomeMetadata);
   });
 
   // Next.js statically analyzes segment-config exports, so this value cannot be

@@ -7,9 +7,9 @@ export function LyricsBlock({ title, album, sections }: { title: string; album?:
         {album && <p className="font-gothic text-2xl text-magenta">{album}</p>}
         <h1 className="text-chrome font-display text-4xl font-extrabold uppercase leading-none tracking-[-0.04em] md:text-5xl">{title}</h1>
       </header>
-      {sections.map((s) => (
-        <section key={s.label} className="space-y-3">
-          <h2 className="font-display text-xs uppercase tracking-[0.25em] text-violet">{s.label}</h2>
+      {sections.map((s, i) => (
+        <section key={`${i}-${s.label}`} className="space-y-3">
+          {s.label && <h2 className="font-display text-xs uppercase tracking-[0.25em] text-violet">{s.label}</h2>}
           <p className="whitespace-pre-line text-lg leading-8">{s.lines.join("\n")}</p>
         </section>
       ))}
