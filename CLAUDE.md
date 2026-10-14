@@ -42,7 +42,7 @@ that outline. `docs/` will be gitignored or moved before the repo goes public.
 
 ## Design approval workflow
 
-Design work goes on `design/<topic>` branches into a protected `design` branch. Merging the PR is the approval.
+Design work goes on `design-<topic>` branches into a protected `design` branch. Merging the PR is the approval.
 Only approved tokens/components are applied to the site via a PR from `design` to `main`. Dark theme only;
 palette is mall goth x K-pop (neon accents), not Ventrue blue/gold.
 The blackletter face (UnifrakturCook) is an accent for kickers only. The name PARIS is always capitals in Unbounded at -0.05em (`Wordmark` component, `--font-wordmark`), flat colour,
