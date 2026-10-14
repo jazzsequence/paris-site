@@ -1,6 +1,7 @@
 import Markdown from "react-markdown";
 
 import { ButtonLink } from "../../../design-system/components/Button";
+import { LightboxImage } from "../../../design-system/components/LightboxImage";
 
 type Props = {
   imageUrl?: string;
@@ -50,13 +51,16 @@ export const imageTextBlock = {
     <div className="mx-auto w-full max-w-6xl px-6 py-10">
       <div className={`grid items-start gap-10 ${imageUrl ? "md:grid-cols-[22rem_1fr]" : ""}`}>
         {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={imageAlt || ""}
-            loading="lazy"
-            decoding="async"
-            className={`w-full rounded-card border border-line ${imageSide === "right" ? "md:order-2" : ""}`}
-          />
+          // The order class sits on this wrapper: inside the lightbox the image is no longer a grid child.
+          <div className={imageSide === "right" ? "md:order-2" : ""}>
+            <LightboxImage
+              src={imageUrl}
+              alt={imageAlt || title || "Photo"}
+              loading="lazy"
+              decoding="async"
+              className="w-full rounded-card border border-line"
+            />
+          </div>
         ) : null}
         <div className="space-y-5">
           {kicker ? <p className="font-gothic text-3xl text-magenta">{kicker}</p> : null}
