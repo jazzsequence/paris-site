@@ -1,5 +1,7 @@
 ---
 title: "Public Figure"
+album: ep
+track: 3
 ---
 
 

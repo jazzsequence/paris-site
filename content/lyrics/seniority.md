@@ -1,5 +1,7 @@
 ---
 title: "Seniority"
+album: ep
+track: 2
 ---
 
 

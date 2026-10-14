@@ -1,5 +1,7 @@
 ---
 title: "Outlast"
+album: ep
+track: 6
 ---
 
 

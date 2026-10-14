@@ -6,6 +6,7 @@ const routes = [
   "/",
   "/albums",
   "/albums/tribute",
+  "/albums/ep",
   "/albums/unreleased",
   "/listen",
   "/lyrics",

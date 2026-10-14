@@ -1,5 +1,7 @@
 ---
 title: "Manners"
+album: ep
+track: 5
 ---
 
 

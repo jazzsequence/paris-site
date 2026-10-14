@@ -35,7 +35,7 @@ of everything committed.
   NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
   silently fails (downloads still work because they go through `/api/download`). Without it playback needs no CORS.
 - **Unreleased** means no public release (not "coming soon"). It is an album-style page with no `year`; do not seed it with
-  songs that merely lack audio. The EP is not added yet; its lyrics sit unassigned under "More songs".
+  songs that merely lack audio. The EP has its own album page (`ep`). Its cover is a placeholder photo until real art exists.
 - Content editing guide for humans: `CONTENT.md`.
 - **Single Next config:** `next.config.ts` only. The starter's `.mjs` config and the Pantheon template's `.ts`
   config coexisted and Next silently loaded the `.mjs`, dropping `output: "standalone"`. Merged; do not re-add.
