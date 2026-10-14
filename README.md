@@ -3,7 +3,7 @@
 The website for PARIS: tour dates and tickets, music with a persistent player, lyrics, the latest album, press and bio.
 
 Live at [paris.jazzsequence.com](https://paris.jazzsequence.com). Built with Next.js 16, edited with
-[Pantheon Content Publisher (P1)](https://content.pantheon.io) and Puck, and hosted on Pantheon.
+[P1](https://content.pantheon.io) and Puck, and hosted on Pantheon.
 
 ## What's here
 
