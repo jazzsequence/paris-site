@@ -3,11 +3,11 @@ import type { MetadataRoute } from "next";
 import { albums } from "../lib/site/catalog";
 import { getLyrics } from "../lib/site/lyrics";
 import { SITE_URL } from "../lib/site/seo";
-import { shows } from "../lib/site/tour";
+import { getShows } from "../lib/site/p1-content";
 
 /** Every indexable public page. `/ticket` is excluded: it renders a private e-ticket from its URL. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const lyrics = await getLyrics();
+  const [lyrics, shows] = await Promise.all([getLyrics(), getShows()]);
   const paths = [
     "/",
     "/tour",

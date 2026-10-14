@@ -48,30 +48,6 @@
   --grad-chrome: linear-gradient(180deg, #f1effa 0%, #8d8aa6 55%, #d9d6ea 100%);
 }
 
-@layer base {
-  /* Honour the OS "reduce motion" setting: hover scales, glows and fades become instant. */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-  html,
-  body {
-    background: var(--color-void);
-    color: var(--color-text);
-    font-family: var(--font-body);
-  }
-  :focus-visible {
-    outline: 2px solid var(--color-cyan);
-    outline-offset: 3px;
-  }
-}
-
 /* Chrome-filled display type */
 .text-chrome {
   background: var(--grad-chrome);
