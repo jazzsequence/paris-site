@@ -11,7 +11,7 @@ export function LyricsBlock({ title, album, sections }: { title: string; album?:
       {sections.map((s, i) => (
         <section key={`${i}-${s.label}`} className="space-y-3">
           {s.label && <h2 className="font-display text-xs uppercase tracking-[0.25em] text-violet">{s.label}</h2>}
-          <p className="whitespace-pre-line text-lg leading-8">{s.lines.join("\n")}</p>
+          <p lang={langOf(s.lines.join(" "))} className="whitespace-pre-line text-lg leading-8">{s.lines.join("\n")}</p>
         </section>
       ))}
     </article>

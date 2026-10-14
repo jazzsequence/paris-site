@@ -115,6 +115,12 @@ test.describe("page metadata", () => {
     expect(nodes.some((n) => n["@type"] === "BreadcrumbList")).toBe(true);
   });
 
+  test("Korean lyrics are marked with their language", async ({ page }) => {
+    await page.goto("/lyrics/banmal");
+    await expect(page.locator("h1")).toHaveAttribute("lang", "ko");
+    expect(await page.locator('p[lang="ko"]').count()).toBeGreaterThanOrEqual(8);
+  });
+
   test("Korean titles are marked with their language", async ({ page }) => {
     await page.goto("/albums/unreleased");
     await expect(page.locator('[lang="ko"]').first()).toContainText("반말");
