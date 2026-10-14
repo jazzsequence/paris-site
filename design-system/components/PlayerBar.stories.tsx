@@ -27,4 +27,4 @@ const queue = [
   { id: "b", title: "Second Shift", subtitle: "Well Enough" },
   { id: "c", title: "Don’t ask what I am", subtitle: "Well Enough" },
 ];
-export const WithQueue: Story = { args: { queue, currentId: "b" } };
+export const WithQueue: Story = { args: { queue, currentId: "b", onRemove: () => {} } };

@@ -20,15 +20,23 @@ export type PlayerBarProps = {
   queue?: QueueItem[];
   currentId?: string;
   onSelect?: (id: string) => void;
+  /** Removes a queue entry. Not offered for the current one. */
+  onRemove?: (id: string) => void;
 };
 
 export type QueueItem = { id: string; title: string; subtitle?: string };
 
 /** Persistent bottom player. Lives in the root layout so playback follows the visitor. */
-export function PlayerBar({ title, album, cover, elapsed, duration, progress, playing, onToggle, onPrev, onNext, onSeek, queue = [], currentId, onSelect }: PlayerBarProps) {
+export function PlayerBar({ title, album, cover, elapsed, duration, progress, playing, onToggle, onPrev, onNext, onSeek, queue = [], currentId, onSelect, onRemove }: PlayerBarProps) {
   const [open, setOpen] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+
+  // A long queue opens scrolled to the track that is playing.
+  useEffect(() => {
+    if (open) panel.current?.querySelector<HTMLElement>('[aria-current="true"]')?.scrollIntoView({ block: "center" });
+  }, [open]);
 
   // Close on outside click; Escape (handled below) returns focus to the toggle.
   useEffect(() => {
@@ -123,18 +131,19 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
           {open && (
             <div
               id="player-queue"
+              ref={panel}
               role="region"
               aria-label="Queue"
               className="absolute bottom-full right-0 mb-3 max-h-[50vh] w-[min(24rem,calc(100vw-2rem))] overflow-y-auto border border-line bg-raised shadow-glow-magenta"
             >
               <ol>
                 {queue.map((item, i) => (
-                  <li key={item.id} className="border-b border-line last:border-b-0">
+                  <li key={item.id} className="flex items-stretch border-b border-line last:border-b-0">
                     <button
                       type="button"
                       aria-current={item.id === currentId ? "true" : undefined}
                       onClick={() => onSelect?.(item.id)}
-                      className={`grid w-full grid-cols-[2rem_1fr] items-center gap-2 px-4 py-3 text-left hover:bg-surface ${
+                      className={`grid min-w-0 flex-1 grid-cols-[2rem_1fr] items-center gap-2 px-4 py-3 text-left hover:bg-surface ${
                         item.id === currentId ? "text-magenta" : "text-text"
                       }`}
                     >
@@ -144,6 +153,18 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
                         {item.subtitle && <span className="block truncate text-xs text-muted">{item.subtitle}</span>}
                       </span>
                     </button>
+                    {onRemove && item.id !== currentId && (
+                      <button
+                        type="button"
+                        onClick={() => onRemove(item.id)}
+                        aria-label={`Remove ${item.title} from queue`}
+                        className="grid w-11 place-items-center text-muted hover:bg-surface hover:text-text"
+                      >
+                        <svg viewBox="0 0 24 24" className="size-4 fill-none stroke-current stroke-2" aria-hidden>
+                          <path d="M6 6l12 12M18 6L6 18" />
+                        </svg>
+                      </button>
+                    )}
                   </li>
                 ))}
               </ol>

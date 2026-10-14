@@ -12,5 +12,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
-export const Playing: Story = { args: { playing: true } };
+export const Playing: Story = { args: { current: true, playing: true } };
+export const Paused: Story = { args: { current: true, playing: false } };
+export const WithQueueButton: Story = { args: { onQueue: () => {} } };
 export const NoAudioYet: Story = { args: { hasAudio: false, number: 3, title: "Seniority" } };
