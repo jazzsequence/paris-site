@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-PARIS artist site. Next.js 16 + P1 (Pantheon Content Publisher / Puck), deployed to Pantheon (`paris-site`),
+PARIS artist site. Next.js 16 + P1 (Puck), deployed to Pantheon (`paris-site`),
 live domain `paris.jazzsequence.com`. Primary spec: `docs/Project Outline.md` (kept locally, not tracked). Public copy, metadata, alt text,
 code comments and docs must never state or hint at anything the outline marks as off-limits. Keep backstory out
 of everything committed.
@@ -22,12 +22,19 @@ of everything committed.
   audio = Cloudflare R2 bucket served from `music.paris.jazzsequence.com`, listed server-side at build/ISR
   from `<album-slug>/<NN>-<track-slug>.m4a`. Audio is never committed (`music/` is gitignored, and was purged
   from history before the first push).
-- **Where content lives right now:** the public pages are code under `app/(site)/` with content in the repo:
-  `data/albums.json` (albums, tracks, `unreleased` pseudo-album with no `year`), `data/tour.json`, `data/merch.json`,
+- **P1 content (bio, tour, merch):** `/bio`, `/tour`, `/merch` render the published P1 page (`loadPublishedPage` via
+  `lib/site/p1-content.ts`) and fall back to the repo copy when P1 is missing or unreachable, so CI (placeholder creds) and
+  outages keep working. P1 pages use the PARIS blocks in `components/puck/paris/` (`PageHeadingBlock`, `ImageTextBlock`,
+  `TourDatesBlock`, `MerchGridBlock`); ticket pages, sitemap and JSON-LD read shows from the `TourDatesBlock`. P1 has no
+  templates/datasources here and the MCP cannot create them, so structured data lives in block array fields. Registry
+  sync: `pnpm sync:registry` (CI) or the P1 MCP `sync_components`; `fast-json-patch` is patched (`patches/`) because tsx
+  otherwise loads its unshipped `index.ts`. Never publish or merge a P1 workstream without the owner's say-so.
+- **Where the rest of the content lives:** the public pages are code under `app/(site)/` with content in the repo:
+  `data/albums.json` (albums, tracks, `unreleased` pseudo-album with no `year`), `data/tour.json` and `data/merch.json` (fallbacks),
   `content/lyrics/*.md` (frontmatter `title`/`album`/`track`, `### Label` sections), `content/press/interview.md`.
-  Moving bio/tour/merch into P1 is still open (the P1 site could not be inspected). To add a song: add it to
+  To add a song: add it to
   `data/albums.json`, upload `<album>/<NN>-<slug>.m4a` to the bucket, add `content/lyrics/<slug>.md` if it has lyrics.
-  P1-rendered pages (`app/[...puckPath]`) sit outside the `(site)` layout and have no header/footer/player yet.
+  P1 pages render inside the `(site)` layout (the catch-all lives under it).
 - **Tour dates are fictional; venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
   (`/tickets/[id]` -> `/ticket?...`) keeps all state in the URL and collects nothing.
 - **Songs and lyrics are independent resources.** A track with no lyrics, or lyrics with no audio, is normal.

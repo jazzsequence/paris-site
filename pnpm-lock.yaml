@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  fast-json-patch@3.1.1:
+    hash: 25ebefa74813316903ca26f95ca6582cd57b4433beab190214c8bcfae78b265e
+    path: patches/fast-json-patch@3.1.1.patch
+
 importers:
 
   .:
@@ -6333,7 +6338,7 @@ snapshots:
       '@pantheon-systems/pds-toolkit-react': 2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
       '@puckeditor/core': 0.21.3(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
       '@tanstack/react-query': 5.104.2(react@19.3.0)
-      fast-json-patch: 3.1.1
+      fast-json-patch: 3.1.1(patch_hash=25ebefa74813316903ca26f95ca6582cd57b4433beab190214c8bcfae78b265e)
       ipaddr.js: 2.5.0
       isomorphic-dompurify: 3.19.0
       jsep: 1.6.0
@@ -8227,7 +8232,7 @@ snapshots:
 
   fast-equals@5.4.4: {}
 
-  fast-json-patch@3.1.1: {}
+  fast-json-patch@3.1.1(patch_hash=25ebefa74813316903ca26f95ca6582cd57b4433beab190214c8bcfae78b265e): {}
 
   fast-json-stable-stringify@2.1.0: {}
 
