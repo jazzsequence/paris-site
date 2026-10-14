@@ -1,9 +1,9 @@
 # CLAUDE.md
 
 PARIS artist site. Next.js 16 + P1 (Pantheon Content Publisher / Puck), deployed to Pantheon (`paris-site`),
-live domain `paris.jazzsequence.com`. Primary spec: `docs/Project Outline.md`. Other files in `docs/` are
-tone/context/content sources. Public copy, metadata, alt text and comments must follow the editorial rules in
-that outline. `docs/` will be gitignored or moved before the repo goes public.
+live domain `paris.jazzsequence.com`. Primary spec: `docs/Project Outline.md` (kept locally, not tracked). Public copy, metadata, alt text,
+code comments and docs must never state or hint at anything the outline marks as off-limits. Keep backstory out
+of everything committed.
 
 ## Commands (pnpm; Node per `.nvmrc`)
 
@@ -21,6 +21,14 @@ that outline. `docs/` will be gitignored or moved before the repo goes public.
   audio = Cloudflare R2 bucket served from `music.paris.jazzsequence.com`, listed server-side at build/ISR
   from `<album-slug>/<NN>-<track-slug>.m4a`. Audio is never committed (`music/` is gitignored, and was purged
   from history before the first push).
+- **Where content lives right now:** the public pages are code under `app/(site)/` with content in the repo:
+  `data/albums.json` (albums, tracks, `unreleased` pseudo-album with no `year`), `data/tour.json`, `data/merch.json`,
+  `content/lyrics/*.md` (frontmatter `title`/`album`/`track`, `### Label` sections), `content/press/interview.md`.
+  Moving bio/tour/merch into P1 is still open (the P1 site could not be inspected). To add a song: add it to
+  `data/albums.json`, upload `<album>/<NN>-<slug>.m4a` to the bucket, add `content/lyrics/<slug>.md` if it has lyrics.
+  P1-rendered pages (`app/[...puckPath]`) sit outside the `(site)` layout and have no header/footer/player yet.
+- **Tour venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
+  (`/tickets/[id]` -> `/ticket?...`) keeps all state in the URL and collects nothing.
 - **Songs and lyrics are independent resources.** A track with no lyrics, or lyrics with no audio, is normal.
 - **Persistent player** lives in the root layout; no cookies, no tracking, no mailing list.
 - **Single Next config:** `next.config.ts` only. The starter's `.mjs` config and the Pantheon template's `.ts`
@@ -46,6 +54,6 @@ that outline. `docs/` will be gitignored or moved before the repo goes public.
 
 Design work goes on `design-<topic>` branches into a protected `design` branch. Merging the PR is the approval.
 Only approved tokens/components are applied to the site via a PR from `design` to `main`. Dark theme only;
-palette is mall goth x K-pop (neon accents), not Ventrue blue/gold.
+palette is mall goth x K-pop (neon accents), no blue/gold.
 The blackletter face (UnifrakturCook) is an accent for kickers only. The name PARIS is always capitals in Unbounded at -0.05em (`Wordmark` component, `--font-wordmark`), flat colour,
 never the gothic font. Headings use Encode Sans Expanded 800 at about -0.04em (`--font-display`); Unbounded is reserved for the wordmark.

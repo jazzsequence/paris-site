@@ -10,3 +10,7 @@ music/
 .env.local
 storybook-static
 *.tsbuildinfo
+
+# Local-only source material (never publish)
+/docs/
+/images/
