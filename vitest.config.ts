@@ -1,5 +1,5 @@
 import { fileURLToPath } from "node:url";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
@@ -14,6 +14,8 @@ export default defineConfig({
   },
   test: {
     environment: "node",
+    // Playwright specs run under `pnpm test:a11y`, not Vitest.
+    exclude: [...configDefaults.exclude, "e2e/**"],
     // Inlining below means the first test to import puck-css pays for Vite
     // transforming that whole graph — seconds on a cold machine, and the default
     // 5s timeout fails it on slower CI runners while every later test in the file

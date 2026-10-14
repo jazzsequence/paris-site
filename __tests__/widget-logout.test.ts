@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { LogoutOutcome } from "@pantheon-systems/puck-css";
-import { runWidgetLogout } from "../app/[...puckPath]/widget-logout";
+import { runWidgetLogout } from "../app/(site)/[...puckPath]/widget-logout";
 
 // Records the effects in order, so each test asserts the whole sequence a
 // logout attempt produces rather than one call in isolation.

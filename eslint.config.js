@@ -5,6 +5,7 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import prettierConfig from 'eslint-config-prettier';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 
 /**
  * Test-file relaxations.
@@ -209,6 +210,13 @@ export default tseslint.config(
       'react/display-name': 'off',
       'react-hooks/exhaustive-deps': 'warn',
     },
+  },
+  // Accessibility lint for the public site and its design system. Scoped so the starter's
+  // editor/P1 code is not held to rules it was never written against.
+  {
+    files: ['design-system/**/*.{ts,tsx}', 'components/site/**/*.{ts,tsx}', 'app/(site)/**/*.{ts,tsx}'],
+    plugins: { 'jsx-a11y': jsxA11y },
+    rules: jsxA11y.flatConfigs.recommended.rules,
   },
   // @pantheon-systems/eslint-config/prettier
   prettierConfig,
