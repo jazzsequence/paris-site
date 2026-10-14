@@ -27,7 +27,7 @@ of everything committed.
   Moving bio/tour/merch into P1 is still open (the P1 site could not be inspected). To add a song: add it to
   `data/albums.json`, upload `<album>/<NN>-<slug>.m4a` to the bucket, add `content/lyrics/<slug>.md` if it has lyrics.
   P1-rendered pages (`app/[...puckPath]`) sit outside the `(site)` layout and have no header/footer/player yet.
-- **Tour venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
+- **Tour dates are fictional; venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
   (`/tickets/[id]` -> `/ticket?...`) keeps all state in the URL and collects nothing.
 - **Songs and lyrics are independent resources.** A track with no lyrics, or lyrics with no audio, is normal.
 - **Persistent player** lives in the root layout; no cookies, no tracking, no mailing list.
