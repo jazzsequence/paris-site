@@ -23,6 +23,15 @@ describe("lyrics", () => {
     expect(await getLyric("does-not-exist")).toBeUndefined();
   });
 
+  it("parses the Korean lyrics with their labelled sections", async () => {
+    const l = await getLyric("banmal");
+    expect(l).toMatchObject({ title: "반말", album: "unreleased", track: 4 });
+    expect(l?.sections.map((x) => x.label)).toEqual([
+      "Verse 1 (formal speech)", "Pre-Chorus", "Chorus", "Verse 2", "Pre-Chorus", "Chorus (repeat)", "Bridge (sung, still formal)",
+      "Final Chorus (casual speech, key up)", "Outro (a cappella)",
+    ]);
+  });
+
   it("loads every seeded lyric", async () => {
     const all = await getLyrics();
     expect(all.length).toBeGreaterThanOrEqual(26);
