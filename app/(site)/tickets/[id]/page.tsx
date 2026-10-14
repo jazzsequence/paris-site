@@ -4,23 +4,27 @@ import { notFound } from "next/navigation";
 import { Page } from "../../../../components/site/section";
 import { TicketForm } from "../../../../components/site/ticket-form";
 import { SectionHeading } from "../../../../design-system/components/SectionHeading";
-import { getShow, longDate, money, shows } from "../../../../lib/site/tour";
+import { getShowById } from "../../../../lib/site/p1-content";
+import { longDate, money, shows } from "../../../../lib/site/tour";
 import { Breadcrumbs } from "../../../../components/site/breadcrumbs";
 import { pageMetadata } from "../../../../lib/site/seo";
 
 type Props = { params: Promise<{ id: string }> };
 
+export const revalidate = 300;
+
+// Only the repo copy is prerendered; dates added in P1 are rendered on first request and then cached.
 export const generateStaticParams = () => shows.map((s) => ({ id: s.id }));
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const show = getShow((await params).id);
+  const show = await getShowById((await params).id);
   return show
     ? pageMetadata({ title: `Tickets · ${show.city}`, description: `Tickets for PARIS at ${show.venue}, ${show.city}, ${longDate(show.date)}.`, path: `/tickets/${show.id}` })
     : {};
 }
 
 export default async function Tickets({ params }: Props) {
-  const show = getShow((await params).id);
+  const show = await getShowById((await params).id);
   if (!show) notFound();
   return (
     <Page narrow>

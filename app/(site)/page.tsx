@@ -7,7 +7,8 @@ import { TourDateRow } from "../../design-system/components/TourDateRow";
 import { ButtonLink } from "../../design-system/components/Button";
 import { Page } from "../../components/site/section";
 import { albums, getFeaturedAlbum } from "../../lib/site/catalog";
-import { dateParts, shows } from "../../lib/site/tour";
+import { getShows } from "../../lib/site/p1-content";
+import { dateParts, showId } from "../../lib/site/tour";
 import { JsonLd } from "../../components/site/json-ld";
 import { SITE_URL, pageMetadata } from "../../lib/site/seo";
 import { artistData } from "../../lib/site/structured-data";
@@ -19,7 +20,10 @@ export const metadata: Metadata = pageMetadata({
   absoluteTitle: true,
 });
 
-export default function Home() {
+export const revalidate = 300;
+
+export default async function Home() {
+  const shows = await getShows();
   const latest = getFeaturedAlbum();
   return (
     <>
@@ -41,13 +45,13 @@ export default function Home() {
           <ul>
             {shows.slice(0, 4).map((s) => (
               <TourDateRow
-                key={s.id}
+                key={showId(s)}
                 {...dateParts(s.date)}
                 city={s.city}
                 venue={s.venue}
                 capacity={s.capacity}
                 status={s.status}
-                href={`/tickets/${s.id}`}
+                href={`/tickets/${showId(s)}`}
               />
             ))}
           </ul>

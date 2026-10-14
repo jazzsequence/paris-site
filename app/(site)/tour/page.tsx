@@ -1,30 +1,52 @@
 import type { Metadata } from "next";
 
+import { JsonLd } from "../../../components/site/json-ld";
 import { Page } from "../../../components/site/section";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
 import { TourDateRow } from "../../../design-system/components/TourDateRow";
-import { dateParts, shows } from "../../../lib/site/tour";
+import { getP1Page, getShows, rootProp } from "../../../lib/site/p1-content";
 import { pageMetadata } from "../../../lib/site/seo";
-import { JsonLd } from "../../../components/site/json-ld";
 import { eventData } from "../../../lib/site/structured-data";
+import { dateParts, showId } from "../../../lib/site/tour";
+import { Client } from "../[...puckPath]/client";
 
-export const metadata: Metadata = pageMetadata({ title: "Tour", description: "PARIS live: tour dates, venues and tickets.", path: "/tour" });
+export const revalidate = 300;
 
-export default function Tour() {
+export async function generateMetadata(): Promise<Metadata> {
+  const doc = await getP1Page("/tour");
+  return pageMetadata({
+    title: rootProp(doc, "title") ?? "Tour",
+    description: rootProp(doc, "description") ?? "PARIS live: tour dates, venues and tickets.",
+    path: "/tour",
+  });
+}
+
+/** Renders the published P1 page when there is one; otherwise the dates in data/tour.json. */
+export default async function Tour() {
+  const [doc, shows] = await Promise.all([getP1Page("/tour"), getShows()]);
+  const events = <JsonLd data={{ "@context": "https://schema.org", "@graph": shows.map(eventData) }} />;
+  if (doc) {
+    return (
+      <>
+        {events}
+        <Client data={doc} pageMetadata={{ route: "/tour" }} />
+      </>
+    );
+  }
   return (
     <Page>
-      <JsonLd data={{ "@context": "https://schema.org", "@graph": shows.map(eventData) }} />
+      {events}
       <SectionHeading as="h1" kicker="Live">Tour dates</SectionHeading>
       <ul>
         {shows.map((s) => (
           <TourDateRow
-            key={s.id}
+            key={showId(s)}
             {...dateParts(s.date)}
             city={s.city}
             venue={s.venue}
             capacity={s.capacity}
             status={s.status}
-            href={`/tickets/${s.id}`}
+            href={`/tickets/${showId(s)}`}
             headingLevel="h2"
           />
         ))}
