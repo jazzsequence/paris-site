@@ -172,6 +172,7 @@ export default tseslint.config(
       'dist/**',
       'build/**',
       '.next/**',
+      'storybook-static/**',
       'coverage/**',
       '**/*.d.ts',
       '**/generated/**',

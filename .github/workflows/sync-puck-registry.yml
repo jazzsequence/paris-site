@@ -1,15 +1,9 @@
 # Optional: syncs this site's Puck component registry to the backend
 # headlessly on every push, without anyone needing to open the editor.
 #
-# This file is NOT active until you copy it into .github/workflows/ yourself
-# — it deliberately lives outside that directory in the scaffolded project so
-# it can never auto-run before you've provisioned secrets.
-#
-# Setup:
-#   1. Create a sat_ site token scoped to write:registry ONLY (do not reuse
-#      your read-scoped P1_CSS_API_KEY / SSR token for this).
-#   2. Add repo secrets: CSS_BASE_URL, CSS_SITE_ID, CSS_REGISTRY_API_KEY.
-#   3. Copy this file to .github/workflows/sync-puck-registry.yml.
+# Requires repo secrets CSS_BASE_URL, CSS_SITE_ID and CSS_REGISTRY_API_KEY
+# (a "Component registry sync" token; never reuse the site's read token).
+# Until they exist this workflow fails on pushes that touch the paths below.
 #
 # Triggers on push to any branch that touches puck.config.tsx or
 # components/puck/**. The sync script resolves the target branch from the
@@ -49,14 +43,15 @@ jobs:
   sync-registry:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci
+          node-version-file: '.nvmrc'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - name: Sync component registry
-        run: npm run sync:registry
+        run: pnpm sync:registry
         env:
           CSS_BASE_URL: ${{ secrets.CSS_BASE_URL }}
           CSS_SITE_ID: ${{ secrets.CSS_SITE_ID }}

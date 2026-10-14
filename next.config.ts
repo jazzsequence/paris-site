@@ -1,43 +1,39 @@
+import { createRequire } from "node:module";
+
 import type { NextConfig } from "next";
-import path from "path";
+
+const require = createRequire(import.meta.url);
 
 const nextConfig: NextConfig = {
-  // Required for Pantheon deployment
-  output: 'standalone',
+  reactStrictMode: true,
+  output: "standalone", // Required for Pantheon deployment
 
-  // Transpile the cache handler package
-  transpilePackages: ['@pantheon-systems/nextjs-cache-handler'],
+  // Only on Pantheon in production: locally there is no bucket to talk to.
+  ...(process.env.NODE_ENV === "production" &&
+    process.env.PANTHEON_ENVIRONMENT && {
+      cacheHandler: "./cacheHandler.mjs",
+      cacheMaxMemorySize: 0, // Let the handler own caching
+    }),
 
-  // Next.js 16 Cache Components configuration
-  cacheComponents: true,
-
-  // Custom cache life profiles for 'use cache' directive
-  cacheLife: {
-    // Short-lived cache for testing (30s stale, 60s revalidate, 5min expire)
-    short: {
-      stale: 30,
-      revalidate: 60,
-      expire: 300,
-    },
-    // Blog-style cache (1min stale, 5min revalidate, 1hr expire)
-    blog: {
-      stale: 60,
-      revalidate: 300,
-      expire: 3600,
+  experimental: {
+    staleTimes: {
+      dynamic: 0,
     },
   },
-
-  // Legacy cache handler for ISR, route handlers, fetch cache
-  cacheHandler: path.resolve('./cacheHandler.ts'),
-
-  // Next.js 16 cache handlers for 'use cache' directive
-  cacheHandlers: {
-    default: path.resolve('./use-cache-handler.ts'),
-    remote: path.resolve('./use-cache-handler.ts'),
+  transpilePackages: [
+    "@pantheon-systems/css-client",
+    "@pantheon-systems/puck-css",
+    "@pantheon-systems/p1-next-sdk",
+  ],
+  turbopack: {},
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Single yjs instance — duplicate copies break the P1 editor
+      yjs: require.resolve("yjs"),
+    };
+    return config;
   },
-
-  // Disable in-memory caching to use custom handler
-  cacheMaxMemorySize: 0,
 };
 
 export default nextConfig;

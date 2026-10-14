@@ -8,3 +8,5 @@ next-env.d.ts
 music/
 .env
 .env.local
+storybook-static
+*.tsbuildinfo
