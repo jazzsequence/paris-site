@@ -1,7 +1,10 @@
+import { readFileSync } from "node:fs";
 import AxeBuilder from "@axe-core/playwright";
+
 import { expect, test } from "@playwright/test";
 
-import merch from "../data/merch.json";
+// Read as a file: Playwright's ESM loader rejects a bare JSON import.
+const merchCount: number = (JSON.parse(readFileSync("data/merch.json", "utf8")) as unknown[]).length;
 
 const opener = (page: import("@playwright/test").Page, name: RegExp) => page.getByRole("button", { name });
 
@@ -64,7 +67,7 @@ test("images across the site open in a lightbox", async ({ page }) => {
     ["/albums/tribute", 1],
     ["/listen", 4],
     ["/bio", 1],
-    ["/merch", merch.length],
+    ["/merch", merchCount],
   ] as const) {
     await page.goto(route);
     await expect(opener(page, /View larger/), route).toHaveCount(count);
