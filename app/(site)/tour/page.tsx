@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Tour", description: "PARIS live. Dat
 export default function Tour() {
   return (
     <Page>
-      <SectionHeading kicker="Live">Tour dates</SectionHeading>
+      <SectionHeading as="h1" kicker="Live">Tour dates</SectionHeading>
       <ul>
         {shows.map((s) => (
           <TourDateRow
@@ -21,6 +21,7 @@ export default function Tour() {
             capacity={s.capacity}
             status={s.status}
             href={`/tickets/${s.id}`}
+            headingLevel="h2"
           />
         ))}
       </ul>

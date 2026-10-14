@@ -6,9 +6,11 @@ export type AlbumCardProps = {
   trackCount: number;
   featured?: boolean;
   href?: string;
+  /** Heading level for the title; use "h2" when the card sits directly under the page h1. */
+  headingLevel?: "h2" | "h3";
 };
 
-export function AlbumCard({ title, year, cover, trackCount, featured, href = "#" }: AlbumCardProps) {
+export function AlbumCard({ title, year, cover, trackCount, featured, href = "#", headingLevel: Heading = "h3" }: AlbumCardProps) {
   return (
     <a
       href={href}
@@ -27,7 +29,7 @@ export function AlbumCard({ title, year, cover, trackCount, featured, href = "#"
         )}
       </div>
       <div className="space-y-1 p-4">
-        <h3 className="font-display text-lg font-semibold uppercase tracking-wide">{title}</h3>
+        <Heading className="font-display text-lg font-semibold uppercase tracking-wide">{title}</Heading>
         <p className="text-sm text-muted">
           {year ?? "Unreleased"} · {trackCount} tracks
         </p>

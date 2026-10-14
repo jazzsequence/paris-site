@@ -12,7 +12,7 @@ export default async function Listen() {
   const catalog = await getCatalog();
   return (
     <Page>
-      <SectionHeading kicker="Music">Listen</SectionHeading>
+      <SectionHeading as="h1" kicker="Music">Listen</SectionHeading>
       {catalog.map((album) => (
         <section key={album.slug} id={album.slug} className="grid gap-8 md:grid-cols-[16rem_1fr]">
           <div className="space-y-3">

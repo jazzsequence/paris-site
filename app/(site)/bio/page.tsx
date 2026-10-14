@@ -23,7 +23,7 @@ export default function Bio() {
             </p>
             <p>
               Interscope Records signed PARIS to its Hostile Takeover imprint, and the full-length debut{" "}
-              <a className="text-cyan underline-offset-4 hover:underline" href="/well-enough">
+              <a className="text-cyan underline underline-offset-4 hover:text-text" href="/well-enough">
                 Well Enough
               </a>{" "}
               followed. <em>Tribute</em>, a collection of B-sides and unreleased songs that includes the complete EP, came

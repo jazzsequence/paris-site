@@ -26,7 +26,12 @@ export function Button({
 export function ButtonLink({
   variant = "primary",
   className = "",
+  children,
   ...props
 }: Common & AnchorHTMLAttributes<HTMLAnchorElement>) {
-  return <a className={`${base} ${variants[variant]} ${className}`} {...props} />;
+  return (
+    <a className={`${base} ${variants[variant]} ${className}`} {...props}>
+      {children}
+    </a>
+  );
 }

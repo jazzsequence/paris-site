@@ -12,6 +12,7 @@ of everything committed.
 | `pnpm dev` | Dev server (needs `.env`, see `.env.example`) |
 | `pnpm lint` / `pnpm typecheck` / `pnpm test` | Required before presenting changes |
 | `pnpm build` | Production build; works with placeholder `NEXT_PUBLIC_CSS_SITE_ID` and `CSS_API_KEY` |
+| `pnpm test:a11y` | Playwright + axe against the standalone build (run `pnpm build` first; kill any stale server on :3100) |
 | `pnpm storybook` / `pnpm build-storybook` | Design system (`design-system/`, config in `.storybook/`) |
 | `pnpm sync:registry` | Push Puck registry to P1 (CI does this) |
 
@@ -41,9 +42,19 @@ of everything committed.
   Changes only apply after a rebuild. Values are write-only. P1 key: `CSS_API_KEY` (drafts scope) on dev/test/local;
   `CSS_API_KEY_LIVE` (published-only) on live. A `getP1ApiKey()` resolver (fail closed on live) is planned, not built.
 
+## Accessibility
+
+Target is WCAG 2.2 AA. Three layers: `eslint-plugin-jsx-a11y` (recommended rules) on `design-system/`,
+`components/site/` and `app/(site)/`; the Storybook a11y addon (`test: "error"`); and `e2e/a11y.spec.ts`, which runs axe
+(wcag2a/2aa/21a/21aa/22aa + best-practice) on every public route at desktop and mobile sizes plus keyboard, skip-link,
+focus-ring and reduced-motion checks. When adding a route, add it to the `routes` list there. Each page needs exactly one
+h1; cards take `headingLevel="h2"` when they sit directly under it. Seeking uses a real `<input type="range">`.
+Not covered by automation: screen-reader pass, captions (songs rely on linked lyrics as the text alternative), and the
+player in its "has audio" state (CI has no bucket credentials).
+
 ## CI / deployment (mirrors jazz-nextjs)
 
-- `test-pantheon.yml`: lint, typecheck, unit, build, Storybook build; then waits for dev / `pr-N` and checks 200.
+- `test-pantheon.yml`: lint, typecheck, unit, build, accessibility (Playwright + axe), Storybook build; then waits for dev / `pr-N` and checks 200.
 - `promote-pantheon.yml`: push to `test` or `live` branch tags `pantheon_test_N` / `pantheon_live_N`.
 - `sync-puck-registry.yml`: needs secrets `CSS_BASE_URL`, `CSS_SITE_ID`, `CSS_REGISTRY_API_KEY`.
 - `storybook-preview.yml`: per-PR preview at `https://<owner>.github.io/paris-site/pr-N/` (gh-pages; needs

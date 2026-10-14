@@ -20,7 +20,7 @@ export default async function Tickets({ params }: Props) {
   if (!show) notFound();
   return (
     <Page narrow>
-      <SectionHeading kicker="Tickets">{show.city}</SectionHeading>
+      <SectionHeading as="h1" kicker="Tickets">{show.city}</SectionHeading>
       <div className="space-y-1">
         <p className="font-display text-xl font-extrabold uppercase tracking-[-0.02em]">{show.venue}</p>
         <p className="text-muted">

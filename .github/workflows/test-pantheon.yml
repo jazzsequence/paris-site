@@ -61,6 +61,30 @@ jobs:
           NEXT_PUBLIC_CSS_SITE_ID: 00000000-0000-0000-0000-000000000000
           CSS_API_KEY: ci-placeholder
 
+      # Runs axe (WCAG 2.2 AA + best practices) and keyboard/focus/skip-link checks against the
+      # standalone server that `pnpm build` just produced, on desktop and mobile viewports.
+      # Audio credentials are absent here, so tracks render in their "Coming soon" state.
+      - name: Accessibility checks
+        id: a11y
+        if: steps.build.outcome == 'success'
+        continue-on-error: true
+        run: |
+          pnpm exec playwright install --with-deps chromium
+          pnpm test:a11y
+        env:
+          CI: true
+          NEXT_PUBLIC_CSS_SITE_ID: 00000000-0000-0000-0000-000000000000
+          NEXT_PUBLIC_CSS_BASE_URL: https://ccr.p1.pantheon.io
+          CSS_API_KEY: ci-placeholder
+
+      - name: Upload accessibility report
+        if: steps.a11y.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-test-results
+          path: test-results/
+          if-no-files-found: ignore
+
       - name: Build Storybook
         id: storybook
         continue-on-error: true
@@ -76,11 +100,12 @@ jobs:
             echo "- **Typecheck:** ${{ steps.typecheck.outcome == 'success' && '✅ Passed' || '❌ Failed' }}"
             echo "- **Unit tests:** ${{ steps.unit-tests.outcome == 'success' && '✅ Passed' || '❌ Failed' }}"
             echo "- **Build:** ${{ steps.build.outcome == 'success' && '✅ Passed' || '❌ Failed' }}"
+            echo "- **Accessibility (axe, keyboard, focus):** ${{ steps.a11y.outcome == 'success' && '✅ Passed' || '❌ Failed' }}"
             echo "- **Storybook build:** ${{ steps.storybook.outcome == 'success' && '✅ Passed' || '❌ Failed' }}"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Fail workflow if any checks failed
-        if: steps.lint.outcome != 'success' || steps.typecheck.outcome != 'success' || steps.unit-tests.outcome != 'success' || steps.build.outcome != 'success' || steps.storybook.outcome != 'success'
+        if: steps.lint.outcome != 'success' || steps.typecheck.outcome != 'success' || steps.unit-tests.outcome != 'success' || steps.build.outcome != 'success' || steps.a11y.outcome != 'success' || steps.storybook.outcome != 'success'
         run: exit 1
 
   deployed:

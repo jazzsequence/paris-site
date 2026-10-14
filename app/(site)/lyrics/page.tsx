@@ -20,7 +20,7 @@ export default async function Lyrics() {
 
   return (
     <Page narrow>
-      <SectionHeading kicker="Words">Lyrics</SectionHeading>
+      <SectionHeading as="h1" kicker="Words">Lyrics</SectionHeading>
       {groups.map((g) => (
         <section key={g.key} className="space-y-3">
           <h2 className="font-display text-xs uppercase tracking-[0.25em] text-violet">{g.title}</h2>

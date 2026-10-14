@@ -50,19 +50,23 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
         </div>
         <div className="flex items-center gap-3 text-xs tabular-nums text-muted">
           <span>{elapsed}</span>
-          <div
-            onClick={(e) => {
-              const r = e.currentTarget.getBoundingClientRect();
-              onSeek?.(((e.clientX - r.left) / r.width) * 100);
-            }}
-            role="progressbar"
-            aria-label="Track progress"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={progress}
-            className="h-2 flex-1 cursor-pointer overflow-hidden rounded-full bg-line"
-          >
-            <div className="h-full bg-[image:var(--grad-neon)]" style={{ width: `${progress}%` }} />
+          {/* A real range input (transparent, over the visual bar) so seeking works with a
+              keyboard, touch and screen readers, not just a mouse. */}
+          <div className="relative flex h-6 flex-1 items-center has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-cyan">
+            <div className="h-2 w-full overflow-hidden rounded-full bg-line" aria-hidden>
+              <div className="h-full bg-[image:var(--grad-neon)]" style={{ width: `${progress}%` }} />
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={0.5}
+              value={progress}
+              onChange={(e) => onSeek?.(Number(e.target.value))}
+              aria-label="Seek"
+              aria-valuetext={`${elapsed} of ${duration}`}
+              className="absolute inset-0 size-full cursor-pointer opacity-0"
+            />
           </div>
           <span>{duration}</span>
         </div>

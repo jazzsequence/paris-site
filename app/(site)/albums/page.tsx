@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Albums", description: "The PARIS cat
 export default function Albums() {
   return (
     <Page>
-      <SectionHeading kicker="Music">Albums</SectionHeading>
+      <SectionHeading as="h1" kicker="Music">Albums</SectionHeading>
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         {albums.map((a) => (
           <AlbumCard
@@ -20,6 +20,7 @@ export default function Albums() {
             cover={a.cover}
             trackCount={a.tracks.length}
             featured={a.featured}
+            headingLevel="h2"
             href={a.featured ? "/well-enough" : `/albums/${a.slug}`}
           />
         ))}

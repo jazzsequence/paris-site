@@ -14,3 +14,7 @@ storybook-static
 # Local-only source material (never publish)
 /docs/
 /images/
+
+# Playwright
+test-results/
+playwright-report/
