@@ -1,4 +1,4 @@
 [
   { "slug": "well-enough-cd", "name": "Well Enough (CD)", "price": "$14.98", "image": "/images/well-enough-cover.jpg" },
-  { "slug": "tribute-cd", "name": "Tribute (CD)", "price": "$11.98", "image": "/images/tribute-cover.png" }
+  { "slug": "tribute-cd", "name": "Tribute (CD)", "price": "$11.98", "image": "/images/tribute-cover.jpg" }
 ]

@@ -13,12 +13,13 @@ const toPlayer = (t: CatalogTrack): PlayerTrack => ({
 });
 
 export function TrackList({ tracks }: { tracks: CatalogTrack[] }) {
-  const { play, current, playing } = usePlayer();
-  const queue = tracks.filter((t) => t.hasAudio).map(toPlayer);
+  const { play, enqueue, currentId, playing } = usePlayer();
+  const list = tracks.filter((t) => t.hasAudio).map(toPlayer);
   return (
     <ol className="border-t border-line">
       {tracks.map((t) => {
         const p = toPlayer(t);
+        const isCurrent = currentId === p.id;
         return (
           <TrackRow
             key={t.slug}
@@ -26,8 +27,10 @@ export function TrackList({ tracks }: { tracks: CatalogTrack[] }) {
             title={t.title}
             hasAudio={t.hasAudio}
             lyricsHref={t.hasLyrics ? `/lyrics/${t.slug}` : undefined}
-            playing={current?.id === p.id && playing}
-            onPlay={() => play(p, queue)}
+            current={isCurrent}
+            playing={isCurrent && playing}
+            onPlay={() => play(p, list)}
+            onQueue={() => enqueue(p)}
             downloadHref={t.downloadHref}
           />
         );

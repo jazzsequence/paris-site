@@ -1,3 +1,4 @@
+import { AppLink } from "./AppLink";
 import { Wordmark } from "./Wordmark";
 
 export function SiteFooter() {
@@ -6,6 +7,11 @@ export function SiteFooter() {
       <Wordmark />
       <p>Hostile Takeover. Released through Interscope Records.</p>
       <p className="text-dim">© 1997 PARIS. All rights reserved.</p>
+      <nav aria-label="Footer">
+        <AppLink href="/privacy" className="inline-block py-2 underline underline-offset-4 hover:text-text">
+          Privacy
+        </AppLink>
+      </nav>
     </footer>
   );
 }

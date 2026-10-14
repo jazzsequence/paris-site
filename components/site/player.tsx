@@ -12,11 +12,20 @@ export type PlayerTrack = {
   src: string;
 };
 
+/** One slot in the queue. The same song can be queued twice, so slots have their own id. */
+type Entry = { uid: string; track: PlayerTrack };
+
 type PlayerState = {
-  current?: PlayerTrack;
+  /** Id of the track loaded in the player, playing or paused. */
+  currentId?: string;
   playing: boolean;
-  /** Start a track; `queue` is the ordered list that next/previous move through. */
-  play: (track: PlayerTrack, queue?: PlayerTrack[]) => void;
+  /**
+   * Play a track. Passing `list` replaces the queue with that list (an album, say). Calling it for the
+   * track that is already loaded pauses or resumes it instead.
+   */
+  play: (track: PlayerTrack, list?: PlayerTrack[]) => void;
+  /** Add a track to the end of the queue. Starts nothing if something else is already playing. */
+  enqueue: (track: PlayerTrack) => void;
 };
 
 const Ctx = createContext<PlayerState | null>(null);
@@ -30,45 +39,83 @@ export function usePlayer(): PlayerState {
 const fmt = (s: number) => (Number.isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}` : "0:00");
 
 /**
- * Lives in the root layout so playback continues across navigation. No cookies, no storage,
+ * Lives in the site layout so playback continues across navigation. No cookies, no storage,
  * no analytics: state is in memory only and disappears with the tab.
  */
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const audio = useRef<HTMLAudioElement>(null);
-  const [queue, setQueue] = useState<PlayerTrack[]>([]);
-  const [current, setCurrent] = useState<PlayerTrack>();
+  const counter = useRef(0);
+  const [queue, setQueue] = useState<Entry[]>([]);
+  const [currentUid, setCurrentUid] = useState<string>();
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState({ elapsed: 0, duration: 0 });
+  const [announcement, setAnnouncement] = useState("");
 
-  const start = useCallback((track: PlayerTrack) => {
-    setCurrent(track);
+  const current = queue.find((e) => e.uid === currentUid)?.track;
+  const entry = useCallback((track: PlayerTrack): Entry => ({ uid: `q${++counter.current}`, track }), []);
+
+  /** Make an entry the loaded track. Playback only starts when asked to. */
+  const load = useCallback((e: Entry, autoplay: boolean) => {
+    setCurrentUid(e.uid);
     const el = audio.current;
     if (!el) return;
-    el.src = track.src;
-    void el.play().catch(() => setPlaying(false));
+    el.src = e.track.src;
+    if (autoplay) void el.play().catch(() => setPlaying(false));
+  }, []);
+
+  const togglePlayback = useCallback(() => {
+    const el = audio.current;
+    if (!el) return;
+    if (el.paused) void el.play().catch(() => setPlaying(false));
+    else el.pause();
   }, []);
 
   const play = useCallback(
-    (track: PlayerTrack, q?: PlayerTrack[]) => {
-      if (q) setQueue(q);
+    (track: PlayerTrack, list?: PlayerTrack[]) => {
       if (current?.id === track.id) {
-        const el = audio.current;
-        if (el?.paused) void el.play();
-        else el?.pause();
+        togglePlayback();
         return;
       }
-      start(track);
+      const entries = (list ?? [track]).map(entry);
+      const target = entries.find((e) => e.track.id === track.id) ?? entries[0];
+      setQueue(entries);
+      load(target, true);
     },
-    [current, start],
+    [current, entry, load, togglePlayback],
   );
+
+  const enqueue = useCallback(
+    (track: PlayerTrack) => {
+      const e = entry(track);
+      setQueue((q) => [...q, e]);
+      setAnnouncement(`Added ${track.title} to the queue`);
+      // With nothing loaded there is no player bar to hold the queue, so load it without playing.
+      if (!current) load(e, false);
+    },
+    [current, entry, load],
+  );
+
+  const removeFromQueue = useCallback((uid: string) => {
+    setQueue((q) => {
+      const gone = q.find((e) => e.uid === uid);
+      if (gone) setAnnouncement(`Removed ${gone.track.title} from the queue`);
+      return q.filter((e) => e.uid !== uid);
+    });
+  }, []);
+
+  /** Keep only the track that is loaded; everything queued around it goes. */
+  const clearQueue = useCallback(() => {
+    setQueue((q) => q.filter((e) => e.uid === currentUid));
+    setAnnouncement("Queue cleared");
+  }, [currentUid]);
 
   const step = useCallback(
     (dir: 1 | -1) => {
-      const i = queue.findIndex((t) => t.id === current?.id);
+      const i = queue.findIndex((e) => e.uid === currentUid);
       const next = queue[i + dir];
-      if (next) start(next);
+      if (next) load(next, true);
     },
-    [queue, current, start],
+    [queue, currentUid, load],
   );
 
   // Hardware / lock-screen media keys.
@@ -84,7 +131,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     navigator.mediaSession.setActionHandler("nexttrack", () => step(1));
   }, [current, step]);
 
-  const value = useMemo(() => ({ current, playing, play }), [current, playing, play]);
+  const value = useMemo(() => ({ currentId: current?.id, playing, play, enqueue }), [current?.id, playing, play, enqueue]);
   const progress = time.duration ? (time.elapsed / time.duration) * 100 : 0;
 
   return (
@@ -103,6 +150,9 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         onLoadedMetadata={(e) => setTime({ elapsed: 0, duration: e.currentTarget.duration })}
         onEnded={() => step(1)}
       />
+      <div role="status" aria-live="polite" className="sr-only">
+        {announcement}
+      </div>
       {current && (
         <div className="sticky bottom-0 z-40">
           <PlayerBar
@@ -113,9 +163,17 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
             duration={fmt(time.duration)}
             progress={Math.round(progress)}
             playing={playing}
-            onToggle={() => (audio.current?.paused ? void audio.current.play() : audio.current?.pause())}
+            onToggle={togglePlayback}
             onPrev={() => step(-1)}
             onNext={() => step(1)}
+            queue={queue.map((e) => ({ id: e.uid, title: e.track.title, subtitle: e.track.album }))}
+            currentId={currentUid}
+            onSelect={(uid) => {
+              const e = queue.find((x) => x.uid === uid);
+              if (e) load(e, true);
+            }}
+            onRemove={removeFromQueue}
+            onClear={clearQueue}
             onSeek={(pct) => {
               if (audio.current && Number.isFinite(audio.current.duration)) {
                 audio.current.currentTime = (pct / 100) * audio.current.duration;

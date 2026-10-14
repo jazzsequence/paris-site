@@ -21,6 +21,7 @@ const routes = [
   "/press",
   "/bio",
   "/merch",
+  "/privacy",
   // Unknown URLs go through the P1 catch-all, which needs real P1 credentials; CI has none.
   ...(process.env.A11Y_P1_ROUTES ? ["/this-page-does-not-exist"] : []),
 ];

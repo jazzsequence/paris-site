@@ -5,8 +5,9 @@ import { PrintButton } from "../../../components/site/print-button";
 import { ButtonLink } from "../../../design-system/components/Button";
 import { TicketCard } from "../../../design-system/components/TicketCard";
 import { getShow, longDate } from "../../../lib/site/tour";
+import { pageMetadata } from "../../../lib/site/seo";
 
-export const metadata: Metadata = { title: "Your ticket", robots: { index: false } };
+export const metadata: Metadata = pageMetadata({ title: "Your ticket", description: "Your e-ticket.", path: "/ticket", noindex: true });
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";

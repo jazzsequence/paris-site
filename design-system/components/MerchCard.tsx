@@ -1,3 +1,5 @@
+import { LightboxImage } from "./LightboxImage";
+
 export function MerchCard({
   name,
   price,
@@ -13,7 +15,7 @@ export function MerchCard({
   return (
     <div className="group space-y-3">
       <div className="aspect-square overflow-hidden rounded-card border border-line bg-surface">
-        <img src={image} alt={name} className="size-full object-cover transition duration-500 group-hover:scale-105" />
+        <LightboxImage src={image} alt={name} width={640} height={640} loading="lazy" decoding="async" className="size-full object-cover transition duration-500 group-hover:scale-105" />
       </div>
       <div className="flex items-baseline justify-between gap-3">
         <Heading className="font-display text-sm font-semibold uppercase tracking-wide">{name}</Heading>

@@ -22,6 +22,10 @@ export function AlbumCard({ title, year, cover, trackCount, featured, href = "#"
         <img
           src={cover}
           alt={`${title} cover art`}
+          width={640}
+          height={640}
+          loading="lazy"
+          decoding="async"
           className="size-full object-cover transition duration-500 group-hover:scale-105"
         />
         {featured && (
