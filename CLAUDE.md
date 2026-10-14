@@ -26,6 +26,8 @@ that outline. `docs/` will be gitignored or moved before the repo goes public.
 - **Single Next config:** `next.config.ts` only. The starter's `.mjs` config and the Pantheon template's `.ts`
   config coexisted and Next silently loaded the `.mjs`, dropping `output: "standalone"`. Merged; do not re-add.
   `cacheHandler.mjs` must stay plain JS: the standalone server loads it at runtime.
+  `start` must be `node .next/standalone/server.js` (with `copy-standalone` in `build`), never `next start`: that
+  ignores `output: standalone` and looks for `cacheHandler.mjs` inside `.next/`, so every request 500s on Pantheon.
 - **`NEXT_PUBLIC_CSS_BASE_URL` is required** (`https://ccr.p1.pantheon.io`): the auth routes do not default it and 500 with "Server configuration error" if blank. (The data client does default; the broker does not.)
 - **Secrets on Pantheon:** `terminus secret:site:set <site>[.env] NAME value --type=env --scope=web --rebuild`.
   Changes only apply after a rebuild. Values are write-only. P1 key: `CSS_API_KEY` (drafts scope) on dev/test/local;
@@ -42,7 +44,7 @@ that outline. `docs/` will be gitignored or moved before the repo goes public.
 
 ## Design approval workflow
 
-Design work goes on `design/<topic>` branches into a protected `design` branch. Merging the PR is the approval.
+Design work goes on `design-<topic>` branches into a protected `design` branch. Merging the PR is the approval.
 Only approved tokens/components are applied to the site via a PR from `design` to `main`. Dark theme only;
 palette is mall goth x K-pop (neon accents), not Ventrue blue/gold.
 The blackletter face (UnifrakturCook) is an accent for kickers only. The name PARIS is always capitals in Unbounded at -0.05em (`Wordmark` component, `--font-wordmark`), flat colour,
