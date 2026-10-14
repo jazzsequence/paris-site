@@ -13,10 +13,18 @@ import { spacerBlock } from "./components/puck/spacer-block";
 import { welcomeBlock } from "./components/puck/welcome-block";
 import { dataListBlock } from "./components/puck/data-list-block";
 import { p1Blocks, p1Categories } from "./components/puck/blocks";
+import { imageTextBlock } from "./components/puck/paris/image-text-block";
+import { merchGridBlock } from "./components/puck/paris/merch-grid-block";
+import { pageHeadingBlock } from "./components/puck/paris/page-heading-block";
+import { tourDatesBlock } from "./components/puck/paris/tour-dates-block";
 
 export const config = {
   categories: {
     ...p1Categories,
+    paris: {
+      title: "PARIS",
+      components: ["PageHeadingBlock", "ImageTextBlock", "TourDatesBlock", "MerchGridBlock"],
+    },
     data: {
       title: "Data",
       components: ["DataListBlock"],
@@ -46,6 +54,10 @@ export const config = {
   root: puckRoot,
   components: {
     ...p1Blocks,
+    PageHeadingBlock: pageHeadingBlock,
+    ImageTextBlock: imageTextBlock,
+    TourDatesBlock: tourDatesBlock,
+    MerchGridBlock: merchGridBlock,
     HeadingBlock: headingBlock,
     ParagraphBlock: paragraphBlock,
     ImageBlock: imageBlock,

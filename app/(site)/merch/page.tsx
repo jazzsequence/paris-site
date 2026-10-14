@@ -1,14 +1,28 @@
 import type { Metadata } from "next";
 
 import { Page } from "../../../components/site/section";
+import merch from "../../../data/merch.json";
 import { MerchCard } from "../../../design-system/components/MerchCard";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
-import merch from "../../../data/merch.json";
+import { getP1Page, rootProp } from "../../../lib/site/p1-content";
 import { pageMetadata } from "../../../lib/site/seo";
+import { Client } from "../[...puckPath]/client";
 
-export const metadata: Metadata = pageMetadata({ title: "Merch", description: "PARIS merchandise, sold at the merch table on tour.", path: "/merch" });
+export const revalidate = 300;
 
-export default function Merch() {
+export async function generateMetadata(): Promise<Metadata> {
+  const doc = await getP1Page("/merch");
+  return pageMetadata({
+    title: rootProp(doc, "title") ?? "Merch",
+    description: rootProp(doc, "description") ?? "PARIS merchandise, sold at the merch table on tour.",
+    path: "/merch",
+  });
+}
+
+/** Renders the published P1 page when there is one; otherwise the items in data/merch.json. */
+export default async function Merch() {
+  const doc = await getP1Page("/merch");
+  if (doc) return <Client data={doc} pageMetadata={{ route: "/merch" }} />;
   return (
     <Page>
       <SectionHeading as="h1" kicker="Take something home">Merch</SectionHeading>

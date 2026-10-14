@@ -34,7 +34,7 @@ export const puckRoot = {
   render: (props: { children?: ReactNode; title?: string }) => {
     const { children } = props;
     return (
-      <div className="font-sans antialiased">
+      <div className="min-h-screen bg-void font-body text-text antialiased">
         {children}
       </div>
     );

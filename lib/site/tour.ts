@@ -15,7 +15,43 @@ export type Show = {
   lon: number;
 };
 
-export const shows = (tourData as Show[]).slice().sort((a, b) => a.date.localeCompare(b.date));
+const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+/** Stable id used in the ticket URL. An explicit id wins, so existing links keep working; new dates derive one. */
+export const showId = (s: Pick<Show, "city" | "date"> & { id?: string }) =>
+  s.id?.trim() || `${slug(s.city.split(",")[0] ?? s.city)}-${s.date}`;
+
+/** Cleans untrusted editor input (P1 block props) into complete, date-sorted shows. Invalid rows are dropped. */
+export function normalizeShows(items: unknown): Show[] {
+  if (!Array.isArray(items)) return [];
+  const rows: Show[] = [];
+  for (const raw of items) {
+    if (!raw || typeof raw !== "object") continue;
+    const r = raw as Record<string, unknown>;
+    const date = typeof r.date === "string" ? r.date.trim() : "";
+    const city = typeof r.city === "string" ? r.city.trim() : "";
+    const venue = typeof r.venue === "string" ? r.venue.trim() : "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !city || !venue) continue;
+    const price = Number(r.price);
+    rows.push({
+      id: showId({ id: typeof r.id === "string" ? r.id : undefined, city, date }),
+      date,
+      city,
+      venue,
+      ...(typeof r.address === "string" && r.address.trim() ? { address: r.address.trim() } : {}),
+      ...(typeof r.capacity === "string" && r.capacity.trim() ? { capacity: r.capacity.trim() } : {}),
+      doors: typeof r.doors === "string" && r.doors.trim() ? r.doors.trim() : "TBA",
+      price: Number.isFinite(price) && price >= 0 ? price : 0,
+      status: r.status === "sold-out" ? "sold-out" : "on-sale",
+      lat: Number.isFinite(Number(r.lat)) ? Number(r.lat) : 0,
+      lon: Number.isFinite(Number(r.lon)) ? Number(r.lon) : 0,
+    });
+  }
+  return rows.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** Repo copy of the tour: used when P1 is unreachable, and as the seed for the P1 page. */
+export const shows = normalizeShows(tourData);
 export const getShow = (id: string) => shows.find((s) => s.id === id);
 
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];

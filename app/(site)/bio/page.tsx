@@ -5,11 +5,33 @@ import { ButtonLink } from "../../../design-system/components/Button";
 import { AppLink } from "../../../design-system/components/AppLink";
 import { pageMetadata } from "../../../lib/site/seo";
 import { JsonLd } from "../../../components/site/json-ld";
+import { getP1Page, rootProp } from "../../../lib/site/p1-content";
+import { Client } from "../[...puckPath]/client";
 import { artistData } from "../../../lib/site/structured-data";
 
-export const metadata: Metadata = pageMetadata({ title: "Bio", description: "About PARIS: the independent EP, the album Well Enough on Hostile Takeover, and life on tour.", path: "/bio", image: "/images/paris-portrait.jpg" });
+export const revalidate = 300;
 
-export default function Bio() {
+export async function generateMetadata(): Promise<Metadata> {
+  const doc = await getP1Page("/bio");
+  return pageMetadata({
+    title: rootProp(doc, "title") ?? "Bio",
+    description: rootProp(doc, "description") ?? "About PARIS: the independent EP, the album Well Enough on Hostile Takeover, and life on tour.",
+    path: "/bio",
+    image: "/images/paris-portrait.jpg",
+  });
+}
+
+/** Renders the published P1 page when there is one; otherwise this copy. */
+export default async function Bio() {
+  const doc = await getP1Page("/bio");
+  if (doc) {
+    return (
+      <>
+        <JsonLd data={artistData()} />
+        <Client data={doc} pageMetadata={{ route: "/bio" }} />
+      </>
+    );
+  }
   return (
     <Page>
       <JsonLd data={artistData()} />
