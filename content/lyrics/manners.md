@@ -5,7 +5,7 @@ track: 5
 ---
 
 
-(controlled, even)
+### (controlled, even)
 I'm furious.
 What I mean is: how thoughtful of you to ask.
 
@@ -15,9 +15,9 @@ What I mean is: after you.
 This actually hurts.
 What I mean is: I'm fine, thank you for asking.
 
-(four bars, pulse only, no vocal)
+### (four bars, pulse only, no vocal)
 
-(tighter, closer to the bone)
+### (tighter, closer to the bone)
 I'm afraid of you.
 What I mean is: it's an honor.
 
@@ -27,20 +27,22 @@ What I mean is: I'm so grateful for the opportunity.
 I don't remember choosing this.
 What I mean is: of course. Whatever you need.
 
-(break)
+### (break)
 Let me go.
 
-(silence — the longest gap in the song)
+### (silence — the longest gap in the song)
 
-(quiet, almost ashamed of itself)
+### (quiet, almost ashamed of itself)
 What I mean is—
 it's been a pleasure.
 
-(the correction speeds up and layers over the raw voice, which drops to a murmur underneath)
-I don't forgive you. (underneath, barely audible: I don't forgive you — I don't forgive you — I don't forgive you)
+### (the correction speeds up and layers over the raw voice, which drops to a murmur underneath)
+I don't forgive you. 
+(underneath, barely audible: I don't forgive you — I don't forgive you — I don't forgive you)
 What I mean is: of course. Think nothing of it.
 
-I'm not fine. (underneath, fading further: I'm not fine — I'm not—)
+I'm not fine. 
+(underneath, fading further: I'm not fine — I'm not—)
 What I mean is: thank you for having me.
 
 ### Outro (raw voice gone entirely, total and composed)
