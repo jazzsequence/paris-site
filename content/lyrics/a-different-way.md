@@ -37,10 +37,10 @@ somebody put it down
 You can have this one wrong
 You can have this one at all
 
-Final lines (the last vocal on the record)
+### Final lines (the last vocal on the record)
 I'll leave it running
 I'll leave it running
 Not for a signal
 Just so it isn't dark in here
 
-\[no further vocal — instrumental, 1:40, hold music resolving into live playing, drifting tempo, ends without a final chord\]
+### no further vocal — instrumental, 1:40, hold music resolving into live playing, drifting tempo, ends without a final chord
