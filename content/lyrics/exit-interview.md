@@ -5,7 +5,7 @@ track: 10
 ---
 
 
-ntro (synth hook alone, four bars, then bass drops in)
+### Intro (synth hook alone, four bars, then bass drops in)
 
 ### Verse 1
 Question one
@@ -66,7 +66,7 @@ And we do mean see
 Because I'm looking at the space
 And there's nothing looking back at me
 
-Middle Eight (bass drops out; synth hook, unaccompanied, plays the chorus melody in full — no vocal at all, eight bars)
+### Middle Eight (bass drops out; synth hook, unaccompanied, plays the chorus melody in full — no vocal at all, eight bars)
 
 ### Verse 3 (same melody as verse 1, delivered slower)
 I know the shape of where you stood
@@ -99,7 +99,7 @@ We're so sorry
 We're so sorry
 We are so, so sorry
 
-(flat, on the last beat)
+### (flat, on the last beat)
 No we're not
 
 ### Outro (hook alone, fading; spoken over it, dry)
