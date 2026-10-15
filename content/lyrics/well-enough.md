@@ -5,14 +5,14 @@ track: 6
 ---
 
 
-\[1950s TV commercial sample, cheery nurse\]
+### 1950s TV commercial sample, cheery nurse
 How are we feeling today?
 
-Intro (dry, intimate)
+### Intro (dry, intimate)
 They said I looked tired
 I said I was awake
 
-Verse A
+### Verse A
 Give me a number
 Give me a room
 Sit still, you’re doing great
@@ -53,10 +53,10 @@ To be useful
 To be emptied
 To be consumed
 
-\[1950s TV commercial sample, cheery nurse\]
+### 1950s TV commercial sample, cheery nurse
 You’ll be feeling better in no time.
 
-Verse C
+### Verse C
 Gentle voices reward compliance
 Praise arrives when questions stop
 Gratitude is noted carefully
@@ -87,7 +87,7 @@ To be quiet
 To be chosen
 To be gone
 
-\[1950s TV commercial sample, cheery doctor\]
+### 1950s TV commercial sample, cheery doctor
 What seems to be the problem?
 
 ### Bridge
@@ -112,7 +112,7 @@ You’re just well enough
 To disappear politely
 So no one has to stop
 
-### Outro (drop to voice \+ pulse)
+### Outro (drop to voice + pulse)
 I didn’t escape
 I was released
 After learning how to look harmless
