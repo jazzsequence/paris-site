@@ -21,9 +21,13 @@ export default defineConfig({
     command: "node .next/standalone/server.js",
     url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
+    // The server's error stream is hidden by default: with the placeholder P1 key it logs "Authentication required"
+    // on every request, which reads like skipped tests. Set E2E_VERBOSE=1 to see it when debugging.
+    stderr: process.env.E2E_VERBOSE ? "pipe" : "ignore",
     env: {
       PORT: String(PORT),
       HOSTNAME: "127.0.0.1",
+      E2E_FIXTURES: "1", // enables the test-only /e2e-fixtures/<name> route
       // Deterministic by default: with a placeholder key P1 reads fail, so bio, tour and merch render from the
       // repo copy exactly as they do in CI. Set P1_LIVE=1 (with real credentials in .env) to test live content.
       ...(process.env.P1_LIVE ? {} : { CSS_API_KEY: "e2e-placeholder" }),

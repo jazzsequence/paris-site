@@ -1,7 +1,27 @@
 import { assetUrl } from "../asset";
 import { ButtonLink } from "./Button";
 
-export function Hero({ image, kicker, title, blurb }: { image: string; kicker: string; title: string; blurb: string }) {
+export type HeroAction = { label: string; href: string; variant?: "primary" | "outline" };
+
+const DEFAULT_ACTIONS: HeroAction[] = [
+  { label: "Tour dates", href: "/tour" },
+  { label: "Listen", href: "/listen", variant: "outline" },
+];
+
+export function Hero({
+  image,
+  kicker,
+  title,
+  blurb,
+  actions = DEFAULT_ACTIONS,
+}: {
+  image: string;
+  kicker: string;
+  title: string;
+  blurb: string;
+  /** Buttons under the blurb. Defaults to Tour dates and Listen. */
+  actions?: HeroAction[];
+}) {
   return (
     // The photo is portrait and the hero is landscape, so only a slice of it shows. Height follows width
     // (56vw) so the face stays in frame on wide monitors, and the fade is limited to the bottom third so it
@@ -18,8 +38,11 @@ export function Hero({ image, kicker, title, blurb }: { image: string; kicker: s
         <h1 className="text-chrome font-display text-6xl font-extrabold uppercase leading-[0.9] tracking-[-0.04em] md:text-8xl">{title}</h1>
         <p className="max-w-xl text-lg text-text">{blurb}</p>
         <div className="flex flex-wrap gap-3">
-          <ButtonLink href="/tour">Tour dates</ButtonLink>
-          <ButtonLink href="/listen" variant="outline">Listen</ButtonLink>
+          {actions.map((a) => (
+            <ButtonLink key={`${a.label}-${a.href}`} href={a.href} variant={a.variant ?? "primary"}>
+              {a.label}
+            </ButtonLink>
+          ))}
         </div>
       </div>
     </section>

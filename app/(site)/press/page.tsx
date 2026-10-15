@@ -6,16 +6,18 @@ import Markdown from "react-markdown";
 
 import { Page } from "../../../components/site/section";
 import { StandardDocumentLink } from "../../../components/site/standard-document-link";
-import { pageMetadata } from "../../../lib/site/seo";
+import { P1Page } from "../../../components/site/p1-page";
+import { getP1Page } from "../../../lib/site/p1-content";
+import { p1PageMetadata } from "../../../lib/site/p1-metadata";
 
-export const metadata: Metadata = pageMetadata({
+export const generateMetadata = (): Promise<Metadata> => p1PageMetadata({
   title: "PARIS is Making Monsters Polite",
   description: "The rising industrial pop artist discusses discomfort, power, and why explanation is a form of containment.",
   path: "/press",
   type: "article",
 });
 
-export default async function Press() {
+async function PressFallback() {
   const md = await fs.readFile(path.join(process.cwd(), "content", "press", "interview.md"), "utf8");
   return (
     <Page narrow>
@@ -30,4 +32,10 @@ export default async function Press() {
       </article>
     </Page>
   );
+}
+
+/** The published P1 page when there is one, otherwise the code version above. */
+export default async function PressRoute() {
+  const doc = await getP1Page("/press");
+  return doc ? <P1Page data={doc} path="/press" /> : <PressFallback />;
 }

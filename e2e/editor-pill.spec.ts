@@ -4,14 +4,13 @@ import { expect, test } from "@playwright/test";
  * Signed-in editors see a small "P1" pill on public pages. It must never sit on top of the site header
  * (it once covered the last nav link), and its menu must stay on screen.
  */
-// The pill only appears on pages rendered from P1, so these need real P1 credentials: `P1_LIVE=1 pnpm test:e2e`.
-test.skip(!process.env.P1_LIVE, "needs live P1 content (set P1_LIVE=1)");
-
+// The pill only appears on pages rendered from P1. In CI that is the test-only /e2e-fixtures route, which renders
+// the P1 page definitions through the same pipeline, so these run everywhere with no credentials.
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem("p1_logged_in", "1"));
 });
 
-for (const route of ["/bio", "/tour", "/merch"]) {
+for (const route of ["/e2e-fixtures/home", "/e2e-fixtures/listen", "/e2e-fixtures/well-enough"]) {
   test(`the editor pill does not overlap the header on ${route}`, async ({ page }) => {
     await page.goto(route);
     const pill = page.locator("[data-p1-widget] > button");
@@ -29,7 +28,7 @@ for (const route of ["/bio", "/tour", "/merch"]) {
 }
 
 test("the pill's menu opens upward and stays fully on screen", async ({ page }) => {
-  await page.goto("/bio");
+  await page.goto("/e2e-fixtures/home");
   await page.locator("[data-p1-widget] > button").click();
   const menu = page.getByRole("menu");
   await expect(menu).toBeVisible();

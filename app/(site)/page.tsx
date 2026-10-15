@@ -7,13 +7,15 @@ import { TourDateRow } from "../../design-system/components/TourDateRow";
 import { ButtonLink } from "../../design-system/components/Button";
 import { Page } from "../../components/site/section";
 import { albums, getFeaturedAlbum } from "../../lib/site/catalog";
-import { getShows } from "../../lib/site/p1-content";
+import { getP1Page, getShows } from "../../lib/site/p1-content";
 import { dateParts, showId } from "../../lib/site/tour";
 import { JsonLd } from "../../components/site/json-ld";
-import { SITE_URL, pageMetadata } from "../../lib/site/seo";
+import { SITE_URL } from "../../lib/site/seo";
 import { artistData } from "../../lib/site/structured-data";
+import { P1Page } from "../../components/site/p1-page";
+import { p1PageMetadata } from "../../lib/site/p1-metadata";
 
-export const metadata: Metadata = pageMetadata({
+export const generateMetadata = (): Promise<Metadata> => p1PageMetadata({
   title: "PARIS",
   description: "PARIS: tour dates, music, lyrics and the new album Well Enough.",
   path: "/",
@@ -22,7 +24,7 @@ export const metadata: Metadata = pageMetadata({
 
 export const revalidate = 300;
 
-export default async function Home() {
+async function HomeFallback() {
   const shows = await getShows();
   const latest = getFeaturedAlbum();
   return (
@@ -74,6 +76,23 @@ export default async function Home() {
           </div>
         </section>
       </Page>
+    </>
+  );
+}
+
+/** The published P1 home page when there is one, otherwise the code version above. */
+export default async function HomeRoute() {
+  const doc = await getP1Page("/");
+  if (!doc) return <HomeFallback />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          artistData(),
+          { "@context": "https://schema.org", "@type": "WebSite", name: "PARIS", url: SITE_URL, publisher: { "@id": `${SITE_URL}/#artist` } },
+        ]}
+      />
+      <P1Page data={doc} path="/" />
     </>
   );
 }

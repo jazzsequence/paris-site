@@ -5,11 +5,13 @@ import { SectionHeading } from "../../../design-system/components/SectionHeading
 import { albums } from "../../../lib/site/catalog";
 import { getLyrics } from "../../../lib/site/lyrics";
 import { AppLink } from "../../../design-system/components/AppLink";
-import { pageMetadata } from "../../../lib/site/seo";
+import { P1Page } from "../../../components/site/p1-page";
+import { getP1Page } from "../../../lib/site/p1-content";
+import { p1PageMetadata } from "../../../lib/site/p1-metadata";
 
-export const metadata: Metadata = pageMetadata({ title: "Lyrics", description: "Every PARIS lyric, by album.", path: "/lyrics" });
+export const generateMetadata = (): Promise<Metadata> => p1PageMetadata({ title: "Lyrics", description: "Every PARIS lyric, by album.", path: "/lyrics" });
 
-export default async function Lyrics() {
+async function LyricsFallback() {
   const lyrics = await getLyrics();
   const groups = [
     ...albums.map((a) => ({
@@ -40,4 +42,10 @@ export default async function Lyrics() {
       ))}
     </Page>
   );
+}
+
+/** The published P1 page when there is one, otherwise the code version above. */
+export default async function LyricsRoute() {
+  const doc = await getP1Page("/lyrics");
+  return doc ? <P1Page data={doc} path="/lyrics" /> : <LyricsFallback />;
 }
