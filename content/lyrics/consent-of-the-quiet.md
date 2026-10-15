@@ -61,7 +61,7 @@ Look at what you made polite.
 You want a god?
 Stop kneeling and see who’s still standing.
 
-(beat drops out)
+### (beat drops out)
 
 I’m not your savior
 I’m not your sin
