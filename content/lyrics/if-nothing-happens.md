@@ -61,7 +61,7 @@ If nothing happens
 Well, that's what usually happens
 Isn't it
 
-Middle Eight (arrangement drops to organ and handclaps; tempo identical, no slowing)
+### Middle Eight (arrangement drops to organ and handclaps; tempo identical, no slowing)
 I'd like to be the one it worked for
 Everybody would
 Everybody thinks their year's the year
@@ -72,7 +72,7 @@ and you're in a shop
 and the thing you wrote is playing
 and nobody looks up
 
-### Final Chorus (everything doubles in brightness — brass, extra claps, gang backing vocal for the only time since track 1\)
+### Final Chorus (everything doubles in brightness — brass, extra claps, gang backing vocal for the only time since track 1)
 If nothing happens
 If nothing happens
 I'll have made a decent record
@@ -83,4 +83,4 @@ I'll do it again next year
 I'll do it again next year
 I'll do it again next year
 
-(hard stop on the downbeat)
+### (hard stop on the downbeat)
