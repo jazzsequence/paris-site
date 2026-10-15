@@ -43,4 +43,4 @@ I'll leave it running
 Not for a signal
 Just so it isn't dark in here
 
-### no further vocal — instrumental, 1:40, hold music resolving into live playing, drifting tempo, ends without a final chord
+### no further vocal — instrumental, drifting tempo, ends without a final chord
