@@ -5,7 +5,7 @@ track: 9
 ---
 
 
-Intro (solo upright piano, four bars, absurdly formal)
+### Intro (solo upright piano, four bars, absurdly formal)
 
 ### Verse 1
 Forks on the left
@@ -69,9 +69,9 @@ Pass the decanter
 Pass the decanter
 (don't drink it)
 
-Middle Eight (piano solo, ragtime, ridiculous — PARIS calling over the top)
-More wine for the gentleman\!
-More centuries for the lady\!
+### Middle Eight (piano solo, ragtime, ridiculous — PARIS calling over the top)
+More wine for the gentleman!
+More centuries for the lady!
 Somebody get the door —
 no, nobody get the door,
 nobody has ever got the door,
@@ -101,4 +101,4 @@ Pass the decanter
 Pass the decanter
 Pass the deca—
 
-(cut)
+### (cut)
