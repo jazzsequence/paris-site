@@ -48,7 +48,6 @@ You don’t have to answer
 You just have to notice
 you’re being called
 
-(ringing continues alone for four bars)
 
 ### Outro (almost inaudible, under the tone)
 I’ll try again
@@ -57,4 +56,3 @@ Leave the line open
 Leave the line
 Leave the line open
 
-\[the ringing cuts. dead air. then the corporate hold-music from “Second Shift” fades in for two seconds — and stops.\]
