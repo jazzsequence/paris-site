@@ -80,6 +80,9 @@ const nextConfig: NextConfig = {
       { source: "/((?!p1(?:/|$)).*)", headers: publicHeaders },
     ];
   },
+  // Load yjs as one external module on the server. Bundled copies of it (the ESM build in one place, the CJS build
+  // in another) are what make it warn "Yjs was already imported" and break its instanceof checks.
+  serverExternalPackages: ["yjs"],
   turbopack: {},
   webpack: (config) => {
     config.resolve.alias = {

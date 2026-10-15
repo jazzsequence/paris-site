@@ -2,15 +2,17 @@ import type { Metadata } from "next";
 
 import { Page } from "../../../components/site/section";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
-import { pageMetadata } from "../../../lib/site/seo";
+import { P1Page } from "../../../components/site/p1-page";
+import { getP1Page } from "../../../lib/site/p1-content";
+import { p1PageMetadata } from "../../../lib/site/p1-metadata";
 
-export const metadata: Metadata = pageMetadata({
+export const generateMetadata = (): Promise<Metadata> => p1PageMetadata({
   title: "Privacy",
   description: "What this site does and does not collect. Short version: nothing.",
   path: "/privacy",
 });
 
-export default function Privacy() {
+function PrivacyFallback() {
   return (
     <Page narrow>
       <SectionHeading as="h1" kicker="Your data">Privacy</SectionHeading>
@@ -55,4 +57,10 @@ export default function Privacy() {
       </div>
     </Page>
   );
+}
+
+/** The published P1 page when there is one, otherwise the code version above. */
+export default async function PrivacyRoute() {
+  const doc = await getP1Page("/privacy");
+  return doc ? <P1Page data={doc} path="/privacy" /> : <PrivacyFallback />;
 }

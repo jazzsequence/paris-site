@@ -7,9 +7,11 @@ import { ButtonLink } from "../../../../design-system/components/Button";
 import { albums, getAlbum, getCatalog, getFeaturedAlbum } from "../../../../lib/site/catalog";
 import { Breadcrumbs } from "../../../../components/site/breadcrumbs";
 import { JsonLd } from "../../../../components/site/json-ld";
-import { pageMetadata } from "../../../../lib/site/seo";
 import { albumData } from "../../../../lib/site/structured-data";
 import { LightboxImage } from "../../../../design-system/components/LightboxImage";
+import { P1Page } from "../../../../components/site/p1-page";
+import { getP1Page } from "../../../../lib/site/p1-content";
+import { p1PageMetadata } from "../../../../lib/site/p1-metadata";
 
 type Props = { params: Promise<{ slug: string }> };
 export const revalidate = 300;
@@ -19,11 +21,11 @@ export const generateStaticParams = () => albums.map((a) => ({ slug: a.slug }));
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const album = getAlbum((await params).slug);
   return album
-    ? pageMetadata({ title: album.title, description: album.blurb, path: `/albums/${album.slug}`, image: album.cover, type: "music.album" })
+    ? p1PageMetadata({ title: album.title, description: album.blurb, path: `/albums/${album.slug}`, image: album.cover, type: "music.album" })
     : {};
 }
 
-export default async function AlbumPage({ params }: Props) {
+async function AlbumFallback({ params }: Props) {
   const { slug } = await params;
   // The latest release has its own feature page; keep one canonical URL for it.
   if (slug === getFeaturedAlbum().slug) permanentRedirect("/well-enough");
@@ -60,5 +62,25 @@ export default async function AlbumPage({ params }: Props) {
         )}
       </section>
     </Page>
+  );
+}
+
+/** The published P1 page for this album when there is one, otherwise the code version above. */
+export default async function AlbumRoute({ params }: Props) {
+  const { slug } = await params;
+  if (slug === getFeaturedAlbum().slug) permanentRedirect("/well-enough");
+  const path = `/albums/${slug}`;
+  const doc = await getP1Page(path);
+  if (!doc) return <AlbumFallback params={params} />;
+  const album = (await getCatalog()).find((a) => a.slug === slug);
+  if (!album) notFound();
+  return (
+    <>
+      <div className="mx-auto w-full max-w-6xl px-6 pt-8">
+        <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Albums", href: "/albums" }, { name: album.title, href: path }]} />
+      </div>
+      <JsonLd data={albumData(album, path)} />
+      <P1Page data={doc} path={path} />
+    </>
   );
 }

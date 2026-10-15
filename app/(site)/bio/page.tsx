@@ -6,9 +6,9 @@ import { AppLink } from "../../../design-system/components/AppLink";
 import { pageMetadata } from "../../../lib/site/seo";
 import { JsonLd } from "../../../components/site/json-ld";
 import { getP1Page, rootProp } from "../../../lib/site/p1-content";
-import { Client } from "../[...puckPath]/client";
 import { artistData } from "../../../lib/site/structured-data";
 import { LightboxImage } from "../../../design-system/components/LightboxImage";
+import { P1Page } from "../../../components/site/p1-page";
 
 export const revalidate = 300;
 
@@ -29,7 +29,7 @@ export default async function Bio() {
     return (
       <>
         <JsonLd data={artistData()} />
-        <Client data={doc} pageMetadata={{ route: "/bio" }} />
+        <P1Page data={doc} path="/bio" />
       </>
     );
   }

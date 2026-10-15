@@ -5,13 +5,15 @@ import { TrackList } from "../../../components/site/track-list";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
 import { getCatalog } from "../../../lib/site/catalog";
 import { AppLink } from "../../../design-system/components/AppLink";
-import { pageMetadata } from "../../../lib/site/seo";
 import { LightboxImage } from "../../../design-system/components/LightboxImage";
+import { P1Page } from "../../../components/site/p1-page";
+import { getP1Page } from "../../../lib/site/p1-content";
+import { p1PageMetadata } from "../../../lib/site/p1-metadata";
 
-export const metadata: Metadata = pageMetadata({ title: "Listen", description: "Stream and download PARIS: every album, the EP, B-sides and unreleased recordings.", path: "/listen" });
+export const generateMetadata = (): Promise<Metadata> => p1PageMetadata({ title: "Listen", description: "Stream and download PARIS: every album, the EP, B-sides and unreleased recordings.", path: "/listen" });
 export const revalidate = 300;
 
-export default async function Listen() {
+async function ListenFallback() {
   const catalog = await getCatalog();
   return (
     <Page>
@@ -41,4 +43,10 @@ export default async function Listen() {
       ))}
     </Page>
   );
+}
+
+/** The published P1 page when there is one, otherwise the code version above. */
+export default async function ListenRoute() {
+  const doc = await getP1Page("/listen");
+  return doc ? <P1Page data={doc} path="/listen" /> : <ListenFallback />;
 }
