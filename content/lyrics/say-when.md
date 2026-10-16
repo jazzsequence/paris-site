@@ -5,11 +5,11 @@ track: 1
 ---
 
 
-Intro (crowd, pre-verse, half-tempo)
-Say when
-Say when
-Say when
-Say when
+### Intro (crowd, pre-verse, half-tempo)
+Say when  
+Say when  
+Say when  
+Say when  
 
 ### Verse 1
 Coat's off
