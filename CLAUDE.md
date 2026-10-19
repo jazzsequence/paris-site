@@ -45,7 +45,7 @@ How this fits the rest of this file:
 | `pnpm dev` | Dev server (needs `.env`, see `.env.example`) |
 | `pnpm lint` / `pnpm typecheck` / `pnpm test` | Required before presenting changes |
 | `pnpm build` | Production build; works with placeholder `NEXT_PUBLIC_CSS_SITE_ID` and `CSS_API_KEY` |
-| `pnpm test:e2e` (alias `test:a11y`; `P1_LIVE=1` runs against live P1 content using the credentials in `.env`, default is repo-copy only) | Playwright: axe, keyboard, navigation and favicon checks against the standalone build (run `pnpm build` first; kill any stale server on :3100) |
+| `pnpm test:e2e` (alias `test:a11y`; `P1_LIVE=1` runs against live P1 content using the credentials in `.env`, default is repo-copy only) | Playwright: axe, keyboard, navigation and favicon checks against the standalone build (run `pnpm build` first; kill any stale server on :3100). Build with CI's placeholders (`CSS_API_KEY=ci-placeholder NEXT_PUBLIC_CSS_SITE_ID=00000000-0000-0000-0000-000000000000 pnpm build`, and `NEXT_PUBLIC_CSS_BASE_URL=https://ccr.p1.pantheon.io` for the e2e run unless `.env` provides it; see `test-pantheon.yml`). Observed locally: after a build that loaded the real P1 credentials from `.env`, `/albums/ep` served the published P1 page even with placeholder credentials at runtime, because album pages are prerendered at build and served until they revalidate (`revalidate = 300`), so the e2e run was testing P1 content, not the repo copies |
 | `pnpm storybook` / `pnpm build-storybook` | Design system (`design-system/`, config in `.storybook/`) |
 | `pnpm sync:registry` | Push Puck registry to P1 (CI does this) |
 
@@ -77,7 +77,7 @@ How this fits the rest of this file:
   `/bio`, `/tour` and `/merch` were published earlier, from a workstream that has since been merged; they have no `content/p1-pages` file, and their fallbacks are the
   code version in `app/(site)/bio/`, `data/tour.json` and `data/merch.json`.
 - **Where the rest of the content lives:** the public pages are code under `app/(site)/` with content in the repo:
-  `data/albums.json` (albums, tracks, `unreleased` pseudo-album with no `year`), `data/tour.json` and `data/merch.json` (fallbacks),
+  `data/albums.json` (albums, tracks, an optional `gallery` of extra art per album, `unreleased` pseudo-album with no `year`), `data/tour.json` and `data/merch.json` (fallbacks),
   `content/lyrics/*.md` (frontmatter `title`/`album`/`track`, `### Label` sections), `content/press/interview.md`.
   To add a song: add it to
   `data/albums.json`, upload `<album>/<NN>-<slug>.m4a` to the bucket, add `content/lyrics/<slug>.md` if it has lyrics.
@@ -89,7 +89,7 @@ How this fits the rest of this file:
   NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
   silently fails (downloads still work because they go through `/api/download`). Without it playback needs no CORS.
 - **Unreleased** means no public release (not "coming soon"). It is an album-style page with no `year`; do not seed it with
-  songs that merely lack audio. The EP has its own album page (`ep`). Its cover is a placeholder photo until real art exists.
+  songs that merely lack audio. The EP has its own album page (`ep`) with real cover art, plus a back cover and inner spread shown as a gallery under the track list. Unreleased still uses the `paris-close.jpg` placeholder until it has art.
 - Content editing guide for humans: `CONTENT.md`.
 - **`serverExternalPackages: ["yjs"]`** in `next.config.ts` stops the "Yjs was already imported" warning (yjs loaded twice, ESM and CJS). The starter's `webpack` yjs alias is ignored by Turbopack, the default builder.
 - **Single Next config:** `next.config.ts` only. The starter's `.mjs` config and the Pantheon template's `.ts`

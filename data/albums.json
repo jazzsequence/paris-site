@@ -126,9 +126,13 @@
     "title": "EP",
     "kind": "EP",
     "year": 1997,
-    "cover": "/images/paris-close.jpg",
+    "cover": "/images/ep-cover.jpg",
     "blurb": "The independently released debut EP. Six songs.",
     "featured": false,
+    "gallery": [
+      { "src": "/images/ep-back.jpg", "alt": "Back cover: a smeared red mark across a mirror", "width": 1200, "height": 1200 },
+      { "src": "/images/ep-inner.jpg", "alt": "Inner spread: a crowd at the front of a venue", "width": 1600, "height": 791 }
+    ],
     "tracks": [
       {
         "number": 1,
