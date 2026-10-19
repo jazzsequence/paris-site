@@ -12,5 +12,5 @@ REVIEWER_MAX_INSERTIONS=500
 REVIEWER_APPROVAL_TIMEOUT=300
 REVIEWER_APPROVAL_FILE="reviewer-approved"
 
-REVIEWER_TEXT_ONLY_PATTERN='\.(md|mdx|txt|rst)$'
+REVIEWER_TEXT_ONLY_PATTERN='\.(md|mdx|txt|rst)$|^\.(claude|githooks)/'
 REVIEWER_EXCLUDED_FILES='^package-lock\.json$|^yarn\.lock$|^pnpm-lock\.yaml$|^composer\.lock$|^Gemfile\.lock$'
