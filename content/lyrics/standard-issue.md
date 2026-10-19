@@ -1,7 +1,7 @@
 ---
 title: "Standard Issue"
 album: tribute
-track: 7
+track: 6
 ---
 
 
