@@ -71,11 +71,11 @@ test("text over the hero photo meets contrast at every screen size", async ({ pa
 
 /**
  * The hero photo is a portrait cropped into a landscape frame, so on laptop-sized screens the face sits right
- * where a card of text wants to go. This works out where the face lands from the image's own crop (object-cover,
+ * where a block of text wants to go. This works out where the face lands from the image's own crop (object-cover,
  * 50% / 6%) and asserts the card and text stay clear of it.
  */
 const FACE = { x0: 0.38, x1: 0.62, y0: 0.13, y1: 0.29 }; // fractions of the photo: forehead to chin
-const FACE_SIZES: [number, number][] = [[768, 1024], [1024, 768], [1280, 720], [1280, 800], [1366, 768], [1440, 900], [1536, 864], [1920, 1080]];
+const FACE_SIZES: [number, number][] = [[768, 1024], [1024, 768], [1100, 700], [1180, 820], [1280, 720], [1280, 800], [1366, 768], [1440, 900], [1536, 864], [1920, 1080]];
 
 test("the hero text never covers the face", async ({ page }) => {
   for (const [w, h] of FACE_SIZES) {
