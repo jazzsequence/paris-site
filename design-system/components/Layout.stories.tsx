@@ -21,11 +21,17 @@ export const HeroSection: StoryObj = {
 /**
  * The photo is a portrait cropped into a landscape frame, so the face lands in a different place at every width.
  * Review the hero at each of these before approving a change to it: the text card must not cover the face.
+ * Each story embeds the plain hero story in an iframe of the stated size, because the toolbar viewport only
+ * applies in the Storybook manager and the page's media queries need a real viewport of that width.
  */
 const heroAt = (width: number, height: number): StoryObj => ({
-  parameters: { viewport: { options: { review: { name: `${width}x${height}`, styles: { width: `${width}px`, height: `${height}px` } } } } },
-  globals: { viewport: { value: "review", isRotated: false } },
-  render: HeroSection.render,
+  parameters: { layout: "padded" },
+  render: () => (
+    <div style={{ overflow: "auto" }}>
+      <p style={{ margin: "0 0 8px", font: "12px monospace", color: "#8d8aa6" }}>{width} x {height}</p>
+      <iframe title={`Hero at ${width} x ${height}`} src="iframe.html?id=layout-header-hero-footer--hero-section&viewMode=story" width={width} height={height} style={{ border: 0, outline: "1px solid #2a2840", display: "block" }} />
+    </div>
+  ),
 });
 export const HeroPhone: StoryObj = heroAt(390, 844);
 export const HeroTablet: StoryObj = heroAt(768, 1024);
