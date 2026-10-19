@@ -177,6 +177,8 @@ export default tseslint.config(
       '.claude/**',
       '.githooks/**',
       'storybook-static/**',
+      // Third-party worker files copied from node_modules by scripts/copy-maplibre-worker.mjs.
+      'public/maplibre/**',
       'coverage/**',
       '**/*.d.ts',
       '**/generated/**',
