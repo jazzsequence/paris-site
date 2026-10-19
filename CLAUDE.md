@@ -68,6 +68,14 @@ How this fits the rest of this file:
   templates/datasources here and the MCP cannot create them, so structured data lives in block array fields. Registry
   sync: `pnpm sync:registry` (CI) or the P1 MCP `sync_components`; `fast-json-patch` is patched (`patches/`) because tsx
   otherwise loads its unshipped `index.ts`. Do NOT create P1 workstreams alongside code PRs (decided with the owner: two histories, ordering bugs, merged-workstream reuse). Code merges and deploys first; pages are then created directly in P1 by the owner's instruction. Never publish or edit live P1 content unprompted.
+- **How P1 content reaches live:** there is one P1 site and every Pantheon environment reads it; only the API key differs (drafts key off live, published-only
+  key on live). So content does not move between environments: **publishing a page in P1 is the go-live step** (a page saved on `main` but not published is
+  invisible to both keys; `publish_page` copies it live). Code moves dev -> test -> live through the Pantheon promotion workflow. To preview a content change
+  without publishing, use a P1 workstream (that is what workstreams are for; the "no workstreams" rule above is only about pairing them with code PRs).
+  State as of 2026-10-19, everything below is published in P1. `/`, `/albums`, `/albums/{ep,tribute,unreleased}`, `/listen`, `/lyrics`, `/press`, `/privacy` and
+  `/well-enough` were created from `content/p1-pages/*.json`, which is also their fallback copy, so those files do not follow later edits made in P1.
+  `/bio`, `/tour` and `/merch` were published earlier, from a workstream that has since been merged; they have no `content/p1-pages` file, and their fallbacks are the
+  code version in `app/(site)/bio/`, `data/tour.json` and `data/merch.json`.
 - **Where the rest of the content lives:** the public pages are code under `app/(site)/` with content in the repo:
   `data/albums.json` (albums, tracks, `unreleased` pseudo-album with no `year`), `data/tour.json` and `data/merch.json` (fallbacks),
   `content/lyrics/*.md` (frontmatter `title`/`album`/`track`, `### Label` sections), `content/press/interview.md`.
