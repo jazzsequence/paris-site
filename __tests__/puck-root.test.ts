@@ -1,3 +1,5 @@
+import { createElement, type ReactNode } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { createSeoRootFields } from "@pantheon-systems/puck-css/seo";
 import { puckRoot } from "../components/puck/root";
@@ -49,3 +51,31 @@ describe("puckRoot", () => {
     expect(puckRoot.defaultProps).not.toHaveProperty("_meta");
   });
 });
+
+describe("puckRoot render", () => {
+  type Render = (props: { children?: ReactNode; puck?: { isEditing?: boolean } }) => ReactNode;
+  const render = puckRoot.render as Render;
+  const page = (puck?: { isEditing?: boolean }) =>
+    renderToStaticMarkup(createElement("div", null, render({ children: createElement("p", null, "Page content"), puck })));
+
+  it("shows the site header and footer around the page in the editor, locked so they cannot be clicked", () => {
+    const html = page({ isEditing: true });
+    expect(html).toContain("Page content");
+    expect(html).toContain("<header");
+    expect(html).toContain("Well Enough"); // a header link
+    expect(html).toContain("<footer");
+    expect(html).toContain("All rights reserved");
+    // Each is wrapped, whole, in a locked (inert) container that is also hidden from assistive technology.
+    expect(html).toMatch(/<div inert="" aria-hidden="true"><header/);
+    expect(html).toMatch(/<div inert="" aria-hidden="true"><footer/);
+  });
+
+  it("adds nothing on the public site, which gets its header and footer from the layout", () => {
+    for (const html of [page({ isEditing: false }), page(undefined)]) {
+      expect(html).toContain("Page content");
+      expect(html).not.toContain("<header");
+      expect(html).not.toContain("<footer");
+    }
+  });
+});
+

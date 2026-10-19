@@ -2,6 +2,8 @@ import { createRequire } from "node:module";
 
 import type { NextConfig } from "next";
 
+import { isP1Configured } from "./lib/site/p1-config";
+
 const require = createRequire(import.meta.url);
 
 const origin = (url: string | undefined, fallback: string) => {
@@ -54,7 +56,13 @@ const publicHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   // A new value for every build; design-system/asset.ts appends it to local image URLs.
-  env: { NEXT_PUBLIC_ASSET_VERSION: process.env.NEXT_PUBLIC_ASSET_VERSION ?? Date.now().toString(36) },
+  env: {
+    NEXT_PUBLIC_ASSET_VERSION: process.env.NEXT_PUBLIC_ASSET_VERSION ?? Date.now().toString(36),
+    // The SDK reads the P1 base URL at build time. With placeholder credentials (CI, e2e, local checks) point it at
+    // an address nothing listens on, so no code path, including the SDK's own catch-all route, can send a request
+    // to the real backend, which only refuses it. Real credentials leave it as configured. See lib/site/p1-config.ts.
+    ...(isP1Configured() ? {} : { NEXT_PUBLIC_CSS_BASE_URL: "http://127.0.0.1:9" }),
+  },
   output: "standalone", // Required for Pantheon deployment
 
   // Only on Pantheon in production: locally there is no bucket to talk to.

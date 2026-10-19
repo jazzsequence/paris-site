@@ -29,6 +29,23 @@
         "albumSlug": "tribute",
         "heading": "Track list"
       }
+    },
+    {
+      "type": "ImageGalleryBlock",
+      "props": {
+        "id": "ImageGalleryBlock-15",
+        "columns": "2",
+        "items": [
+          {
+            "imageUrl": "/images/tribute-liner.jpg",
+            "alt": "Back cover: seven blank paper strips taped to a green work surface"
+          },
+          {
+            "imageUrl": "/images/tribute-inner.jpg",
+            "alt": "Inner spread: a collage of cut-up photographs beside a lit glass display case"
+          }
+        ]
+      }
     }
   ],
   "zones": {}

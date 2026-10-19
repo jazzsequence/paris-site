@@ -1,6 +1,7 @@
 import { loadPublishedPage } from "@pantheon-systems/p1-next-sdk/server";
 import type { Data } from "@puckeditor/core";
 
+import { isP1Configured } from "./p1-config";
 import { normalizeShows, shows as repoShows, type Show } from "./tour";
 
 /**
@@ -8,6 +9,8 @@ import { normalizeShows, shows as repoShows, type Show } from "./tour";
  * "use the copy in this repo", so the site keeps working, and CI keeps passing, without P1.
  */
 export async function getP1Page(path: string): Promise<Data | null> {
+  // Placeholder credentials (CI, e2e, local checks) must not reach the real P1 backend. See p1-config.ts.
+  if (!isP1Configured()) return null;
   const result = await loadPublishedPage(path);
   if (result.status !== "ok") return null;
   // The site was created with a starter "Welcome to your new P1 site" home page. It is not content.
