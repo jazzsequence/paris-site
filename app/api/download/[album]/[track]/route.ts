@@ -1,4 +1,5 @@
 import { audioFile, audioUrl, getAlbum } from "../../../../../lib/site/catalog";
+import { downloadFilename } from "../../../../../lib/site/download-name";
 
 /**
  * Cross-origin `download` attributes are ignored by browsers, so downloads go through here to
@@ -14,7 +15,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ album: 
   if (!upstream.ok || !upstream.body) return new Response("Not found", { status: 404 });
 
   const length = upstream.headers.get("content-length");
-  const filename = `PARIS - ${track.title.replace(/[^\w .'’-]/g, "")}${audioFile(track).slice(-4)}`;
+  const filename = downloadFilename(track.title, audioFile(track).slice(-4));
   return new Response(upstream.body, {
     headers: {
       "Content-Type": "audio/mp4",
