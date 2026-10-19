@@ -59,7 +59,7 @@ of everything committed.
 - **`NEXT_PUBLIC_CSS_BASE_URL` is required** (`https://ccr.p1.pantheon.io`): the auth routes do not default it and 500 with "Server configuration error" if blank. (The data client does default; the broker does not.)
 - **Secrets on Pantheon:** `terminus secret:site:set <site>[.env] NAME value --type=env --scope=web --rebuild`.
   Changes only apply after a rebuild. Values are write-only. P1 key: `CSS_API_KEY` (drafts scope) on dev/test/local;
-  `CSS_API_KEY_LIVE` (published-only) on live. A `getP1ApiKey()` resolver (fail closed on live) is planned, not built.
+  `CSS_API_KEY_LIVE` (published-only) on live. `getP1ApiKey()` (`lib/site/p1-key.ts`) picks the key by `PANTHEON_ENVIRONMENT` and throws on live without the live key; `instrumentation.ts` copies it into `CSS_API_KEY` at start because the SDK's published-page reads use that variable directly. Live with no `CSS_API_KEY_LIVE` returns 500 on purpose (verified), never the drafts key. Next loads `.env` itself, so test this with `CSS_API_KEY_LIVE=` (empty), not unset.
 
 ## Accessibility
 
