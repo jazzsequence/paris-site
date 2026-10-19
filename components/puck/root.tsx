@@ -4,6 +4,9 @@ import {
   DEFAULT_EDITOR_ROOT_TITLE,
 } from "@pantheon-systems/puck-css/seo";
 
+import { SiteFooter } from "../../design-system/components/SiteFooter";
+import { SiteHeader } from "../../design-system/components/SiteHeader";
+
 /**
  * The root config: this site's own fields, plus the page-metadata fields.
  *
@@ -31,8 +34,24 @@ export const puckRoot = {
   defaultProps: {
     title: DEFAULT_EDITOR_ROOT_TITLE,
   },
-  render: (props: { children?: ReactNode; title?: string }) => {
-    const { children } = props;
+  render: (props: { children?: ReactNode; title?: string; puck?: { isEditing?: boolean } }) => {
+    const { children, puck } = props;
+    // The public site gets its header and footer from the (site) layout, so the root adds nothing there. The editor
+    // canvas has no layout, so it shows the same header and footer around the page, locked (inert) so they can be
+    // seen but not clicked or edited, to let people build a page as it will actually look.
+    if (puck?.isEditing) {
+      return (
+        <div className="flex min-h-screen flex-col bg-void font-body text-text antialiased">
+          <div inert aria-hidden="true">
+            <SiteHeader />
+          </div>
+          <main className="flex-1">{children}</main>
+          <div inert aria-hidden="true">
+            <SiteFooter />
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-void font-body text-text antialiased">
         {children}

@@ -81,7 +81,7 @@ How this fits the rest of this file:
   `content/lyrics/*.md` (frontmatter `title`/`album`/`track`, `### Label` sections), `content/press/interview.md`.
   To add a song: add it to
   `data/albums.json`, upload `<album>/<NN>-<slug>.m4a` to the bucket, add `content/lyrics/<slug>.md` if it has lyrics.
-  P1 pages render inside the `(site)` layout (the catch-all lives under it).
+  P1 pages render inside the `(site)` layout (the catch-all lives under it). That layout supplies the header, footer and player, so a P1 page needs no header or footer block (an Article-only page like `/press` has both). The editor canvas has no layout, so `puckRoot.render` (`components/puck/root.tsx`) wraps the page in the real `SiteHeader` and `SiteFooter` there only (`puck.isEditing`), locked with `inert`, so pages can be built as they will look; on the public site the root adds nothing, so they never double up.
 - **Tour dates are fictional; venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
   (`/tickets/[id]` -> `/ticket?...`) keeps all state in the URL and collects nothing.
 - **Songs and lyrics are independent resources.** A track with no lyrics, or lyrics with no audio, is normal.
