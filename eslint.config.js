@@ -173,6 +173,9 @@ export default tseslint.config(
       'dist/**',
       'build/**',
       '.next/**',
+      // Vendored reviewer hooks (plain Node scripts); not project source.
+      '.claude/**',
+      '.githooks/**',
       'storybook-static/**',
       'coverage/**',
       '**/*.d.ts',
