@@ -68,3 +68,47 @@ test("text over the hero photo meets contrast at every screen size", async ({ pa
     }
   }
 });
+
+/**
+ * The hero photo is a portrait cropped into a landscape frame, so on laptop-sized screens the face sits right
+ * where a card of text wants to go. This works out where the face lands from the image's own crop (object-cover,
+ * 50% / 6%) and asserts the card and text stay clear of it.
+ */
+const FACE = { x0: 0.38, x1: 0.62, y0: 0.13, y1: 0.29 }; // fractions of the photo: forehead to chin
+const FACE_SIZES: [number, number][] = [[768, 1024], [1024, 768], [1280, 720], [1280, 800], [1366, 768], [1440, 900], [1536, 864], [1920, 1080]];
+
+test("the hero text never covers the face", async ({ page }) => {
+  for (const [w, h] of FACE_SIZES) {
+    await page.setViewportSize({ width: w, height: h });
+    await page.goto("/");
+    await page.waitForSelector("section h1");
+    await page.evaluate(() => Promise.all([...document.images].map((i) => (i.complete ? 1 : new Promise((r) => (i.onload = i.onerror = r))))));
+
+    const { face, covers } = await page.evaluate((f) => {
+      const hero = document.querySelector("section")!;
+      const img = hero.querySelector("img")!.getBoundingClientRect();
+      const scale = Math.max(img.width / 1024, img.height / 1536);
+      const rw = 1024 * scale;
+      const rh = 1536 * scale;
+      const ox = img.left + (img.width - rw) * 0.5;
+      const oy = img.top + (img.height - rh) * 0.06;
+      const face = { l: ox + rw * f.x0, r: ox + rw * f.x1, t: oy + rh * f.y0, b: oy + rh * f.y1 };
+      const card = hero.querySelector("h1")!.parentElement!;
+      // From 2xl the card has no background; the text itself is what's over the photo.
+      const boxed = getComputedStyle(card).backgroundColor !== "rgba(0, 0, 0, 0)";
+      // Measure the text itself, not its block: a paragraph's box is wider than the words in it.
+      const rect = (e: Element) => {
+        const range = document.createRange();
+        range.selectNodeContents(e);
+        return range.getBoundingClientRect();
+      };
+      const rects = boxed ? [card.getBoundingClientRect()] : [...card.querySelectorAll("p, h1, a")].map(rect);
+      return { face, covers: rects.map((r) => ({ l: r.left, r: r.right, t: r.top, b: r.bottom })) };
+    }, FACE);
+
+    for (const c of covers) {
+      const overlaps = c.l < face.r && c.r > face.l && c.t < face.b && c.b > face.t;
+      expect(overlaps, `${w}x${h}: hero text box ${JSON.stringify(c)} overlaps the face ${JSON.stringify(face)}`).toBe(false);
+    }
+  }
+});
