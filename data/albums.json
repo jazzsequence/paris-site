@@ -111,13 +111,13 @@
       },
       {
         "number": 6,
-        "slug": "hold-still",
-        "title": "Hold still"
-      },
-      {
-        "number": 7,
         "slug": "standard-issue",
         "title": "Standard Issue"
+      },
+      {
+    "number": 7,
+        "slug": "hold-still",
+        "title": "Hold still"
       }
     ]
   },
