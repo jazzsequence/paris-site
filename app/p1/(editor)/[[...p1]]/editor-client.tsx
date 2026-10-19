@@ -14,6 +14,7 @@ import "@pantheon-systems/p1-next-sdk/editor.css";
 import { P1SignInPage } from "../../../../components/p1-sign-in-page";
 import config from "../../../../puck.config";
 import { P1_ASSETS } from "../../../../constants/assets";
+import { SiteDataProvider } from "../../../../components/site/site-data";
 
 function useEditorExtensions({ openDocument }: P1EditorContext): P1EditorExtensions {
   const mediaPlugin = useMemo(() => createMediaPlugin({}), []);
@@ -34,7 +35,11 @@ function useEditorExtensions({ openDocument }: P1EditorContext): P1EditorExtensi
 export const EditorClientWrapper = createP1EditorClient({
   puckConfig: config,
   signInPage: <P1SignInPage />,
-  wrapEditor: (editor) => <P1ChatbotProvider>{editor}</P1ChatbotProvider>,
+  wrapEditor: (editor) => (
+    <SiteDataProvider>
+      <P1ChatbotProvider>{editor}</P1ChatbotProvider>
+    </SiteDataProvider>
+  ),
   useExtensions: useEditorExtensions,
   pluginOptions: {
     logoUrl: P1_ASSETS.LOGO_URL,

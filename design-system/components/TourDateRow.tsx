@@ -9,9 +9,11 @@ export type TourDateRowProps = {
   capacity?: string;
   status?: "on-sale" | "sold-out";
   href?: string;
+  /** Heading level for the title; use "h2" when the card sits directly under the page h1. */
+  headingLevel?: "h2" | "h3";
 };
 
-export function TourDateRow({ month, day, year, city, venue, capacity, status = "on-sale", href = "#" }: TourDateRowProps) {
+export function TourDateRow({ month, day, year, city, venue, capacity, status = "on-sale", href = "#", headingLevel: Heading = "h3" }: TourDateRowProps) {
   return (
     <li className="grid grid-cols-[4.5rem_1fr] items-center gap-x-5 gap-y-3 border-b border-line py-5 md:grid-cols-[5rem_1fr_auto]">
       <time dateTime={`${year}-${month}-${day}`} className="text-center leading-none">
@@ -20,7 +22,7 @@ export function TourDateRow({ month, day, year, city, venue, capacity, status = 
         <span className="block text-xs text-muted">{year}</span>
       </time>
       <div>
-        <h3 className="font-display text-xl font-semibold uppercase tracking-wide">{city}</h3>
+        <Heading className="font-display text-xl font-semibold uppercase tracking-wide">{city}</Heading>
         <p className="text-muted">
           {venue}
           {capacity && <span className="text-dim"> · cap. {capacity}</span>}

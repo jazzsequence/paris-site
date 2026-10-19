@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
+import { AppLink } from "./AppLink";
 
 type Variant = "primary" | "outline" | "ghost";
 
@@ -26,7 +27,12 @@ export function Button({
 export function ButtonLink({
   variant = "primary",
   className = "",
+  children,
   ...props
 }: Common & AnchorHTMLAttributes<HTMLAnchorElement>) {
-  return <a className={`${base} ${variants[variant]} ${className}`} {...props} />;
+  return (
+    <AppLink className={`${base} ${variants[variant]} ${className}`} {...props}>
+      {children}
+    </AppLink>
+  );
 }

@@ -9,7 +9,7 @@
 import { createPublishedPage } from "@pantheon-systems/p1-next-sdk/server";
 import { REMOTE_DATASOURCE_FETCHERS } from "../lib/remote-datasource-fetchers";
 import { ContentUnavailable } from "../components/content-unavailable";
-import { Client } from "./[...puckPath]/client";
+import { Client } from "./(site)/[...puckPath]/client";
 import { WelcomeBlock } from "./welcome-block";
 
 export const published = createPublishedPage({

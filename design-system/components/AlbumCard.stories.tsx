@@ -12,4 +12,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Featured: Story = { args: { featured: true } };
-export const Standard: Story = { args: { title: "Tribute", cover: "images/tribute-cover.png", trackCount: 7 } };
+export const Standard: Story = { args: { title: "Tribute", cover: "images/tribute-cover.jpg", trackCount: 7 } };
