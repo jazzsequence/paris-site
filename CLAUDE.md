@@ -5,6 +5,39 @@ live domain `paris.jazzsequence.com`. Primary spec: `docs/Project Outline.md` (k
 code comments and docs must never state or hint at anything the outline marks as off-limits. Keep backstory out
 of everything committed.
 
+## Commit review (reviewer agent)
+
+Installed from https://github.com/jazzsequence/claude-code-reviewer. Every commit of AI-written code needs an
+approval from the `reviewer` subagent first; a PreToolUse hook (`.claude/helpers/hook-handler.cjs`) and a git
+pre-commit hook (`.githooks/pre-commit`, config in `.reviewer-config.sh`) block the commit otherwise.
+
+1. Stage the change (`git add`), then spawn the reviewer: `Agent({ subagent_type: "reviewer", prompt: "<what changed and why>" })`.
+2. Describe the change factually. Never tell the reviewer to approve, and never write `reviewer-approved` myself.
+3. On APPROVE, commit within 5 minutes and without touching the index again (the approval is bound to the staged content).
+   On REJECT, fix and request a fresh review.
+4. `USER_COMMIT=1` is for commits the owner writes by hand. Claude never uses it; if the reviewer is unavailable or blocks
+   something wrong, stop and ask the owner.
+
+How this fits the rest of this file:
+- The reviewer is the commit gate. It does not replace the PR, the Storybook approval for `design-system/` (see below),
+  or CI. Open PRs from feature branches off `origin/main`; the owner merges.
+- Per commit the hook runs `pnpm test`, `pnpm lint && pnpm typecheck` and `pnpm build` (`.reviewer-config.sh`; the generated defaults were npm
+  and would have failed). Docs-only commits (`.md`, `.mdx`, `.txt`, `.rst`) and commits touching only `.claude/` or `.githooks/` skip all of
+  that (`REVIEWER_TEXT_ONLY_PATTERN`, and the reviewer's own skip rule matches); they still need the reviewer's checklist. e2e is not in
+  the hook (needs a fresh build and port 3100; CI runs it on every PR): run `pnpm test:e2e` myself before opening a PR, and the reviewer
+  runs it too when `e2e/`, `app/` routes or `design-system/` change.
+- Reviewer files are committed: `.claude/agents/reviewer.md`, `.claude/helpers/hook-handler.cjs`, `.claude/settings.json`,
+  `.githooks/`, `.reviewer-config.sh`, and the checklist at `.claude/REVIEWER_CHECKLIST.md` (moved out of the gitignored `docs/`).
+  The checklist's "Project-specific checks" section holds this repo's rules: the editorial rule, the design-system gate (story at the
+  relevant sizes, flagged for the owner's Storybook approval), docs/a11y, and P1 content and key rules. Edit it when a rule changes.
+  Re-running the upstream `install.sh` will not overwrite the config or checklist, but will flag `reviewer.md` as locally modified (path edit).
+- Commit trailer stays `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` (the reviewer checks for a co-author line).
+- The hooks cap AI commits at 5 files and 500 inserted lines (lock files excluded), so split work into small logical commits within a PR.
+  Merge commits are exempt. Anything inherently larger is the owner's to commit with `USER_COMMIT=1`; ask rather than work around it.
+- `docs/` is gitignored here (local spec and character files). Do not put anything that must be committed in it, and do not
+  switch branches carelessly: `docs/` and `images/` were once tracked on the old `design` branch, and moving between that
+  branch and `main` deleted them twice. A backup lives in `~/paris-site-local-backup/`.
+
 ## Commands (pnpm; Node per `.nvmrc`)
 
 | Command | Purpose |
