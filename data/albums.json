@@ -83,6 +83,10 @@
     "cover": "/images/tribute-cover.jpg",
     "blurb": "B-sides and unreleased songs, including the full independent EP reissued in sequence.",
     "featured": false,
+    "gallery": [
+      { "src": "/images/tribute-liner.jpg", "alt": "Back cover: seven blank paper strips taped to a green work surface", "width": 1200, "height": 1200 },
+      { "src": "/images/tribute-inner.jpg", "alt": "Inner spread: a collage of cut-up photographs beside a lit glass display case", "width": 1600, "height": 800 }
+    ],
     "tracks": [
       {
         "number": 1,

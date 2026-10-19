@@ -45,7 +45,7 @@ How this fits the rest of this file:
 | `pnpm dev` | Dev server (needs `.env`, see `.env.example`). Like `build`, `storybook` and `build-storybook`, it first runs `scripts/copy-maplibre-worker.mjs` (see the tour map bullet) |
 | `pnpm lint` / `pnpm typecheck` / `pnpm test` | Required before presenting changes |
 | `pnpm build` | Production build; works with placeholder `NEXT_PUBLIC_CSS_SITE_ID` and `CSS_API_KEY`. First copies MapLibre's worker files into gitignored `public/maplibre/` |
-| `pnpm test:e2e` (alias `test:a11y`; `P1_LIVE=1` runs against live P1 content using the credentials in `.env`, default is repo-copy only) | Playwright: axe, keyboard, navigation and favicon checks against the standalone build (run `pnpm build` first; kill any stale server on :3100). Build with CI's placeholders (`CSS_API_KEY=ci-placeholder NEXT_PUBLIC_CSS_SITE_ID=00000000-0000-0000-0000-000000000000 pnpm build`, and `NEXT_PUBLIC_CSS_BASE_URL=https://ccr.p1.pantheon.io` for the e2e run unless `.env` provides it; see `test-pantheon.yml`). Observed locally: after a build that loaded the real P1 credentials from `.env`, `/albums/ep` served the published P1 page even with placeholder credentials at runtime, because album pages are prerendered at build and served until they revalidate (`revalidate = 300`), so the e2e run was testing P1 content, not the repo copies |
+| `pnpm test:e2e` (alias `test:a11y`; `P1_LIVE=1` runs against live P1 content using the credentials in `.env`, default is repo-copy only) | Playwright: axe, keyboard, navigation and favicon checks against the standalone build (run `pnpm build` first; kill any stale server on :3100). Build and run with CI's placeholders and an unroutable base URL: `CSS_API_KEY=ci-placeholder CSS_API_KEY_LIVE= NEXT_PUBLIC_CSS_SITE_ID=00000000-0000-0000-0000-000000000000 NEXT_PUBLIC_CSS_BASE_URL=http://127.0.0.1:9 pnpm build`, then the same variables with `pnpm test:e2e` (see `test-pantheon.yml`). Never point a placeholder run at `ccr.p1.pantheon.io` (see "No P1 traffic from placeholders" under Architecture). A build that loads the real credentials from `.env` prerenders the published P1 pages, so the e2e run then tests those instead of the repo copies (seen on `/albums/ep`: album pages are prerendered at build and served until `revalidate = 300`) |
 | `pnpm storybook` / `pnpm build-storybook` | Design system (`design-system/`, config in `.storybook/`); copies MapLibre's worker into `public/maplibre/` first |
 | `pnpm sync:registry` | Push Puck registry to P1 (CI does this) |
 
@@ -81,7 +81,7 @@ How this fits the rest of this file:
   `content/lyrics/*.md` (frontmatter `title`/`album`/`track`, `### Label` sections), `content/press/interview.md`.
   To add a song: add it to
   `data/albums.json`, upload `<album>/<NN>-<slug>.m4a` to the bucket, add `content/lyrics/<slug>.md` if it has lyrics.
-  P1 pages render inside the `(site)` layout (the catch-all lives under it).
+  P1 pages render inside the `(site)` layout (the catch-all lives under it). That layout supplies the header, footer and player, so a P1 page needs no header or footer block (an Article-only page like `/press` has both). The editor canvas has no layout, so `puckRoot.render` (`components/puck/root.tsx`) wraps the page in the real `SiteHeader` and `SiteFooter` there only (`puck.isEditing`), locked with `inert`, so pages can be built as they will look; on the public site the root adds nothing, so they never double up.
 - **Tour dates are fictional; venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
   (`/tickets/[id]` -> `/ticket?...`) keeps all state in the URL and collects nothing.
 - **Tour map (`TourMap` in the design system; MapLibre GL + OpenStreetMap raster tiles, decided by the owner).** It starts as text (each venue and its
@@ -97,7 +97,7 @@ How this fits the rest of this file:
   NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
   silently fails (downloads still work because they go through `/api/download`). Without it playback needs no CORS.
 - **Unreleased** means no public release (not "coming soon"). It is an album-style page with no `year`; do not seed it with
-  songs that merely lack audio. The EP has its own album page (`ep`) with real cover art, plus a back cover and inner spread shown as a gallery under the track list. Unreleased still uses the `paris-close.jpg` placeholder until it has art.
+  songs that merely lack audio. The EP has its own album page (`ep`) with real cover art, plus a back cover and inner spread shown as a gallery under the track list; Tribute has a back cover and inner spread gallery the same way. Unreleased still uses the `paris-close.jpg` placeholder until it has art.
 - Content editing guide for humans: `CONTENT.md`.
 - **`serverExternalPackages: ["yjs"]`** in `next.config.ts` stops the "Yjs was already imported" warning (yjs loaded twice, ESM and CJS). The starter's `webpack` yjs alias is ignored by Turbopack, the default builder.
 - **Single Next config:** `next.config.ts` only. The starter's `.mjs` config and the Pantheon template's `.ts`
@@ -109,6 +109,15 @@ How this fits the rest of this file:
 - **Secrets on Pantheon:** `terminus secret:site:set <site>[.env] NAME value --type=env --scope=web --rebuild`.
   Changes only apply after a rebuild. Values are write-only. P1 key: `CSS_API_KEY` (drafts scope) on dev/test/local;
   `CSS_API_KEY_LIVE` (published-only) on live. `getP1ApiKey()` (`lib/site/p1-key.ts`) picks the key by `PANTHEON_ENVIRONMENT` and throws on live without the live key; `instrumentation.ts` copies it into `CSS_API_KEY` at start because the SDK's published-page reads use that variable directly. Live with no `CSS_API_KEY_LIVE` returns 500 on purpose (verified), never the drafts key. Next loads `.env` itself, so test this with `CSS_API_KEY_LIVE=` (empty), not unset.
+- **No P1 traffic from placeholders.** CI, the e2e run and local checks use placeholder credentials (a key containing "placeholder", an all-zeros or missing site id) so
+  they render the repo copies. They must never send P1 a request: earlier they did, against the live backend, and every one was refused (measured with a local
+  listener standing in for P1: 26 requests per build and about 2 per page load, so thousands per e2e run). `isP1Configured()` in `lib/site/p1-config.ts` is false for
+  those credentials; `getP1Page` then returns null without calling the SDK, and `next.config.ts` sets the build-time `NEXT_PUBLIC_CSS_BASE_URL` to the unroutable
+  `http://127.0.0.1:9`, which also stops the SDK's own catch-all route (that route must stay an untouched shim; `published-page-routes.test.ts` pins it). CI's build and
+  e2e steps use the same unroutable URL. After the change a build, the whole e2e run and 14 page loads sent the listener 0 requests. In placeholder mode an unknown path
+  returns a 500 (the SDK's fetch to the unroutable address fails) where P1's 400 used to be handled; nothing tests it. The key is judged by `getP1ApiKey()`, so on live it is
+  `CSS_API_KEY_LIVE`; the check runs at build time, and on Pantheon the live key is a secret that only applies after a rebuild, so build and runtime agree. To check for stray
+  requests, point `NEXT_PUBLIC_CSS_BASE_URL` at a local HTTP listener and count what it receives.
 
 ## Accessibility
 
