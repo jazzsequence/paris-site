@@ -26,3 +26,10 @@
     outline-offset: 3px;
   }
 }
+
+/* MapLibre's attribution is third-party markup whose links are only a slightly different grey from the text
+   around them (2:1), so they are underlined rather than relying on colour. The selector is more specific than
+   maplibre-gl.css's own, which loads later with the map. */
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-inner a {
+  text-decoration: underline;
+}
