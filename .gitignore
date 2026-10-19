@@ -21,3 +21,6 @@ playwright-report/
 
 # claude-code-reviewer approval flag
 reviewer-approved
+
+# MapLibre worker files copied from node_modules by scripts/copy-maplibre-worker.mjs
+/public/maplibre/
