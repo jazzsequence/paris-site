@@ -5,7 +5,9 @@
       "Bash(git add*)",
       "Bash(date*)",
       "Write(*)",
-      "Agent(subagent_type=reviewer)"
+      "Agent(subagent_type=reviewer)",
+      "Bash(bash .githooks/lib/approval.sh fingerprint)",
+      "Bash(printf * > /Users/chris.reynolds/git/paris-site/reviewer-approved)"            
     ]
   },
   "hooks": {
