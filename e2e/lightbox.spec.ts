@@ -65,7 +65,7 @@ test("images across the site open in a lightbox", async ({ page }) => {
   for (const [route, count] of [
     ["/well-enough", 3],
     ["/albums/ep", 3],
-    ["/albums/tribute", 1],
+    ["/albums/tribute", 3],
     ["/listen", 4],
     ["/bio", 1],
     ["/merch", merchCount],

@@ -89,7 +89,7 @@ How this fits the rest of this file:
   NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
   silently fails (downloads still work because they go through `/api/download`). Without it playback needs no CORS.
 - **Unreleased** means no public release (not "coming soon"). It is an album-style page with no `year`; do not seed it with
-  songs that merely lack audio. The EP has its own album page (`ep`) with real cover art, plus a back cover and inner spread shown as a gallery under the track list. Unreleased still uses the `paris-close.jpg` placeholder until it has art.
+  songs that merely lack audio. The EP has its own album page (`ep`) with real cover art, plus a back cover and inner spread shown as a gallery under the track list; Tribute has a back cover and inner spread gallery the same way. Unreleased still uses the `paris-close.jpg` placeholder until it has art.
 - Content editing guide for humans: `CONTENT.md`.
 - **`serverExternalPackages: ["yjs"]`** in `next.config.ts` stops the "Yjs was already imported" warning (yjs loaded twice, ESM and CJS). The starter's `webpack` yjs alias is ignored by Turbopack, the default builder.
 - **Single Next config:** `next.config.ts` only. The starter's `.mjs` config and the Pantheon template's `.ts`
