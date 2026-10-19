@@ -61,6 +61,13 @@ async function AlbumFallback({ params }: Props) {
         </p>
         )}
       </section>
+      {album.gallery && album.gallery.length > 0 ? (
+        <section className="grid gap-6 sm:grid-cols-2">
+          {album.gallery.map((g) => (
+            <LightboxImage key={g.src} src={g.src} alt={g.alt} width={g.width} height={g.height} loading="lazy" className="w-full rounded-card border border-line" />
+          ))}
+        </section>
+      ) : null}
     </Page>
   );
 }

@@ -18,3 +18,6 @@ storybook-static
 # Playwright
 test-results/
 playwright-report/
+
+# claude-code-reviewer approval flag
+reviewer-approved

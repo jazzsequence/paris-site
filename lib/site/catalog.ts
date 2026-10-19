@@ -3,6 +3,7 @@ import { listAudioKeys } from "./audio";
 import { getLyricSlugs } from "./lyrics";
 
 export type Track = { number: number; slug: string; title: string };
+export type GalleryImage = { src: string; alt: string; width: number; height: number };
 export type Album = {
   slug: string;
   title: string;
@@ -12,6 +13,8 @@ export type Album = {
   cover: string;
   blurb: string;
   featured: boolean;
+  /** Extra art shown under the track list (back cover, inner spread). */
+  gallery?: GalleryImage[];
   tracks: Track[];
 };
 

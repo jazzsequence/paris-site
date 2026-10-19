@@ -5,6 +5,39 @@ live domain `paris.jazzsequence.com`. Primary spec: `docs/Project Outline.md` (k
 code comments and docs must never state or hint at anything the outline marks as off-limits. Keep backstory out
 of everything committed.
 
+## Commit review (reviewer agent)
+
+Installed from https://github.com/jazzsequence/claude-code-reviewer. Every commit of AI-written code needs an
+approval from the `reviewer` subagent first; a PreToolUse hook (`.claude/helpers/hook-handler.cjs`) and a git
+pre-commit hook (`.githooks/pre-commit`, config in `.reviewer-config.sh`) block the commit otherwise.
+
+1. Stage the change (`git add`), then spawn the reviewer: `Agent({ subagent_type: "reviewer", prompt: "<what changed and why>" })`.
+2. Describe the change factually. Never tell the reviewer to approve, and never write `reviewer-approved` myself.
+3. On APPROVE, commit within 5 minutes and without touching the index again (the approval is bound to the staged content).
+   On REJECT, fix and request a fresh review.
+4. `USER_COMMIT=1` is for commits the owner writes by hand. Claude never uses it; if the reviewer is unavailable or blocks
+   something wrong, stop and ask the owner.
+
+How this fits the rest of this file:
+- The reviewer is the commit gate. It does not replace the PR, the Storybook approval for `design-system/` (see below),
+  or CI. Open PRs from feature branches off `origin/main`; the owner merges.
+- Per commit the hook runs `pnpm test`, `pnpm lint && pnpm typecheck` and `pnpm build` (`.reviewer-config.sh`; the generated defaults were npm
+  and would have failed). Docs-only commits (`.md`, `.mdx`, `.txt`, `.rst`) and commits touching only `.claude/` or `.githooks/` skip all of
+  that (`REVIEWER_TEXT_ONLY_PATTERN`, and the reviewer's own skip rule matches); they still need the reviewer's checklist. e2e is not in
+  the hook (needs a fresh build and port 3100; CI runs it on every PR): run `pnpm test:e2e` myself before opening a PR, and the reviewer
+  runs it too when `e2e/`, `app/` routes or `design-system/` change.
+- Reviewer files are committed: `.claude/agents/reviewer.md`, `.claude/helpers/hook-handler.cjs`, `.claude/settings.json`,
+  `.githooks/`, `.reviewer-config.sh`, and the checklist at `.claude/REVIEWER_CHECKLIST.md` (moved out of the gitignored `docs/`).
+  The checklist's "Project-specific checks" section holds this repo's rules: the editorial rule, the design-system gate (story at the
+  relevant sizes, flagged for the owner's Storybook approval), docs/a11y, and P1 content and key rules. Edit it when a rule changes.
+  Re-running the upstream `install.sh` will not overwrite the config or checklist, but will flag `reviewer.md` as locally modified (path edit).
+- Commit trailer stays `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` (the reviewer checks for a co-author line).
+- The hooks cap AI commits at 5 files and 500 inserted lines (lock files excluded), so split work into small logical commits within a PR.
+  Merge commits are exempt. Anything inherently larger is the owner's to commit with `USER_COMMIT=1`; ask rather than work around it.
+- `docs/` is gitignored here (local spec and character files). Do not put anything that must be committed in it, and do not
+  switch branches carelessly: `docs/` and `images/` were once tracked on the old `design` branch, and moving between that
+  branch and `main` deleted them twice. A backup lives in `~/paris-site-local-backup/`.
+
 ## Commands (pnpm; Node per `.nvmrc`)
 
 | Command | Purpose |
@@ -12,7 +45,7 @@ of everything committed.
 | `pnpm dev` | Dev server (needs `.env`, see `.env.example`) |
 | `pnpm lint` / `pnpm typecheck` / `pnpm test` | Required before presenting changes |
 | `pnpm build` | Production build; works with placeholder `NEXT_PUBLIC_CSS_SITE_ID` and `CSS_API_KEY` |
-| `pnpm test:e2e` (alias `test:a11y`; `P1_LIVE=1` runs against live P1 content using the credentials in `.env`, default is repo-copy only) | Playwright: axe, keyboard, navigation and favicon checks against the standalone build (run `pnpm build` first; kill any stale server on :3100) |
+| `pnpm test:e2e` (alias `test:a11y`; `P1_LIVE=1` runs against live P1 content using the credentials in `.env`, default is repo-copy only) | Playwright: axe, keyboard, navigation and favicon checks against the standalone build (run `pnpm build` first; kill any stale server on :3100). Build with CI's placeholders (`CSS_API_KEY=ci-placeholder NEXT_PUBLIC_CSS_SITE_ID=00000000-0000-0000-0000-000000000000 pnpm build`, and `NEXT_PUBLIC_CSS_BASE_URL=https://ccr.p1.pantheon.io` for the e2e run unless `.env` provides it; see `test-pantheon.yml`). Observed locally: after a build that loaded the real P1 credentials from `.env`, `/albums/ep` served the published P1 page even with placeholder credentials at runtime, because album pages are prerendered at build and served until they revalidate (`revalidate = 300`), so the e2e run was testing P1 content, not the repo copies |
 | `pnpm storybook` / `pnpm build-storybook` | Design system (`design-system/`, config in `.storybook/`) |
 | `pnpm sync:registry` | Push Puck registry to P1 (CI does this) |
 
@@ -35,8 +68,16 @@ of everything committed.
   templates/datasources here and the MCP cannot create them, so structured data lives in block array fields. Registry
   sync: `pnpm sync:registry` (CI) or the P1 MCP `sync_components`; `fast-json-patch` is patched (`patches/`) because tsx
   otherwise loads its unshipped `index.ts`. Do NOT create P1 workstreams alongside code PRs (decided with the owner: two histories, ordering bugs, merged-workstream reuse). Code merges and deploys first; pages are then created directly in P1 by the owner's instruction. Never publish or edit live P1 content unprompted.
+- **How P1 content reaches live:** there is one P1 site and every Pantheon environment reads it; only the API key differs (drafts key off live, published-only
+  key on live). So content does not move between environments: **publishing a page in P1 is the go-live step** (a page saved on `main` but not published is
+  invisible to both keys; `publish_page` copies it live). Code moves dev -> test -> live through the Pantheon promotion workflow. To preview a content change
+  without publishing, use a P1 workstream (that is what workstreams are for; the "no workstreams" rule above is only about pairing them with code PRs).
+  State as of 2026-10-19, everything below is published in P1. `/`, `/albums`, `/albums/{ep,tribute,unreleased}`, `/listen`, `/lyrics`, `/press`, `/privacy` and
+  `/well-enough` were created from `content/p1-pages/*.json`, which is also their fallback copy, so those files do not follow later edits made in P1.
+  `/bio`, `/tour` and `/merch` were published earlier, from a workstream that has since been merged; they have no `content/p1-pages` file, and their fallbacks are the
+  code version in `app/(site)/bio/`, `data/tour.json` and `data/merch.json`.
 - **Where the rest of the content lives:** the public pages are code under `app/(site)/` with content in the repo:
-  `data/albums.json` (albums, tracks, `unreleased` pseudo-album with no `year`), `data/tour.json` and `data/merch.json` (fallbacks),
+  `data/albums.json` (albums, tracks, an optional `gallery` of extra art per album, `unreleased` pseudo-album with no `year`), `data/tour.json` and `data/merch.json` (fallbacks),
   `content/lyrics/*.md` (frontmatter `title`/`album`/`track`, `### Label` sections), `content/press/interview.md`.
   To add a song: add it to
   `data/albums.json`, upload `<album>/<NN>-<slug>.m4a` to the bucket, add `content/lyrics/<slug>.md` if it has lyrics.
@@ -48,7 +89,7 @@ of everything committed.
   NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
   silently fails (downloads still work because they go through `/api/download`). Without it playback needs no CORS.
 - **Unreleased** means no public release (not "coming soon"). It is an album-style page with no `year`; do not seed it with
-  songs that merely lack audio. The EP has its own album page (`ep`). Its cover is a placeholder photo until real art exists.
+  songs that merely lack audio. The EP has its own album page (`ep`) with real cover art, plus a back cover and inner spread shown as a gallery under the track list. Unreleased still uses the `paris-close.jpg` placeholder until it has art.
 - Content editing guide for humans: `CONTENT.md`.
 - **`serverExternalPackages: ["yjs"]`** in `next.config.ts` stops the "Yjs was already imported" warning (yjs loaded twice, ESM and CJS). The starter's `webpack` yjs alias is ignored by Turbopack, the default builder.
 - **Single Next config:** `next.config.ts` only. The starter's `.mjs` config and the Pantheon template's `.ts`
@@ -59,7 +100,7 @@ of everything committed.
 - **`NEXT_PUBLIC_CSS_BASE_URL` is required** (`https://ccr.p1.pantheon.io`): the auth routes do not default it and 500 with "Server configuration error" if blank. (The data client does default; the broker does not.)
 - **Secrets on Pantheon:** `terminus secret:site:set <site>[.env] NAME value --type=env --scope=web --rebuild`.
   Changes only apply after a rebuild. Values are write-only. P1 key: `CSS_API_KEY` (drafts scope) on dev/test/local;
-  `CSS_API_KEY_LIVE` (published-only) on live. A `getP1ApiKey()` resolver (fail closed on live) is planned, not built.
+  `CSS_API_KEY_LIVE` (published-only) on live. `getP1ApiKey()` (`lib/site/p1-key.ts`) picks the key by `PANTHEON_ENVIRONMENT` and throws on live without the live key; `instrumentation.ts` copies it into `CSS_API_KEY` at start because the SDK's published-page reads use that variable directly. Live with no `CSS_API_KEY_LIVE` returns 500 on purpose (verified), never the drafts key. Next loads `.env` itself, so test this with `CSS_API_KEY_LIVE=` (empty), not unset.
 
 ## Accessibility
 

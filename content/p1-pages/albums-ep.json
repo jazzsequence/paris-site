@@ -29,6 +29,23 @@
         "albumSlug": "ep",
         "heading": "Track list"
       }
+    },
+    {
+      "type": "ImageGalleryBlock",
+      "props": {
+        "id": "ImageGalleryBlock-14",
+        "columns": "2",
+        "items": [
+          {
+            "imageUrl": "/images/ep-back.jpg",
+            "alt": "Back cover: a smeared red mark across a mirror"
+          },
+          {
+            "imageUrl": "/images/ep-inner.jpg",
+            "alt": "Inner spread: a crowd at the front of a venue"
+          }
+        ]
+      }
     }
   ],
   "zones": {}
