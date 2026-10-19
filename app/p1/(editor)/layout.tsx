@@ -1,4 +1,6 @@
 import "@puckeditor/core/puck.css";
+import "../../../design-system/fonts";
+import "../../../design-system/ds.css";
 import { pages } from "./[[...p1]]/p1-pages";
 
 // The editor renders from this layout, NOT the page. The (editor) group is a

@@ -13,10 +13,36 @@ import { spacerBlock } from "./components/puck/spacer-block";
 import { welcomeBlock } from "./components/puck/welcome-block";
 import { dataListBlock } from "./components/puck/data-list-block";
 import { p1Blocks, p1Categories } from "./components/puck/blocks";
+import { albumGridBlock, albumHeaderBlock, albumSectionBlock, lyricsIndexBlock, tourPreviewBlock, trackListBlock } from "./components/puck/paris/catalog-blocks";
+import { articleBlock, buttonRowBlock, heroBlock, imageGalleryBlock, sectionHeadingBlock } from "./components/puck/paris/content-blocks";
+import { imageTextBlock } from "./components/puck/paris/image-text-block";
+import { merchGridBlock } from "./components/puck/paris/merch-grid-block";
+import { pageHeadingBlock } from "./components/puck/paris/page-heading-block";
+import { tourDatesBlock } from "./components/puck/paris/tour-dates-block";
 
 export const config = {
   categories: {
     ...p1Categories,
+    paris: {
+      title: "PARIS",
+      components: [
+        "HeroBlock",
+        "PageHeadingBlock",
+        "SectionHeadingBlock",
+        "ImageTextBlock",
+        "ArticleBlock",
+        "ImageGalleryBlock",
+        "ButtonRowBlock",
+        "TourDatesBlock",
+        "TourPreviewBlock",
+        "MerchGridBlock",
+        "AlbumGridBlock",
+        "AlbumHeaderBlock",
+        "TrackListBlock",
+        "AlbumSectionBlock",
+        "LyricsIndexBlock",
+      ],
+    },
     data: {
       title: "Data",
       components: ["DataListBlock"],
@@ -46,6 +72,21 @@ export const config = {
   root: puckRoot,
   components: {
     ...p1Blocks,
+    HeroBlock: heroBlock,
+    SectionHeadingBlock: sectionHeadingBlock,
+    ArticleBlock: articleBlock,
+    ImageGalleryBlock: imageGalleryBlock,
+    ButtonRowBlock: buttonRowBlock,
+    TourPreviewBlock: tourPreviewBlock,
+    AlbumGridBlock: albumGridBlock,
+    AlbumHeaderBlock: albumHeaderBlock,
+    TrackListBlock: trackListBlock,
+    AlbumSectionBlock: albumSectionBlock,
+    LyricsIndexBlock: lyricsIndexBlock,
+    PageHeadingBlock: pageHeadingBlock,
+    ImageTextBlock: imageTextBlock,
+    TourDatesBlock: tourDatesBlock,
+    MerchGridBlock: merchGridBlock,
     HeadingBlock: headingBlock,
     ParagraphBlock: paragraphBlock,
     ImageBlock: imageBlock,

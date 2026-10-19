@@ -1,0 +1,35 @@
+{
+  "path": "/albums/tribute",
+  "root": {
+    "props": {
+      "title": "Tribute",
+      "description": ""
+    }
+  },
+  "content": [
+    {
+      "type": "AlbumHeaderBlock",
+      "props": {
+        "id": "AlbumHeaderBlock-14",
+        "albumSlug": "tribute",
+        "kicker": "",
+        "actions": [
+          {
+            "label": "All albums",
+            "href": "/albums",
+            "style": "outline"
+          }
+        ]
+      }
+    },
+    {
+      "type": "TrackListBlock",
+      "props": {
+        "id": "TrackListBlock-15",
+        "albumSlug": "tribute",
+        "heading": "Track list"
+      }
+    }
+  ],
+  "zones": {}
+}
