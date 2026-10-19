@@ -11,11 +11,12 @@ const points = [
 describe("TourMap before the visitor asks for the map", () => {
   const html = renderToStaticMarkup(<TourMap points={points} label="All tour dates" />);
 
-  it("lists every place as text with an OpenStreetMap link", () => {
+  it("lists every place and its address as text, with no link out to OpenStreetMap", () => {
     for (const p of points) {
       expect(html).toContain(p.label);
-      expect(html).toContain(`mlat=${p.lat}&amp;mlon=${p.lon}`);
+      expect(html).toContain(p.detail);
     }
+    expect(html).not.toContain("openstreetmap.org");
   });
 
   it("offers the map by button and says what loading it does", () => {

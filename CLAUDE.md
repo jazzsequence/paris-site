@@ -84,8 +84,8 @@ How this fits the rest of this file:
   P1 pages render inside the `(site)` layout (the catch-all lives under it).
 - **Tour dates are fictional; venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
   (`/tickets/[id]` -> `/ticket?...`) keeps all state in the URL and collects nothing.
-- **Tour map (`TourMap` in the design system; MapLibre GL + OpenStreetMap raster tiles, decided by the owner).** It starts as text (each venue, its
-  address, a link to it on OpenStreetMap) and loads MapLibre and the tiles only when the visitor clicks "Show map", so by default nothing is requested and nothing
+- **Tour map (`TourMap` in the design system; MapLibre GL + OpenStreetMap raster tiles, decided by the owner).** It starts as text (each venue and its
+  address, no links out) and loads MapLibre and the tiles only when the visitor clicks "Show map", so by default nothing is requested and nothing
   about the visitor leaves the site. MapLibre 6 ships its web worker as two separate files that neither Turbopack nor Vite emits, so
   `scripts/copy-maplibre-worker.mjs` copies them into gitignored `public/maplibre/` before dev, build and Storybook, and the component loads that same-origin
   worker (`workerUrl`; Storybook passes a relative path like its images). Same-origin means the CSP needs no `blob:`. ESLint skips `public/maplibre/`. `maplibre-gl` is

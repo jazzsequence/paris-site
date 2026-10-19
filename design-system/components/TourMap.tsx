@@ -18,12 +18,9 @@ export type MapPoint = {
 // MapLibre is large, and loading the map contacts OpenStreetMap. Neither happens until the visitor asks.
 const Canvas = lazy(() => import("./TourMapCanvas"));
 
-const osmLink = (p: MapPoint) => `https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lon}#map=17/${p.lat}/${p.lon}`;
-
 /**
- * Where a show (or every show) is. It starts as plain text: the places, their addresses and a link to each on
- * OpenStreetMap. The interactive map loads on request, so by default no map tiles are fetched and nothing about
- * the visitor leaves the site. Say that wherever the map is used and keep the Privacy page in step.
+ * Where a show (or every show) is. It starts as plain text: the places and their addresses. The interactive map
+ * loads on request, so by default no map tiles are fetched and nothing about the visitor leaves the site. Say that wherever the map is used and keep the Privacy page in step.
  */
 export function TourMap({
   points,
@@ -49,14 +46,9 @@ export function TourMap({
     <section aria-label={label} className={`space-y-4 rounded-card border border-line bg-surface p-5 ${className}`}>
       <ul className="space-y-2 text-sm">
         {points.map((p) => (
-          <li key={p.id} className="flex flex-wrap items-baseline justify-between gap-x-4">
-            <span>
-              <span className="font-semibold text-text">{p.label}</span>
-              {p.detail ? <span className="text-muted"> · {p.detail}</span> : null}
-            </span>
-            <a href={osmLink(p)} className="text-cyan underline underline-offset-4" rel="noreferrer">
-              View on OpenStreetMap<span className="sr-only"> ({p.label})</span>
-            </a>
+          <li key={p.id}>
+            <span className="font-semibold text-text">{p.label}</span>
+            {p.detail ? <span className="text-muted"> · {p.detail}</span> : null}
           </li>
         ))}
       </ul>
