@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-A4BUx815.js";e();
