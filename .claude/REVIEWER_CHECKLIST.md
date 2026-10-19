@@ -149,17 +149,18 @@ Rules for this repository (see CLAUDE.md). Numbering continues from the section 
 
 All Section A items must pass. All applicable Section B items must pass.
 
-1. Build the flag value — a timestamp AND a fingerprint of the staged index:
+1. Get the two parts, as separate Bash calls: `date +%s` and `bash .githooks/lib/approval.sh fingerprint` (the fingerprint of the staged index).
+2. Write the flag as your **last** action, with the Write tool (not a shell redirect; `Write(*)` is allow-listed, so no prompt):
    ```
-   Bash({ command: 'printf "%s %s" "$(date +%s)" "$(bash .githooks/lib/approval.sh fingerprint)"' })
+   Write({
+     file_path: "/Users/chris.reynolds/git/paris-site/reviewer-approved",
+     content: "<timestamp> <fingerprint>"
+   })
    ```
-2. Write it, as your **last** action, with a Bash redirect (not the Write tool) so the format is exact:
-   ```
-   Bash({ command: 'printf "%s %s" "$(date +%s)" "$(bash .githooks/lib/approval.sh fingerprint)" > /Users/chris.reynolds/git/paris-site/reviewer-approved' })
-   ```
+   One line: the timestamp, a single space, the fingerprint as printed, no trailing newline.
    The fingerprint binds the approval to the exact staged content, so staging or
    unstaging anything after you write it invalidates the flag. A bare timestamp is
-   rejected as the pre-binding format.
+   rejected as the pre-binding format, and a mistyped value is rejected too, so a slip fails closed.
 3. Respond: `✅ APPROVED — approval flag written. Main agent may now commit without restaging.`
 
 **Only the reviewer agent writes `/Users/chris.reynolds/git/paris-site/reviewer-approved`. The main agent must not write it.**
