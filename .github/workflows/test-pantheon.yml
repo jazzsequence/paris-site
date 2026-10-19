@@ -51,14 +51,16 @@ jobs:
         env:
           CI: true
 
-      # Placeholders: the build only needs the variables to exist. Published content is
-      # fetched at request time, so no real token belongs in CI.
+      # Placeholders: the build only needs the variables to exist, and the site makes no P1 requests
+      # with them (lib/site/p1-config.ts), so CI renders the repo copies and no real token belongs here.
       - name: Build
         id: build
         continue-on-error: true
         run: pnpm build
         env:
           NEXT_PUBLIC_CSS_SITE_ID: 00000000-0000-0000-0000-000000000000
+          # Nothing listens here, so even a missed guard (lib/site/p1-config.ts) cannot reach the real P1 backend.
+          NEXT_PUBLIC_CSS_BASE_URL: http://127.0.0.1:9
           CSS_API_KEY: ci-placeholder
 
       # Runs axe (WCAG 2.2 AA + best practices) and keyboard/focus/skip-link checks against the
@@ -74,7 +76,7 @@ jobs:
         env:
           CI: true
           NEXT_PUBLIC_CSS_SITE_ID: 00000000-0000-0000-0000-000000000000
-          NEXT_PUBLIC_CSS_BASE_URL: https://ccr.p1.pantheon.io
+          NEXT_PUBLIC_CSS_BASE_URL: http://127.0.0.1:9
           CSS_API_KEY: ci-placeholder
 
       - name: Upload accessibility report
