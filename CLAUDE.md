@@ -42,11 +42,11 @@ How this fits the rest of this file:
 
 | Command | Purpose |
 |---|---|
-| `pnpm dev` | Dev server (needs `.env`, see `.env.example`) |
+| `pnpm dev` | Dev server (needs `.env`, see `.env.example`). Like `build`, `storybook` and `build-storybook`, it first runs `scripts/copy-maplibre-worker.mjs` (see the tour map bullet) |
 | `pnpm lint` / `pnpm typecheck` / `pnpm test` | Required before presenting changes |
-| `pnpm build` | Production build; works with placeholder `NEXT_PUBLIC_CSS_SITE_ID` and `CSS_API_KEY` |
+| `pnpm build` | Production build; works with placeholder `NEXT_PUBLIC_CSS_SITE_ID` and `CSS_API_KEY`. First copies MapLibre's worker files into gitignored `public/maplibre/` |
 | `pnpm test:e2e` (alias `test:a11y`; `P1_LIVE=1` runs against live P1 content using the credentials in `.env`, default is repo-copy only) | Playwright: axe, keyboard, navigation and favicon checks against the standalone build (run `pnpm build` first; kill any stale server on :3100). Build and run with CI's placeholders and an unroutable base URL: `CSS_API_KEY=ci-placeholder CSS_API_KEY_LIVE= NEXT_PUBLIC_CSS_SITE_ID=00000000-0000-0000-0000-000000000000 NEXT_PUBLIC_CSS_BASE_URL=http://127.0.0.1:9 pnpm build`, then the same variables with `pnpm test:e2e` (see `test-pantheon.yml`). Never point a placeholder run at `ccr.p1.pantheon.io` (see "No P1 traffic from placeholders" under Architecture). A build that loads the real credentials from `.env` prerenders the published P1 pages, so the e2e run then tests those instead of the repo copies (seen on `/albums/ep`: album pages are prerendered at build and served until `revalidate = 300`) |
-| `pnpm storybook` / `pnpm build-storybook` | Design system (`design-system/`, config in `.storybook/`) |
+| `pnpm storybook` / `pnpm build-storybook` | Design system (`design-system/`, config in `.storybook/`); copies MapLibre's worker into `public/maplibre/` first |
 | `pnpm sync:registry` | Push Puck registry to P1 (CI does this) |
 
 ## Architecture decisions
@@ -84,6 +84,14 @@ How this fits the rest of this file:
   P1 pages render inside the `(site)` layout (the catch-all lives under it). That layout supplies the header, footer and player, so a P1 page needs no header or footer block (an Article-only page like `/press` has both). The editor canvas has no layout, so `puckRoot.render` (`components/puck/root.tsx`) wraps the page in the real `SiteHeader` and `SiteFooter` there only (`puck.isEditing`), locked with `inert`, so pages can be built as they will look; on the public site the root adds nothing, so they never double up.
 - **Tour dates are fictional; venues are real 1997 clubs and theatres, so check each against a source before adding one.** The ticket flow
   (`/tickets/[id]` -> `/ticket?...`) keeps all state in the URL and collects nothing.
+- **Tour map (`TourMap` in the design system; MapLibre GL + OpenStreetMap raster tiles, decided by the owner).** It starts as text (each venue and its
+  address, no links out) and loads MapLibre and the tiles only when the visitor clicks "Show map", so by default nothing is requested and nothing
+  about the visitor leaves the site. MapLibre 6 ships its web worker as two separate files that neither Turbopack nor Vite emits, so
+  `scripts/copy-maplibre-worker.mjs` copies them into gitignored `public/maplibre/` before dev, build and Storybook, and the component loads that same-origin
+  worker (`workerUrl`; Storybook passes a relative path like its images). Same-origin means the CSP needs no `blob:`. ESLint skips `public/maplibre/`. `maplibre-gl` is
+  pinned exactly (6.12.0): do not adopt a release less than two weeks old. Pins come from each show's `lat`/`lon` (OpenStreetMap geocodes of the street address; the
+  P1 `TourDatesBlock` carries them, `data/tour.json` is the fallback). The component is not on any page yet; that is the wiring PR, after the owner's design approval. The
+  published P1 `/tour` page still has the old coordinates and Club DV8's old address until it is edited.
 - **Songs and lyrics are independent resources.** A track with no lyrics, or lyrics with no audio, is normal.
 - **Persistent player** lives in the site layout; no cookies, no tracking, no mailing list. The `<audio>` element must
   NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
@@ -130,6 +138,12 @@ optimised images. Deliberately not done: AI-crawler rules in robots.txt and Cont
 cookie consent and GPC (no cookies or data processing), RSS (no feed content yet). standard.site support is verification plumbing
 driven by `data/standard-site.json`; the records themselves are created by `scripts/publish-standard-site.mjs` with the owner's
 account, which Claude must not run without being given credentials. `security.txt` needs `SECURITY_CONTACT`.
+
+**Privacy.** Any change that adds a third-party request or stores anything about a visitor must update the Privacy page in the same changeset: the repo copy
+(`content/p1-pages/privacy.json`), the page's code fallback, and the published P1 `/privacy` page (a live edit, so it needs the owner's go-ahead). The tour map is the
+first such case. When `TourMap` is placed on a page, the CSP in `next.config.ts` needs `connect-src https://tile.openstreetmap.org` (`img-src` already allows `https:`, and
+the worker is same-origin so `script-src 'self'` covers it), and the Privacy page must say the map contacts OpenStreetMap, which sees the visitor's IP address, and only after
+they click Show map.
 
 ## CI / deployment (mirrors jazz-nextjs)
 
