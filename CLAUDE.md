@@ -144,7 +144,7 @@ account, which Claude must not run without being given credentials. `security.tx
 (`content/p1-pages/privacy.json`), the page's code fallback, and the published P1 `/privacy` page (a live edit, so it needs the owner's go-ahead). The tour map is the
 first such case: the CSP in `next.config.ts` allows `connect-src https://tile.openstreetmap.org` (`img-src` already allows `https:`, and the worker is same-origin so
 `script-src 'self'` covers it), and the Privacy page has a "The map" section saying it contacts OpenStreetMap, which sees the visitor's IP address, and only after they click
-Show map. The published P1 `/privacy` page is a separate copy and needs the same section (a live edit, so it needs the owner's go-ahead).
+Show map. The published P1 `/privacy` page is a separate copy: it got the same section on 2026-10-20 (a live edit, made at the owner's go-ahead), so any later change to this text has to be made in P1 as well.
 
 ## CI / deployment (mirrors jazz-nextjs)
 
