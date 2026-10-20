@@ -8,7 +8,7 @@ import { p1PageMetadata } from "../../../lib/site/p1-metadata";
 
 export const generateMetadata = (): Promise<Metadata> => p1PageMetadata({
   title: "Privacy",
-  description: "What this site does and does not collect. Short version: nothing.",
+  description: "What this site does and does not collect. Short version: nothing, unless you ask for a map.",
   path: "/privacy",
 });
 
@@ -37,7 +37,20 @@ function PrivacyFallback() {
             Every website is delivered by someone. Pantheon hosts the pages and, like any host, keeps ordinary server
             logs that include your IP address and what you requested. Songs are served from Cloudflare, which sees a
             request each time you play or download one. Fonts and images are served from this site itself, not from a
-            third party.
+            third party. The one exception is the optional map, below.
+          </p>
+        </section>
+        <section className="space-y-3">
+          <h2 className="font-display text-2xl font-extrabold uppercase tracking-[-0.02em] text-text">The map</h2>
+          <p>
+            The tour pages can show a map. It is off until you press Show map, and until then nothing is requested from
+            anyone. When you press it, your browser asks OpenStreetMap, run by the OpenStreetMap Foundation, for the map
+            pictures it needs, so OpenStreetMap sees your IP address and which part of the map you are looking at, as any
+            website you visit would. This site does not receive or keep any of that. OpenStreetMap&rsquo;s own{" "}
+            <a className="text-cyan underline underline-offset-4 hover:text-text" href="https://osmfoundation.org/wiki/Privacy_Policy">
+              privacy policy
+            </a>{" "}
+            covers what it does with it.
           </p>
         </section>
         <section className="space-y-3">

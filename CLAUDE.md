@@ -91,8 +91,8 @@ How this fits the rest of this file:
   `scripts/copy-maplibre-worker.mjs` copies them into gitignored `public/maplibre/` before dev, build and Storybook, and the component loads that same-origin
   worker (`workerUrl`; Storybook passes a relative path like its images). Same-origin means the CSP needs no `blob:`. ESLint skips `public/maplibre/`. `maplibre-gl` is
   pinned exactly (6.12.0): do not adopt a release less than two weeks old. Pins come from each show's `lat`/`lon` (OpenStreetMap geocodes of the street address; the
-  P1 `TourDatesBlock` carries them, `data/tour.json` is the fallback). The component is not on any page yet; that is the wiring PR, after the owner's design approval. The
-  published P1 `/tour` page still has the old coordinates and Club DV8's old address until it is edited.
+  P1 `TourDatesBlock` carries them, `data/tour.json` is the fallback). It is placed on each show page (`/tickets/[id]`, that show's pin) and under the dates on `/tour` (in `TourDatesBlock` and the
+  code fallback, every pin); a show with no coordinates gets no map. The corrected coordinates and Club DV8 address were published in P1 `/tour` on 2026-10-20.
 - **Songs and lyrics are independent resources.** A track with no lyrics, or lyrics with no audio, is normal.
 - **Persistent player** lives in the site layout; no cookies, no tracking, no mailing list. The `<audio>` element must
   NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
@@ -142,9 +142,9 @@ account, which Claude must not run without being given credentials. `security.tx
 
 **Privacy.** Any change that adds a third-party request or stores anything about a visitor must update the Privacy page in the same changeset: the repo copy
 (`content/p1-pages/privacy.json`), the page's code fallback, and the published P1 `/privacy` page (a live edit, so it needs the owner's go-ahead). The tour map is the
-first such case. When `TourMap` is placed on a page, the CSP in `next.config.ts` needs `connect-src https://tile.openstreetmap.org` (`img-src` already allows `https:`, and
-the worker is same-origin so `script-src 'self'` covers it), and the Privacy page must say the map contacts OpenStreetMap, which sees the visitor's IP address, and only after
-they click Show map.
+first such case: the CSP in `next.config.ts` allows `connect-src https://tile.openstreetmap.org` (`img-src` already allows `https:`, and the worker is same-origin so
+`script-src 'self'` covers it), and the Privacy page has a "The map" section saying it contacts OpenStreetMap, which sees the visitor's IP address, and only after they click
+Show map. The published P1 `/privacy` page is a separate copy and needs the same section (a live edit, so it needs the owner's go-ahead).
 
 ## CI / deployment (mirrors jazz-nextjs)
 
