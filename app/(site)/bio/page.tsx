@@ -45,20 +45,30 @@ export default async function Bio() {
           </h1>
           <div className="space-y-4 text-lg leading-8 text-muted">
             <p>
-              PARIS makes industrial pop that sounds expensive, intentional and quietly hostile to interpretation.
-              The independently released debut EP drew national press and a following that arrived faster than
-              anyone expected.
+              PARIS makes industrial pop that sounds expensive, intentional and quietly hostile to interpretation. The
+              self-released{" "}
+              <AppLink className="text-cyan underline underline-offset-4 hover:text-text" href="/albums/ep">
+                debut EP
+              </AppLink>
+              , led by &ldquo;Consent of the Quiet&rdquo; and &ldquo;Don&rsquo;t Ask What I Am,&rdquo; drew{" "}
+              <AppLink className="text-cyan underline underline-offset-4 hover:text-text" href="/press">
+                national press
+              </AppLink>{" "}
+              and a following that arrived faster than anyone expected.
             </p>
             <p>
-              PARIS runs the boutique label Hostile Takeover, and Interscope Records released the full-length{" "}
+              Based in the Bay Area, PARIS has been performing since 1996 and writes, performs and produces every record
+              alone.{" "}
               <AppLink className="text-cyan underline underline-offset-4 hover:text-text" href="/well-enough">
                 Well Enough
-              </AppLink>{" "}
-              on it. <em>Tribute</em>, a collection of B-sides and unreleased songs that includes the complete EP, came
-              soon after.
-            </p>
-            <p>
-              Live, PARIS plays clubs and theatres up and down the West Coast and into the Rockies.
+              </AppLink>
+              , the full-length, came out in 1997 on PARIS&rsquo;s own label, Hostile Takeover, with distribution by
+              Interscope Records.{" "}
+              <AppLink className="text-cyan underline underline-offset-4 hover:text-text" href="/albums/tribute">
+                Tribute
+              </AppLink>
+              , a collection of B-sides, followed. This fall PARIS takes the band across the West Coast, the Southwest and
+              the Rockies.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
