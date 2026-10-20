@@ -5,10 +5,9 @@ track: 6
 ---
 
 
-### 1950s TV commercial sample, cheery nurse
 How are we feeling today?
 
-### Intro (dry, intimate)
+### Intro
 They said I looked tired
 I said I was awake
 
@@ -25,11 +24,11 @@ A smile practiced to calm the air
 I signed my name in lowercase
 So it doesn’t bruise the page
 
-### Refrain (flat, rhythmic)
+### Refrain
 Not sick
 Just inconvenient
 
-Verse B
+### Verse B
 Sleep is measured
 Trust is scored
 Write it down like scripture
@@ -53,7 +52,6 @@ To be useful
 To be emptied
 To be consumed
 
-### 1950s TV commercial sample, cheery nurse
 You’ll be feeling better in no time.
 
 ### Verse C
@@ -68,7 +66,7 @@ Everything is handled now
 You don’t need to know why
 Trust the process
 
-### Pre-Chorus (tight, ascending)
+### Pre-Chorus
 Nothing is taken
 Everything is given
 You agreed
@@ -87,7 +85,6 @@ To be quiet
 To be chosen
 To be gone
 
-### 1950s TV commercial sample, cheery doctor
 What seems to be the problem?
 
 ### Bridge
@@ -112,7 +109,7 @@ You’re just well enough
 To disappear politely
 So no one has to stop
 
-### Outro (drop to voice + pulse)
+### Outro
 I didn’t escape
 I was released
 After learning how to look harmless

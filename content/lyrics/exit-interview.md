@@ -5,8 +5,6 @@ track: 10
 ---
 
 
-### Intro (synth hook alone, four bars, then bass drops in)
-
 ### Verse 1
 Question one
 How long did you work together
@@ -66,9 +64,7 @@ And we do mean see
 Because I'm looking at the space
 And there's nothing looking back at me
 
-### Middle Eight (bass drops out; synth hook, unaccompanied, plays the chorus melody in full — no vocal at all, eight bars)
-
-### Verse 3 (same melody as verse 1, delivered slower)
+### Verse 3
 I know the shape of where you stood
 I know you took the second chair
 I know somebody made the coffee wrong
@@ -80,7 +76,7 @@ That's the whole file
 Twelve months of a person
 and I've got a chair and a joke
 
-### Bridge (everything cuts except a single held synth pad)
+### Bridge
 It isn't grief
 Grief needs a shape to sit in
 
@@ -89,7 +85,7 @@ The one there's no word for
 because the people who'd name it
 keep getting filed
 
-### Final Chorus (full arrangement, hook doubled an octave up)
+### Final Chorus 
 We're sorry to see you go
 We're sorry to see you go
 We wish you every success
@@ -99,10 +95,9 @@ We're so sorry
 We're so sorry
 We are so, so sorry
 
-### (flat, on the last beat)
 No we're not
 
-### Outro (hook alone, fading; spoken over it, dry)
+### Outro
 Somebody had your locker before you.
 Nobody's told you their name.
 

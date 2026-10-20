@@ -68,7 +68,7 @@ Somewhere there's a chair
 still warm
 and a phrase where a person used to be
 
-### Outro (flat, procedural)
+### Outro
 Filed.
 Closed.
 No further action required.

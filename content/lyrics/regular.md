@@ -56,7 +56,7 @@ And I remember everything
 Your order, your birthday,
 the thing you told me once at four in the morning
 
-### Bridge (same groove, no change in dynamics, vocal drops lower)
+### Bridge
 People ask me
 don't you get bored
 Same faces
@@ -95,4 +95,3 @@ And I remember everything
 Your order, your birthday,
 the thing you told me once at four in the morning
 
-(chorus repeats, unchanged, groove unchanged, long fade)

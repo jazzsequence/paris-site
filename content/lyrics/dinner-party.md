@@ -5,8 +5,6 @@ track: 9
 ---
 
 
-### Intro (solo upright piano, four bars, absurdly formal)
-
 ### Verse 1
 Forks on the left
 Grudges on the right
@@ -69,7 +67,7 @@ Pass the decanter
 Pass the decanter
 (don't drink it)
 
-### Middle Eight (piano solo, ragtime, ridiculous — PARIS calling over the top)
+### Middle Eight
 More wine for the gentleman!
 More centuries for the lady!
 Somebody get the door —
@@ -77,7 +75,7 @@ no, nobody get the door,
 nobody has ever got the door,
 the door has never once been got —
 
-### Verse 3 (tempo lifts, breakbeat doubles)
+### Verse 3
 Here's what nobody says at the table
 and I'm only saying it to you
 There's nine of them
@@ -90,7 +88,7 @@ They're seated
 That's the whole thing
 That's all it's ever been
 
-### Final Chorus (full chaos — horns, gang vocal, piano hammering)
+### Final Chorus
 Welcome to the dinner party
 Nobody's eating
 Nobody's leaving
@@ -101,4 +99,3 @@ Pass the decanter
 Pass the decanter
 Pass the deca—
 
-### (cut)

@@ -2,7 +2,8 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 
-import { PlayerBar } from "../../design-system/components/PlayerBar";
+import { PlayerBar, type RepeatMode } from "../../design-system/components/PlayerBar";
+import { neighbour, NEXT_REPEAT, playOrder, rankAfter, repeatLabel, rerank } from "../../lib/site/player-order";
 
 export type PlayerTrack = {
   id: string;
@@ -12,8 +13,8 @@ export type PlayerTrack = {
   src: string;
 };
 
-/** One slot in the queue. The same song can be queued twice, so slots have their own id. */
-type Entry = { uid: string; track: PlayerTrack };
+/** One slot in the queue. The same song can be queued twice, so slots have their own id. `rank` orders the slots while shuffle is on. */
+type Entry = { uid: string; track: PlayerTrack; rank: number };
 
 type PlayerState = {
   /** Id of the track loaded in the player, playing or paused. */
@@ -51,11 +52,13 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const [queue, setQueue] = useState<Entry[]>([]);
   const [currentUid, setCurrentUid] = useState<string>();
   const [playing, setPlaying] = useState(false);
+  const [shuffle, setShuffle] = useState(false);
+  const [repeat, setRepeat] = useState<RepeatMode>("off");
   const [time, setTime] = useState({ elapsed: 0, duration: 0 });
   const [announcement, setAnnouncement] = useState("");
 
   const current = queue.find((e) => e.uid === currentUid)?.track;
-  const entry = useCallback((track: PlayerTrack): Entry => ({ uid: `q${++counter.current}`, track }), []);
+  const entry = useCallback((track: PlayerTrack): Entry => ({ uid: `q${++counter.current}`, track, rank: Math.random() }), []);
 
   /** Make an entry the loaded track. Playback only starts when asked to. */
   const load = useCallback((e: Entry, autoplay: boolean) => {
@@ -79,23 +82,24 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         togglePlayback();
         return;
       }
-      const entries = (list ?? [track]).map(entry);
-      const target = entries.find((e) => e.track.id === track.id) ?? entries[0];
-      setQueue(entries);
+      const made = (list ?? [track]).map(entry);
+      const target = made.find((e) => e.track.id === track.id) ?? made[0];
+      setQueue(shuffle ? rerank(made, target.uid) : made);
       load(target, true);
     },
-    [current, entry, load, togglePlayback],
+    [current, entry, load, shuffle, togglePlayback],
   );
 
   const enqueue = useCallback(
     (track: PlayerTrack) => {
-      const e = entry(track);
+      // Queued behind the loaded track in shuffle order too, so it is still to come and not among those already played.
+      const e = { ...entry(track), rank: rankAfter(queue.find((x) => x.uid === currentUid)?.rank) };
       setQueue((q) => [...q, e]);
       setAnnouncement(`Added ${track.title} to the queue`);
       // With nothing loaded there is no player bar to hold the queue, so load it without playing.
       if (!current) load(e, false);
     },
-    [current, entry, load],
+    [current, currentUid, entry, load, queue],
   );
 
   const removeFromQueue = useCallback((uid: string) => {
@@ -112,14 +116,39 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     setAnnouncement("Queue cleared");
   }, [currentUid]);
 
+  /** Previous and next follow the shuffled order when it is on. They wrap round whenever repeat is on. */
   const step = useCallback(
     (dir: 1 | -1) => {
-      const i = queue.findIndex((e) => e.uid === currentUid);
-      const next = queue[i + dir];
+      const next = neighbour(playOrder(queue, shuffle), currentUid, dir, repeat !== "off");
       if (next) load(next, true);
     },
-    [queue, currentUid, load],
+    [queue, shuffle, repeat, currentUid, load],
   );
+
+  /** A track ending: this track again, the next one, or (repeat off, last track) stop. */
+  const ended = useCallback(() => {
+    const el = audio.current;
+    if (repeat === "one" && el) {
+      el.currentTime = 0;
+      void el.play().catch(() => setPlaying(false));
+      return;
+    }
+    const next = neighbour(playOrder(queue, shuffle), currentUid, 1, repeat === "all");
+    if (next) load(next, true);
+  }, [queue, shuffle, repeat, currentUid, load]);
+
+  const toggleShuffle = useCallback(() => {
+    // Turning it on starts a new order from the track that is loaded, so none of the others are behind it.
+    if (!shuffle) setQueue((q) => rerank(q, currentUid));
+    setShuffle(!shuffle);
+    setAnnouncement(shuffle ? "Shuffle off" : "Shuffle on");
+  }, [shuffle, currentUid]);
+
+  const cycleRepeat = useCallback(() => {
+    const next = NEXT_REPEAT[repeat];
+    setRepeat(next);
+    setAnnouncement(repeatLabel(next));
+  }, [repeat]);
 
   // Hardware / lock-screen media keys.
   useEffect(() => {
@@ -151,7 +180,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         onPause={() => setPlaying(false)}
         onTimeUpdate={(e) => setTime({ elapsed: e.currentTarget.currentTime, duration: e.currentTarget.duration })}
         onLoadedMetadata={(e) => setTime({ elapsed: 0, duration: e.currentTarget.duration })}
-        onEnded={() => step(1)}
+        onEnded={ended}
       />
       <div role="status" aria-live="polite" className="sr-only">
         {announcement}
@@ -169,11 +198,18 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
             onToggle={togglePlayback}
             onPrev={() => step(-1)}
             onNext={() => step(1)}
+            shuffle={shuffle}
+            onShuffle={toggleShuffle}
+            repeat={repeat}
+            onRepeat={cycleRepeat}
             queue={queue.map((e) => ({ id: e.uid, title: e.track.title, subtitle: e.track.album }))}
             currentId={currentUid}
             onSelect={(uid) => {
               const e = queue.find((x) => x.uid === uid);
-              if (e) load(e, true);
+              if (!e) return;
+              // Jumping to a track while shuffled starts a new order from it.
+              if (shuffle) setQueue(rerank(queue, uid));
+              load(e, true);
             }}
             onRemove={removeFromQueue}
             onClear={clearQueue}

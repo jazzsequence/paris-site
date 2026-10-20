@@ -68,7 +68,7 @@ my whole life
 and I don't think I'm going to stop
 now that I know how to serve it
 
-### Outro (physical and unresolved)
+### Outro
 Still tastes like metal.
 Still swallowing.
 Still at the table.

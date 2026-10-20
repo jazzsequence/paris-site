@@ -16,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/well-enough",
     "/lyrics",
     "/press",
+    "/press/kit",
     "/bio",
     "/merch",
     "/privacy",

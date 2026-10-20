@@ -67,7 +67,7 @@ Can't take what's already displayed
 Just don't ask me if it's lonely
 in here, where I made myself the stage
 
-### Outro (sung, trailing — same rule as Outlast)
+### Outro
 Look all you want
 Look all you want
 I'll still be

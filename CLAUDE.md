@@ -68,6 +68,7 @@ How this fits the rest of this file:
   templates/datasources here and the MCP cannot create them, so structured data lives in block array fields. Registry
   sync: `pnpm sync:registry` (CI) or the P1 MCP `sync_components`; `fast-json-patch` is patched (`patches/`) because tsx
   otherwise loads its unshipped `index.ts`. Do NOT create P1 workstreams alongside code PRs (decided with the owner: two histories, ordering bugs, merged-workstream reuse). Code merges and deploys first; pages are then created directly in P1 by the owner's instruction. Never publish or edit live P1 content unprompted.
+- **`/press/kit` is P1-only:** created by the owner in P1 (Article-based, no `content/p1-pages` file and no code fallback), linked from the footer, listed in the sitemap and `llms.txt`, and checked by axe only with `A11Y_P1_ROUTES=1`. Without P1 it does not exist, so on live it must be published before a promotion.
 - **How P1 content reaches live:** there is one P1 site and every Pantheon environment reads it; only the API key differs (drafts key off live, published-only
   key on live). So content does not move between environments: **publishing a page in P1 is the go-live step** (a page saved on `main` but not published is
   invisible to both keys; `publish_page` copies it live). Code moves dev -> test -> live through the Pantheon promotion workflow. To preview a content change
@@ -90,8 +91,8 @@ How this fits the rest of this file:
   `scripts/copy-maplibre-worker.mjs` copies them into gitignored `public/maplibre/` before dev, build and Storybook, and the component loads that same-origin
   worker (`workerUrl`; Storybook passes a relative path like its images). Same-origin means the CSP needs no `blob:`. ESLint skips `public/maplibre/`. `maplibre-gl` is
   pinned exactly (6.12.0): do not adopt a release less than two weeks old. Pins come from each show's `lat`/`lon` (OpenStreetMap geocodes of the street address; the
-  P1 `TourDatesBlock` carries them, `data/tour.json` is the fallback). The component is not on any page yet; that is the wiring PR, after the owner's design approval. The
-  published P1 `/tour` page still has the old coordinates and Club DV8's old address until it is edited.
+  P1 `TourDatesBlock` carries them, `data/tour.json` is the fallback). It is placed on each show page (`/tickets/[id]`, that show's pin) and under the dates on `/tour` (in `TourDatesBlock` and the
+  code fallback, every pin); a show with no coordinates gets no map. The corrected coordinates and Club DV8 address were published in P1 `/tour` on 2026-10-20.
 - **Songs and lyrics are independent resources.** A track with no lyrics, or lyrics with no audio, is normal.
 - **Persistent player** lives in the site layout; no cookies, no tracking, no mailing list. The `<audio>` element must
   NOT have `crossOrigin`: with it, every new preview/prod origin has to be added to the bucket's CORS list or playback
@@ -141,13 +142,13 @@ account, which Claude must not run without being given credentials. `security.tx
 
 **Privacy.** Any change that adds a third-party request or stores anything about a visitor must update the Privacy page in the same changeset: the repo copy
 (`content/p1-pages/privacy.json`), the page's code fallback, and the published P1 `/privacy` page (a live edit, so it needs the owner's go-ahead). The tour map is the
-first such case. When `TourMap` is placed on a page, the CSP in `next.config.ts` needs `connect-src https://tile.openstreetmap.org` (`img-src` already allows `https:`, and
-the worker is same-origin so `script-src 'self'` covers it), and the Privacy page must say the map contacts OpenStreetMap, which sees the visitor's IP address, and only after
-they click Show map.
+first such case: the CSP in `next.config.ts` allows `connect-src https://tile.openstreetmap.org` (`img-src` already allows `https:`, and the worker is same-origin so
+`script-src 'self'` covers it), and the Privacy page has a "The map" section saying it contacts OpenStreetMap, which sees the visitor's IP address, and only after they click
+Show map. The published P1 `/privacy` page is a separate copy: it got the same section on 2026-10-20 (a live edit, made at the owner's go-ahead), so any later change to this text has to be made in P1 as well.
 
 ## CI / deployment (mirrors jazz-nextjs)
 
-- `test-pantheon.yml`: lint, typecheck, unit, build, accessibility (Playwright + axe), Storybook build; then waits for dev / `pr-N` and checks 200.
+- `test-pantheon.yml`: lint, typecheck, unit, build, accessibility (Playwright + axe), Storybook build; then waits for dev / `pr-N` and checks 200. The check retries with a growing delay (5s up to 60s, about 5 minutes in all) because a new `pr-N` hostname can take minutes to resolve (curl reports `000` until it does); each request carries a cache-busting query string.
 - `promote-pantheon.yml`: push to `test` or `live` branch tags `pantheon_test_N` / `pantheon_live_N`.
 - `sync-puck-registry.yml`: needs secrets `CSS_BASE_URL`, `CSS_SITE_ID`, `CSS_REGISTRY_API_KEY`.
 - `storybook-preview.yml`: per-PR preview at `https://<owner>.github.io/paris-site/pr-N/` (gh-pages; needs

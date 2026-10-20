@@ -21,7 +21,7 @@ You don't get handed a mirror
 You get handed instructions
 and told the reflection will catch up eventually
 
-### Chorus (ironic, checklist cadence, falsely triumphant)
+### Chorus
 Wear it right and doors open on their own
 Wear it right and nobody double-checks your name
 Wear it right and you get to disappear
@@ -53,7 +53,7 @@ into a room built exactly to your measurements
 Funny how well it fits
 when nobody ever asked if it should
 
-### Bridge (irony drops entirely — the one sincere moment)
+### Bridge
 This one, though — this one I picked out myself
 Tailored it badly on purpose
 left every seam showing
@@ -68,7 +68,7 @@ That's the difference
 Not what I'm wearing
 Whether anyone got to ask first
 
-### Final Chorus (the checklist reprised, now honestly earned instead of hollow)
+### Final Chorus
 Wear it wrong on purpose and doors get suspicious
 Wear it wrong on purpose and everybody double-checks your name
 Wear it wrong on purpose and you get to be seen

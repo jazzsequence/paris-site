@@ -64,7 +64,7 @@ I won't tell you that was brave
 I said yes to something once
 for a reason I'd still give
 
-### Bridge (strings enter; drums drop out entirely)
+### Bridge
 I'm not above this
 I'm the oldest version of it
 
@@ -72,13 +72,11 @@ Somebody offered me a seat at a table
 and I sat down
 and I was so grateful
 I never asked who got cleared to make the room
-
 I've had a long time to be angry about that
 
-(quieter, off-mic)
 Most nights I'm just embarrassed
 
-### Final Chorus (full band, vocal stays clean)
+### Final Chorus
 You volunteered
 And that's what makes it hold
 Nothing they built would stand
@@ -89,7 +87,7 @@ Go and find the reason
 Start with the reason
 The reason has your name on it
 
-### Outro (spoken, dry, no effects, very close)
+### Outro
 I'm not asking you to regret it.
 The reason was good.
 The reason is still good.
