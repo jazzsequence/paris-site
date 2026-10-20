@@ -33,19 +33,19 @@ importers:
         version: 0.13.0(next@16.4.0(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))
       '@pantheon-systems/p1-media':
         specifier: ^0.5.0
-        version: 0.5.0(@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(react@19.3.0)
+        version: 0.5.0(@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(react@19.3.0)
       '@pantheon-systems/p1-next-sdk':
         specifier: ^0.20.1
-        version: 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(@types/react@19.3.0)(next@16.4.0(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        version: 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(@types/react@19.3.0)(next@16.4.0(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@pantheon-systems/pds-toolkit-react':
-        specifier: 2.0.0-alpha.92
-        version: 2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
       '@pantheon-systems/puck-css':
         specifier: ^0.20.1
-        version: 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        version: 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@puckeditor/core':
         specifier: ^0.23.0
-        version: 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
+        version: 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
       '@tailwindcss/postcss':
         specifier: ^4.2.2
         version: 4.3.3
@@ -1263,8 +1263,8 @@ packages:
   '@pantheon-systems/pds-design-tokens@2.0.0-beta.1':
     resolution: {integrity: sha512-JCnZjU0+2ryfbOD2iB+9mFu9sEzC1ZpDAZcE0d719psZAQkZdh4mSIVRdCECBk3iyEznrDdXY4T7+/dwodsJcQ==}
 
-  '@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92':
-    resolution: {integrity: sha512-iELu7QtwTSIXQga+YRNbrKqGR1TrV08uNOqheo7sghWZzIFxH5itt65iVq8DX3uz/QqL1Nn5OVV+SwiuU9/yVA==}
+  '@pantheon-systems/pds-toolkit-react@2.0.0-beta.7':
+    resolution: {integrity: sha512-OxIwI4VhYJLlvBQOrDWIOjTZG+nsvIK12vJCQVU4CgU0bwQyLXw2y9j9/PcTcBs9Y9l6cljdm0Rusp25HeZwAA==}
     engines: {node: '>=18.0.0 <=24.x'}
     hasBin: true
     peerDependencies:
@@ -3330,8 +3330,8 @@ packages:
     resolution: {integrity: sha512-/8UvqAPU9DGTI9k4mxtf49U37Isfwr8Uts96+SBHIkFxPJnHS0Ew4f00sM4Scd8V8EjM0jUNtVDdv1kPdt35lg==}
     engines: {node: '>= 4'}
 
-  immer@11.1.21:
-    resolution: {integrity: sha512-bZSadeCPGdaY5/qRLgr6mDSH1ra21rD3rqpiWk7+QTr4ayYPTE9qZYdLh/NdPhMe0wSrTvHD/Lk8q5EwhUs0aw==}
+  immer@11.2.3:
+    resolution: {integrity: sha512-FbR9W6jf7+tvOCuDmOLJy3yStLCvoRDODRARzfeaWmn75+1fW4hFbMv5X5cWgEkxgWcC/eC5Nva00ZV1iv+0EA==}
 
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
@@ -4386,8 +4386,8 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  qs@6.16.0:
-    resolution: {integrity: sha512-h6fhOIaRrID2CbEY2fqs+7t+UXZo+MLAnU5gRIq85uFtdiUPCdsApMlHhXogKVM4HM2DVbIjGNTTYH2OcmP1vA==}
+  qs@6.16.1:
+    resolution: {integrity: sha512-5Px6J7rfHBAGUhNQ3es4YzcOdBBw0SDcVtThJml4RdnKw4tKs2epA0kPZ+K8X+WiHktT93RHVcQ/3ym5aTCgtg==}
     engines: {node: '>=0.6'}
 
   query-string@8.2.0:
@@ -6362,11 +6362,11 @@ snapshots:
       - encoding
       - supports-color
 
-  '@pantheon-systems/p1-ai-chat@0.10.0(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@types/react@19.3.0)(react@19.3.0)':
+  '@pantheon-systems/p1-ai-chat@0.10.0(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@types/react@19.3.0)(react@19.3.0)':
     dependencies:
-      '@pantheon-systems/pds-toolkit-react': 2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
-      '@pantheon-systems/puck-css': 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@puckeditor/core': 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
+      '@pantheon-systems/pds-toolkit-react': 2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
+      '@pantheon-systems/puck-css': 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@puckeditor/core': 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
       react: 19.3.0
       react-markdown: 10.1.0(@types/react@19.3.0)(react@19.3.0)
       remark-breaks: 4.0.0
@@ -6377,19 +6377,19 @@ snapshots:
 
   '@pantheon-systems/p1-content-validator@2.5.0': {}
 
-  '@pantheon-systems/p1-media@0.5.0(@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(react@19.3.0)':
+  '@pantheon-systems/p1-media@0.5.0(@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(react@19.3.0)':
     dependencies:
-      '@pantheon-systems/puck-css': 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@puckeditor/core': 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
+      '@pantheon-systems/puck-css': 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@puckeditor/core': 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
       react: 19.3.0
 
-  '@pantheon-systems/p1-next-sdk@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(@types/react@19.3.0)(next@16.4.0(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@pantheon-systems/p1-next-sdk@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(@types/react@19.3.0)(next@16.4.0(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@pantheon-systems/css-client': 0.20.1
-      '@pantheon-systems/p1-ai-chat': 0.10.0(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@types/react@19.3.0)(react@19.3.0)
-      '@pantheon-systems/pds-toolkit-react': 2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
-      '@pantheon-systems/puck-css': 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@puckeditor/core': 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
+      '@pantheon-systems/p1-ai-chat': 0.10.0(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@types/react@19.3.0)(react@19.3.0)
+      '@pantheon-systems/pds-toolkit-react': 2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
+      '@pantheon-systems/puck-css': 0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@puckeditor/core': 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
       launchdarkly-js-client-sdk: 3.9.6
       next: 16.4.0(@babel/core@7.29.7)(@playwright/test@1.64.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react: 19.3.0
@@ -6404,7 +6404,7 @@ snapshots:
 
   '@pantheon-systems/pds-design-tokens@2.0.0-beta.1': {}
 
-  '@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)':
+  '@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)':
     dependencies:
       '@dnd-kit/core': 6.3.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@dnd-kit/sortable': 10.0.0(@dnd-kit/core@6.3.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
@@ -6442,12 +6442,12 @@ snapshots:
       - redux
       - supports-color
 
-  '@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@pantheon-systems/puck-css@0.20.1(@pantheon-systems/pds-toolkit-react@2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1))(@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)))(@tanstack/react-query@5.104.2(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@pantheon-systems/css-client': 0.20.1
       '@pantheon-systems/p1-content-validator': 2.5.0
-      '@pantheon-systems/pds-toolkit-react': 2.0.0-alpha.92(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
-      '@puckeditor/core': 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
+      '@pantheon-systems/pds-toolkit-react': 2.0.0-beta.7(@types/react@19.3.0)(prop-types@15.8.1)(react-dom@19.3.0(react@19.3.0))(react-is@18.3.1)(react@19.3.0)(redux@5.0.1)
+      '@puckeditor/core': 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
       '@tanstack/react-query': 5.104.2(react@19.3.0)
       fast-json-patch: 3.1.1(patch_hash=25ebefa74813316903ca26f95ca6582cd57b4433beab190214c8bcfae78b265e)
       ipaddr.js: 2.5.0
@@ -6469,7 +6469,7 @@ snapshots:
 
   '@preact/signals-core@1.14.4': {}
 
-  '@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.1.21)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))':
+  '@puckeditor/core@0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(immer@11.2.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))':
     dependencies:
       '@dnd-kit/abstract': 0.4.0
       '@dnd-kit/dom': 0.4.0
@@ -6507,7 +6507,7 @@ snapshots:
       react: 19.3.0
       react-hotkeys-hook: 4.6.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       use-debounce: 9.0.4(react@19.3.0)
-      zustand: 5.0.15(@types/react@19.3.0)(immer@11.1.21)(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
+      zustand: 5.0.15(@types/react@19.3.0)(immer@11.2.3)(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
     transitivePeerDependencies:
       - '@floating-ui/dom'
       - '@types/react'
@@ -6717,7 +6717,7 @@ snapshots:
     dependencies:
       '@standard-schema/spec': 1.1.0
       '@standard-schema/utils': 0.3.0
-      immer: 11.1.21
+      immer: 11.2.3
       redux: 5.0.1
       redux-thunk: 3.1.0(redux@5.0.1)
       reselect: 5.2.0
@@ -7630,7 +7630,7 @@ snapshots:
       http-errors: 2.0.1
       iconv-lite: 0.7.3
       on-finished: 2.4.1
-      qs: 6.16.0
+      qs: 6.16.1
       raw-body: 3.0.2
       type-is: 2.1.0
     transitivePeerDependencies:
@@ -8329,7 +8329,7 @@ snapshots:
       once: 1.4.0
       parseurl: 1.3.3
       proxy-addr: 2.0.8
-      qs: 6.16.0
+      qs: 6.16.1
       range-parser: 1.3.0
       router: 2.2.0
       send: 1.2.1
@@ -8743,7 +8743,7 @@ snapshots:
 
   ignore@7.0.12: {}
 
-  immer@11.1.21: {}
+  immer@11.2.3: {}
 
   import-fresh@3.3.1:
     dependencies:
@@ -10061,7 +10061,7 @@ snapshots:
     dependencies:
       react: 19.3.0
 
-  qs@6.16.0:
+  qs@6.16.1:
     dependencies:
       es-define-property: 1.0.1
       side-channel: 1.1.1
@@ -10241,7 +10241,7 @@ snapshots:
       decimal.js-light: 2.5.1
       es-toolkit: 1.52.0
       eventemitter3: 5.0.4
-      immer: 11.1.21
+      immer: 11.2.3
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
       react-is: 18.3.1
@@ -11209,10 +11209,10 @@ snapshots:
 
   zod@3.25.76: {}
 
-  zustand@5.0.15(@types/react@19.3.0)(immer@11.1.21)(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)):
+  zustand@5.0.15(@types/react@19.3.0)(immer@11.2.3)(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)):
     optionalDependencies:
       '@types/react': 19.3.0
-      immer: 11.1.21
+      immer: 11.2.3
       react: 19.3.0
       use-sync-external-store: 1.7.0(react@19.3.0)
 
