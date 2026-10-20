@@ -40,6 +40,19 @@
   --radius-card: 0.25rem;
   --shadow-glow-magenta: 0 0 24px rgb(255 63 164 / 0.45);
   --shadow-glow-cyan: 0 0 24px rgb(62 240 255 / 0.35);
+
+  /* A short confirmation sliding up into place (the player bar's notice). Reduced motion turns it off in base.css. */
+  --animate-notice-in: notice-in 0.2s ease-out;
+  @keyframes notice-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 :root {
