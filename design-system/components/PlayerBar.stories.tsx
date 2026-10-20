@@ -15,6 +15,11 @@ const meta = {
     duration: "3:58",
     progress: 30,
     playing: true,
+    // The site's player always has both, so every story shows them; ShuffleOn and the Repeat stories set the state.
+    shuffle: false,
+    onShuffle: () => {},
+    repeat: "off",
+    onRepeat: () => {},
   },
 } satisfies Meta<typeof PlayerBar>;
 export default meta;
@@ -30,10 +35,10 @@ const queue = [
 ];
 export const WithQueue: Story = { args: { queue, currentId: "b", onRemove: () => {}, onClear: () => {} } };
 
-// The controls only show when their handler is given, so the player bar keeps its current look wherever repeat and shuffle are not wired up.
-export const ShuffleOn: Story = { args: { queue, currentId: "b", shuffle: true, onShuffle: () => {}, repeat: "off", onRepeat: () => {} } };
-export const RepeatAll: Story = { args: { queue, currentId: "b", shuffle: false, onShuffle: () => {}, repeat: "all", onRepeat: () => {} } };
-export const RepeatOne: Story = { args: { queue, currentId: "b", shuffle: false, onShuffle: () => {}, repeat: "one", onRepeat: () => {} } };
+// Each control only shows when its handler is given, so a bar without them still renders (the unit test pins that).
+export const ShuffleOn: Story = { args: { queue, currentId: "b", shuffle: true } };
+export const RepeatAll: Story = { args: { queue, currentId: "b", repeat: "all" } };
+export const RepeatOne: Story = { args: { queue, currentId: "b", repeat: "one" } };
 
 const NEXT: Record<RepeatMode, RepeatMode> = { off: "all", all: "one", one: "off" };
 
