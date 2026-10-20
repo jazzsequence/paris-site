@@ -20,7 +20,7 @@ pre-commit hook (`.githooks/pre-commit`, config in `.reviewer-config.sh`) block 
 
 How this fits the rest of this file:
 - The reviewer is the commit gate. It does not replace the PR, the Storybook approval for `design-system/` (see below),
-  or CI. Open PRs from feature branches off `origin/main`; the owner merges.
+  or CI. Open PRs from feature branches cut from a freshly pulled `main` (`git checkout main && git pull`, not just a fetch; this includes design branches, see below); the owner merges.
 - Per commit the hook runs `pnpm test`, `pnpm lint && pnpm typecheck` and `pnpm build` (`.reviewer-config.sh`; the generated defaults were npm
   and would have failed). Docs-only commits (`.md`, `.mdx`, `.txt`, `.rst`) and commits touching only `.claude/` or `.githooks/` skip all of
   that (`REVIEWER_TEXT_ONLY_PATTERN`, and the reviewer's own skip rule matches); they still need the reviewer's checklist. e2e is not in
@@ -160,5 +160,21 @@ Show map. The published P1 `/privacy` page is a separate copy: it got the same s
 Design work goes on `design-<topic>` branches into a protected `design` branch. Merging the PR is the approval.
 Only approved tokens/components are applied to the site via a PR from `design` to `main`. Dark theme only;
 palette is mall goth x K-pop (neon accents), no blue/gold.
+
+The flow, and why each step is the way it is:
+1. **Cut the branch from a freshly pulled `main`, never from `design`.** `design` can lag behind `main`; a branch cut from it carries that lag, and the later apply merge then has to reconcile two diverged histories (it once reverted newer text in `CLAUDE.md` and the coverage test).
+2. **Open the PR into `design`** with the Storybook preview link. The owner's merge of that PR is the design approval. Merge it with a **merge commit**, so `design` picks up `main`'s history along with the change.
+3. **Apply it:** pull `main`, cut a branch from it, merge `origin/design` into it, and open a PR into `main`. Merge it with a **merge commit**, so `design` becomes an ancestor of `main` and the next design PR does not conflict. If the merge conflicts, resolve it deliberately and then check the whole tree: `git diff origin/main` must list only the intended files, and `git diff origin/design -- design-system .storybook` must be empty. Never rely on `-X theirs` alone; it silently takes `design`'s older text.
+4. **Wire it up** (the site code that uses the new component or prop) in a separate PR into `main` once the apply has merged.
+
+**Merge method, stated on every PR.** The repo default is squash, and the owner squashes unless told otherwise. So the first line of every PR body Claude opens is `**Merge method: MERGE COMMIT**` or `**Merge method: SQUASH**`, and the message that hands over the link says the same.
+
+| PR | Merge method |
+|---|---|
+| `design-<topic>` into `design` | Merge commit |
+| `design` into `main` (apply) | Merge commit |
+| Anything else into `main` (code, content, docs, CI, wiring) | Squash |
+
+Squashing either design-flow leg is what produced repeated conflicts on the apply merge (#44 to #45, #47 to #48).
 The blackletter face (UnifrakturCook) is an accent for kickers only. The name PARIS is always capitals in Unbounded at -0.05em (`Wordmark` component, `--font-wordmark`), flat colour,
 never the gothic font. Headings use Encode Sans Expanded 800 at about -0.04em (`--font-display`); Unbounded is reserved for the wordmark.
