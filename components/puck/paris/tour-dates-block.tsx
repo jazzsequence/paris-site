@@ -1,5 +1,6 @@
 import { TourDateRow } from "../../../design-system/components/TourDateRow";
-import { dateParts, normalizeShows, showId } from "../../../lib/site/tour";
+import { TourMap } from "../../../design-system/components/TourMap";
+import { dateParts, mapPoints, normalizeShows, showId } from "../../../lib/site/tour";
 
 /** The tour. Each date is an item; the ticket page for a date is generated from it. */
 export const tourDatesBlock = {
@@ -47,6 +48,7 @@ export const tourDatesBlock = {
   defaultProps: { items: [] as Record<string, unknown>[] },
   render: ({ items }: { items?: unknown }) => {
     const shows = normalizeShows(items);
+    const points = mapPoints(shows, true);
     return (
       <div className="mx-auto w-full max-w-6xl px-6 py-6">
         {shows.length === 0 ? (
@@ -67,6 +69,7 @@ export const tourDatesBlock = {
             ))}
           </ul>
         )}
+        {points.length > 0 && <TourMap points={points} label="Tour map" className="mt-8" />}
       </div>
     );
   },

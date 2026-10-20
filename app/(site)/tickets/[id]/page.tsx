@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import { Page } from "../../../../components/site/section";
 import { TicketForm } from "../../../../components/site/ticket-form";
 import { SectionHeading } from "../../../../design-system/components/SectionHeading";
+import { TourMap } from "../../../../design-system/components/TourMap";
 import { getShowById } from "../../../../lib/site/p1-content";
-import { longDate, money, shows } from "../../../../lib/site/tour";
+import { longDate, mapPoints, money, shows } from "../../../../lib/site/tour";
 import { Breadcrumbs } from "../../../../components/site/breadcrumbs";
 import { pageMetadata } from "../../../../lib/site/seo";
 
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Tickets({ params }: Props) {
   const show = await getShowById((await params).id);
   if (!show) notFound();
+  const pin = mapPoints([show]);
   return (
     <Page narrow>
       <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Tour", href: "/tour" }, { name: show.city, href: `/tickets/${show.id}` }]} />
@@ -37,6 +39,7 @@ export default async function Tickets({ params }: Props) {
         </p>
         {show.address && <p className="text-sm text-dim">{show.address}</p>}
       </div>
+      {pin.length > 0 && <TourMap points={pin} label={`Where ${show.venue} is`} />}
       {show.status === "sold-out" ? (
         <p className="border border-dim px-6 py-4 text-muted">This show is sold out.</p>
       ) : (
