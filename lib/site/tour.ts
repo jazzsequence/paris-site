@@ -1,4 +1,5 @@
 import tourData from "../../data/tour.json";
+import type { MapPoint } from "../../design-system/components/TourMap";
 
 export type Show = {
   id: string;
@@ -48,6 +49,20 @@ export function normalizeShows(items: unknown): Show[] {
     });
   }
   return rows.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** Pins for the tour map. A show with no coordinates (stored as 0 when missing) is left off rather than put in the Atlantic. */
+export function mapPoints(list: Show[], link = false): MapPoint[] {
+  return list
+    .filter((s) => s.lat !== 0 || s.lon !== 0)
+    .map((s) => ({
+      id: s.id,
+      label: s.venue,
+      detail: s.address ? `${s.address}, ${s.city}` : s.city,
+      lat: s.lat,
+      lon: s.lon,
+      ...(link ? { href: `/tickets/${s.id}` } : {}),
+    }));
 }
 
 /** Repo copy of the tour: used when P1 is unreachable, and as the seed for the P1 page. */
