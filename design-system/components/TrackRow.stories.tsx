@@ -15,4 +15,6 @@ export const Default: Story = {};
 export const Playing: Story = { args: { current: true, playing: true } };
 export const Paused: Story = { args: { current: true, playing: false } };
 export const WithQueueButton: Story = { args: { onQueue: () => {} } };
+// The check the queue button shows for a moment after the track is added (the player owns the timer).
+export const JustQueued: Story = { args: { onQueue: () => {}, justQueued: true } };
 export const NoAudioYet: Story = { args: { hasAudio: false, number: 3, title: "Seniority" } };
