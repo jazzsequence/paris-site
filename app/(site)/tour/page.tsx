@@ -4,10 +4,11 @@ import { JsonLd } from "../../../components/site/json-ld";
 import { Page } from "../../../components/site/section";
 import { SectionHeading } from "../../../design-system/components/SectionHeading";
 import { TourDateRow } from "../../../design-system/components/TourDateRow";
+import { TourMap } from "../../../design-system/components/TourMap";
 import { getP1Page, getShows, rootProp } from "../../../lib/site/p1-content";
 import { pageMetadata } from "../../../lib/site/seo";
 import { eventData } from "../../../lib/site/structured-data";
-import { dateParts, showId } from "../../../lib/site/tour";
+import { dateParts, mapPoints, showId } from "../../../lib/site/tour";
 import { P1Page } from "../../../components/site/p1-page";
 
 export const revalidate = 300;
@@ -33,6 +34,7 @@ export default async function Tour() {
       </>
     );
   }
+  const points = mapPoints(shows, true);
   return (
     <Page>
       {events}
@@ -51,6 +53,7 @@ export default async function Tour() {
           />
         ))}
       </ul>
+      {points.length > 0 && <TourMap points={points} label="Tour map" className="mt-8" />}
     </Page>
   );
 }

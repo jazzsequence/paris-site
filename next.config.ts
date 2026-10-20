@@ -33,7 +33,8 @@ const csp = [
   "img-src 'self' data: blob: https:",
   "font-src 'self'",
   `media-src 'self' ${audioOrigin} blob:`,
-  `connect-src 'self' ${p1Origin}`,
+  // tile.openstreetmap.org: the tour map's tiles, requested only after a visitor clicks "Show map" (see the Privacy page).
+  `connect-src 'self' ${p1Origin} https://tile.openstreetmap.org`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
