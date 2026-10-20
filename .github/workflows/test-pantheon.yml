@@ -178,16 +178,30 @@ jobs:
             exit 1
           fi
 
-          for attempt in $(seq 1 12); do
-            echo "Attempt $attempt of 12..."
-            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -H "x-pantheon-bot-bypass: ${BOT_BYPASS_TOKEN}" "${{ steps.env.outputs.base_url }}" || echo "000")
-            if [ "$HTTP_CODE" == "200" ]; then
-              echo "✅ Site is accessible (HTTP $HTTP_CODE)"
+          # A new pr-N environment's hostname can take a few minutes to resolve (curl reports 000 until it does), so
+          # back off instead of hammering it: 5s first, escalating to 60s, about 5 minutes in all.
+          URL="${{ steps.env.outputs.base_url }}"
+          DELAYS=(5 10 15 20 30 45 60 60 60)
+          ATTEMPTS=$(( ${#DELAYS[@]} + 1 ))
+
+          for attempt in $(seq 1 "$ATTEMPTS"); do
+            # The query string defeats any cached error page; the header gets past bot protection.
+            HTTP_CODE=$(curl -s -o /dev/null -m 30 -w "%{http_code}" -H "x-pantheon-bot-bypass: ${BOT_BYPASS_TOKEN}" "${URL}/?ci=$(date +%s)-${attempt}") || true
+            if [ "$HTTP_CODE" = "200" ]; then
+              echo "✅ Site is accessible (HTTP $HTTP_CODE, attempt $attempt of $ATTEMPTS)"
               exit 0
             fi
-            echo "⏳ Site returned HTTP $HTTP_CODE, waiting..."
-            sleep 5
+            if [ "$HTTP_CODE" = "000" ]; then
+              LAST="no response (the hostname is not resolving yet, or the connection failed)"
+            else
+              LAST="HTTP $HTTP_CODE"
+            fi
+            if [ "$attempt" -lt "$ATTEMPTS" ]; then
+              DELAY=${DELAYS[$((attempt - 1))]}
+              echo "⏳ Attempt $attempt of $ATTEMPTS: $LAST. Retrying in ${DELAY}s..."
+              sleep "$DELAY"
+            fi
           done
 
-          echo "❌ Site not accessible after 60 seconds"
+          echo "::error::${URL} was not accessible after $ATTEMPTS attempts over about 5 minutes. Last result: ${LAST}."
           exit 1

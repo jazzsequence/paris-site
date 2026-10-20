@@ -148,7 +148,7 @@ Show map. The published P1 `/privacy` page is a separate copy and needs the same
 
 ## CI / deployment (mirrors jazz-nextjs)
 
-- `test-pantheon.yml`: lint, typecheck, unit, build, accessibility (Playwright + axe), Storybook build; then waits for dev / `pr-N` and checks 200.
+- `test-pantheon.yml`: lint, typecheck, unit, build, accessibility (Playwright + axe), Storybook build; then waits for dev / `pr-N` and checks 200. The check retries with a growing delay (5s up to 60s, about 5 minutes in all) because a new `pr-N` hostname can take minutes to resolve (curl reports `000` until it does); each request carries a cache-busting query string.
 - `promote-pantheon.yml`: push to `test` or `live` branch tags `pantheon_test_N` / `pantheon_live_N`.
 - `sync-puck-registry.yml`: needs secrets `CSS_BASE_URL`, `CSS_SITE_ID`, `CSS_REGISTRY_API_KEY`.
 - `storybook-preview.yml`: per-PR preview at `https://<owner>.github.io/paris-site/pr-N/` (gh-pages; needs
