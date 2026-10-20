@@ -1,1 +1,0 @@
-import{t as e}from"./iframe-Buo_fOyf.js";e();
