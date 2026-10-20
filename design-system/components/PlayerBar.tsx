@@ -15,6 +15,12 @@ export type PlayerBarProps = {
   onToggle?: () => void;
   onPrev?: () => void;
   onNext?: () => void;
+  /** Shuffle is on. The button shows only when `onShuffle` is given. */
+  shuffle?: boolean;
+  onShuffle?: () => void;
+  /** What happens at the end of a track: nothing, the whole queue again, or this track again. The button shows only when `onRepeat` is given and cycles through the modes. */
+  repeat?: RepeatMode;
+  onRepeat?: () => void;
   /** Called with a 0-100 position when the progress bar is clicked. */
   onSeek?: (percent: number) => void;
   /** Tracks that will play in order. The queue button is hidden when this is empty. */
@@ -27,10 +33,12 @@ export type PlayerBarProps = {
   onClear?: () => void;
 };
 
+export type RepeatMode = "off" | "all" | "one";
+
 export type QueueItem = { id: string; title: string; subtitle?: string };
 
 /** Persistent bottom player. Lives in the root layout so playback follows the visitor. */
-export function PlayerBar({ title, album, cover, elapsed, duration, progress, playing, onToggle, onPrev, onNext, onSeek, queue = [], currentId, onSelect, onRemove, onClear }: PlayerBarProps) {
+export function PlayerBar({ title, album, cover, elapsed, duration, progress, playing, onToggle, onPrev, onNext, shuffle = false, onShuffle, repeat = "off", onRepeat, onSeek, queue = [], currentId, onSelect, onRemove, onClear }: PlayerBarProps) {
   const [open, setOpen] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -64,7 +72,20 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
         </div>
       </div>
       <div className="space-y-2">
-        <div className="flex items-center justify-center gap-5">
+        <div className="flex items-center justify-center gap-2 sm:gap-5">
+          {onShuffle && (
+            <button
+              type="button"
+              onClick={onShuffle}
+              aria-label="Shuffle"
+              aria-pressed={shuffle}
+              className={`rounded-full p-1 hover:text-text ${shuffle ? "text-magenta" : "text-muted"}`}
+            >
+              <svg viewBox="0 0 24 24" className="size-5 fill-none stroke-current stroke-2" aria-hidden>
+                <path d="M3 7h3c2 0 3 1 4.5 3.5S14 15 16 15h5m0 0-3-3m3 3-3 3M3 17h3c1.4 0 2.4-.5 3.3-1.6M21 7h-5c-1.2 0-2.1.4-2.8 1.1m7.8-1.1-3-3m3 3-3 3" />
+              </svg>
+            </button>
+          )}
           <button type="button" onClick={onPrev} aria-label="Previous track" className="text-muted hover:text-text">
             <svg viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden><path d="M6 5h2v14H6zm3.5 7L19 5v14z" /></svg>
           </button>
@@ -83,6 +104,21 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
           <button type="button" onClick={onNext} aria-label="Next track" className="text-muted hover:text-text">
             <svg viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden><path d="M16 5h2v14h-2zM5 5l9.5 7L5 19z" /></svg>
           </button>
+          {onRepeat && (
+            <button
+              type="button"
+              onClick={onRepeat}
+              aria-label={`Repeat: ${repeat === "one" ? "this track" : repeat === "all" ? "all" : "off"}`}
+              className={`relative rounded-full p-1 hover:text-text ${repeat === "off" ? "text-muted" : "text-magenta"}`}
+            >
+              <svg viewBox="0 0 24 24" className="size-5 fill-none stroke-current stroke-2" aria-hidden>
+                <path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3" />
+              </svg>
+              {repeat === "one" && (
+                <span aria-hidden className="absolute -right-0.5 -top-0.5 grid size-3.5 place-items-center rounded-full bg-magenta text-[0.6rem] font-bold leading-none text-void">1</span>
+              )}
+            </button>
+          )}
         </div>
         <div className="flex items-center gap-3 text-xs tabular-nums text-muted">
           <span>{elapsed}</span>
