@@ -15,7 +15,7 @@ const toPlayer = (t: CatalogTrack): PlayerTrack => ({
 export function TrackList({ tracks }: { tracks: CatalogTrack[] }) {
   // In the P1 editor there is no player: the rows show, and the buttons do nothing.
   const player = usePlayerMaybe();
-  const { play, enqueue, currentId, playing } = player ?? { play: () => undefined, enqueue: () => undefined, currentId: undefined, playing: false };
+  const { play, enqueue, currentId, playing, justAddedId } = player ?? { play: () => undefined, enqueue: () => undefined, currentId: undefined, playing: false, justAddedId: undefined };
   const list = tracks.filter((t) => t.hasAudio).map(toPlayer);
   return (
     <ol className="border-t border-line">
@@ -33,6 +33,7 @@ export function TrackList({ tracks }: { tracks: CatalogTrack[] }) {
             playing={isCurrent && playing}
             onPlay={() => play(p, list)}
             onQueue={() => enqueue(p)}
+            justQueued={justAddedId === p.id}
             downloadHref={t.downloadHref}
           />
         );

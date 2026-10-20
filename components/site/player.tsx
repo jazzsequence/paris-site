@@ -27,6 +27,8 @@ type PlayerState = {
   play: (track: PlayerTrack, list?: PlayerTrack[]) => void;
   /** Add a track to the end of the queue. Starts nothing if something else is already playing. */
   enqueue: (track: PlayerTrack) => void;
+  /** Id of the track that was just added to the queue, for a few seconds, so its row can show it. */
+  justAddedId?: string;
 };
 
 const Ctx = createContext<PlayerState | null>(null);
@@ -39,6 +41,9 @@ export function usePlayer(): PlayerState {
   if (!ctx) throw new Error("usePlayer must be used inside <PlayerProvider>");
   return ctx;
 }
+
+/** How long the "added to the queue" confirmation (the notice on the bar and the check on the row) stays up. */
+const ADDED_NOTICE_MS = 2500;
 
 const fmt = (s: number) => (Number.isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}` : "0:00");
 
@@ -56,6 +61,8 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const [repeat, setRepeat] = useState<RepeatMode>("off");
   const [time, setTime] = useState({ elapsed: 0, duration: 0 });
   const [announcement, setAnnouncement] = useState("");
+  const [added, setAdded] = useState<{ id: string; title: string }>();
+  const addedTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const current = queue.find((e) => e.uid === currentUid)?.track;
   const entry = useCallback((track: PlayerTrack): Entry => ({ uid: `q${++counter.current}`, track, rank: Math.random() }), []);
@@ -96,6 +103,10 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       const e = { ...entry(track), rank: rankAfter(queue.find((x) => x.uid === currentUid)?.rank) };
       setQueue((q) => [...q, e]);
       setAnnouncement(`Added ${track.title} to the queue`);
+      // Sighted users get the same news as a notice on the bar and a check on the row. Adding again restarts the timer.
+      setAdded({ id: track.id, title: track.title });
+      clearTimeout(addedTimer.current);
+      addedTimer.current = setTimeout(() => setAdded(undefined), ADDED_NOTICE_MS);
       // With nothing loaded there is no player bar to hold the queue, so load it without playing.
       if (!current) load(e, false);
     },
@@ -150,6 +161,8 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     setAnnouncement(repeatLabel(next));
   }, [repeat]);
 
+  useEffect(() => () => clearTimeout(addedTimer.current), []);
+
   // Hardware / lock-screen media keys.
   useEffect(() => {
     if (!current || !("mediaSession" in navigator)) return;
@@ -163,7 +176,10 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     navigator.mediaSession.setActionHandler("nexttrack", () => step(1));
   }, [current, step]);
 
-  const value = useMemo(() => ({ currentId: current?.id, playing, play, enqueue }), [current?.id, playing, play, enqueue]);
+  const value = useMemo(
+    () => ({ currentId: current?.id, playing, play, enqueue, justAddedId: added?.id }),
+    [current?.id, playing, play, enqueue, added?.id],
+  );
   const progress = time.duration ? (time.elapsed / time.duration) * 100 : 0;
 
   return (
@@ -202,6 +218,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
             onShuffle={toggleShuffle}
             repeat={repeat}
             onRepeat={cycleRepeat}
+            notice={added ? `Added ${added.title} to the queue` : undefined}
             queue={queue.map((e) => ({ id: e.uid, title: e.track.title, subtitle: e.track.album }))}
             currentId={currentUid}
             onSelect={(uid) => {
