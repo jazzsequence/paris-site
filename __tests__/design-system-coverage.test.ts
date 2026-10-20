@@ -25,6 +25,8 @@ const COVERAGE: Record<string, Entry> = {
   SiteFooter: { excluded: "Part of the site layout." },
   SiteHeader: { excluded: "Part of the site layout." },
   TicketCard: { excluded: "The demonstration checkout and e-ticket are application pages, not editable content." },
+  TourMap: { excluded: "Placed by the show and tour pages, not by editors; it loads OpenStreetMap tiles only on request, and the Privacy page must say so before it is placed on a page." },
+  TourMapCanvas: { excluded: "Internal to TourMap: the lazy-loaded MapLibre canvas." },
   TourDateRow: { blocks: ["TourDatesBlock", "TourPreviewBlock"] },
   TrackRow: { blocks: ["TrackListBlock", "AlbumSectionBlock"] },
   Wordmark: { excluded: "Part of the site layout; the name is never typed into content." },

@@ -43,3 +43,12 @@ export const HeroSmallLaptop: StoryObj = heroAt(1024, 768);
 export const HeroLaptop: StoryObj = heroAt(1280, 800);
 export const HeroDesktop: StoryObj = heroAt(1440, 900);
 export const Footer: StoryObj = { render: () => <SiteFooter /> };
+
+/** Phone width: the two footer links sit side by side and wrap if they must. */
+export const FooterPhone: StoryObj = {
+  render: () => (
+    <div className="w-[22rem] max-w-full">
+      <SiteFooter />
+    </div>
+  ),
+};
