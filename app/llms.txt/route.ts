@@ -14,6 +14,7 @@ export function GET() {
     `- [Albums](${SITE_URL}/albums): the full catalogue`,
     `- [Lyrics](${SITE_URL}/lyrics): every lyric`,
     `- [Press](${SITE_URL}/press): interview`,
+    `- [Press kit](${SITE_URL}/press/kit): bios, quick facts, the band, selected press, photos and artwork`,
     `- [Bio](${SITE_URL}/bio)`,
     "",
     "## Albums",

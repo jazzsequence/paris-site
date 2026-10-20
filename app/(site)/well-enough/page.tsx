@@ -14,7 +14,7 @@ import { p1PageMetadata } from "../../../lib/site/p1-metadata";
 
 export const generateMetadata = (): Promise<Metadata> => p1PageMetadata({
   title: "Well Enough",
-  description: "Well Enough, the new album from PARIS, released by Interscope Records on Hostile Takeover.",
+  description: "Well Enough, the new album from PARIS, on Hostile Takeover, distributed by Interscope Records.",
   path: "/well-enough",
   image: "/images/well-enough-cover.jpg",
   type: "music.album",
@@ -37,7 +37,7 @@ async function WellEnoughFallback() {
             {album.title}
           </h1>
           <p className="max-w-xl text-lg text-muted">{album.blurb}</p>
-          <p className="text-sm text-dim">Hostile Takeover, released by Interscope Records · {album.year}</p>
+          <p className="text-sm text-dim">Hostile Takeover, distributed by Interscope Records · {album.year}</p>
           <div className="flex flex-wrap gap-3">
             <ButtonLink href="/listen#well-enough">Listen</ButtonLink>
             <ButtonLink href="/tour" variant="outline">Tour dates</ButtonLink>
