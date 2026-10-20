@@ -41,6 +41,10 @@ concurrency:
 
 jobs:
   sync-registry:
+    # Dependabot runs only see Dependabot secrets, not the repo secrets above, so the sync would fail on missing credentials.
+    # It has nothing to sync either: Dependabot never edits the registry, and a rebase only brings in changes that were
+    # already synced when they landed on main.
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
