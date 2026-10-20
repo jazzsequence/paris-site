@@ -7,6 +7,15 @@ const meta = {
   title: "Components/PlayerBar",
   component: PlayerBar,
   parameters: { layout: "fullscreen" },
+  // On the site the bar is fixed to the bottom of the screen and the queue opens upward. Without a full-height frame it
+  // would sit at the top of the canvas and the queue would open off the top of it.
+  decorators: [
+    (Story) => (
+      <div className="flex min-h-screen flex-col justify-end">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     title: "Consent of the Quiet",
     album: "Well Enough",
