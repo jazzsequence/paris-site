@@ -43,14 +43,12 @@ It’s in the paperwork
 The part of you that screams
 Got reassigned to someone else’s work
 
-### Bridge (spoken, close to the mic)
+### Bridge
 You keep asking who’s doing this to you.
 Wrong question.
 It’s already been done. You just weren’t home for it.
 The stranger’s not the monster.
 The stranger’s the receipt.
-
-(beat drops out)
 
 I’m not here to wake you up.
 I’m just the noise that leaks under the door
@@ -77,7 +75,7 @@ Don’t learn his name
 Because the day you shake his hand
 Neither one of you’s the same
 
-### Outro (spoken, no distortion)
+### Outro
 They didn’t take anything.
 Look — it’s all still here.
 It’s just that half of it answers to a different name now,

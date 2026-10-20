@@ -5,7 +5,7 @@ track: 1
 ---
 
 
-### Intro (crowd, pre-verse, half-tempo)
+### Intro
 Say when  
 Say when  
 Say when  
@@ -79,17 +79,17 @@ Say when
 And you're not gonna say it
 So — say when
 
-### Breakdown (everything drops but stomp and claps; call and response, crowd loud)
-When\!
-(when\!)
-When\!
-(when\!)
+### Breakdown
+When!
+(when!)
+When!
+(when!)
 Louder
-(WHEN\!)
+(WHEN!)
 Nice
 Now do it when it counts
 
-### Bridge (two bars of nothing, then just bass)
+### Bridge
 You had the word the whole time
 It was yours
 It was free
@@ -99,9 +99,7 @@ Nobody ever spends it
 Because nobody wants to be
 the one who ruins a nice night
 
-(beat kicks straight back in, no ceremony)
-
-### Final Chorus (double-time claps, full gang vocal)
+### Final Chorus
 Say when
 (say when)
 Say when
@@ -117,7 +115,7 @@ Go on
 Go on
 So — say when
 
-### Outro (crowd keeps chanting, PARIS talks over, laughing, off-mic)
+### Outro
 Beautiful. Gorgeous. Everybody sounds great.
 
 That's the whole trick, by the way.

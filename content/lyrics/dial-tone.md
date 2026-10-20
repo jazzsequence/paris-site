@@ -16,7 +16,7 @@ Knock twice for the kept
 I counted to nothing
 And nothing answered back
 
-### Refrain (flat, no build)
+### Refrain
 Hello
 Hello
 Is this the number
@@ -39,7 +39,7 @@ Hello
 You picked up
 But you weren’t there
 
-### Bridge (the ringing gets louder; the vocal doesn’t)
+### Bridge
 I know you can hear the shape of this
 Even if you can’t hear me
 That’s alright
@@ -49,7 +49,7 @@ You just have to notice
 you’re being called
 
 
-### Outro (almost inaudible, under the tone)
+### Outro
 I’ll try again
 I’ll try a different way
 Leave the line open

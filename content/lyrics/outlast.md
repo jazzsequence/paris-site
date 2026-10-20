@@ -66,7 +66,7 @@ somebody just stops keeping score
 And I was taught which one to be
 before I ever learned what for
 
-### Outro (sung, trailing)
+### Outro
 I'm still here
 I don't know if that's a victory
 or just what's left

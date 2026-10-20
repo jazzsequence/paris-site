@@ -55,13 +55,11 @@ Then order is a lie
 I didn’t fall
 I stepped aside
 
-### Bridge (spoken, close to the mic)
+### Bridge
 You want a monster?
 Look at what you made polite.
 You want a god?
 Stop kneeling and see who’s still standing.
-
-### (beat drops out)
 
 I’m not your savior
 I’m not your sin
@@ -87,7 +85,7 @@ Then order is a lie
 I didn’t fall
 I stepped aside
 
-### Outro (repeated, fading)
+### Outro
 I won’t make you safe
 I won’t make you pure
 I won’t make you anything

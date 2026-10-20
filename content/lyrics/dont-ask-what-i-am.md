@@ -70,7 +70,7 @@ You just want permission
 
 I won’t give it to you
 
-### Breakdown (minimal instrumentation)
+### Breakdown
 You see us
 You just don’t name us
 You feel us
@@ -92,7 +92,7 @@ It’s because you made the space
 If I drink the night dry
 It’s because you waste it
 
-### Outro (spoken, direct, no distortion)
+### Outro
 I’m not hiding.
 I’m waiting.
 You always come closer

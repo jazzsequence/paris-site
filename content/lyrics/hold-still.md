@@ -79,7 +79,7 @@ Hold still
 and let me be honest for a second—
 I stopped working an hour ago
 
-### Outro (implies the scene keeps going past where the song stops, rather than resolving or trailing off)
+### Outro
 One more.
 Come on keep going
 One more.

@@ -16,7 +16,7 @@ I’ve been reading you ever since
 You were always so good
 at doing what you should
 
-### Chorus (level, quiet, no build)
+### Chorus
 You’re in good standing
 Everyone says so
 I’d say it too
@@ -25,7 +25,7 @@ You’re in good standing
 and I’m what you stand against
 and you still look at me like that
 
-### Verse 2 (guitar enters)
+### Verse 2
 You knelt to a stranger in a city you’d never seen
 and I watched you mean it
 I’ve kept track of you since
@@ -36,9 +36,9 @@ I always know where you’re standing
 You were always so good
 at doing what you must
 
-### Chorus (repeat)
+### Chorus
 
-### Bridge (sung, guitar and voice only, drum machine out)
+### Bridge
 I could ask you to put it down
 You’d want to
 I’d see it in the color of you
@@ -47,7 +47,7 @@ because it’s the shape you were poured into
 and I love the shape
 and I can’t stand where it points
 
-### Final Chorus (drum machine returns, last two lines changed)
+### Final Chorus
 You’re in good standing
 Everyone says so
 I’d say it too
@@ -56,10 +56,9 @@ You’re in good standing
 and when they send you to bring me in
 take the long way
 
-### Outro (sung, under the pad, the voice stops first)
+### Outro
 Take the long way
 Take the long way
 and when they send you,
 I’ll be easy to find.
 
-*(the guitar stops. the drum machine runs alone for eight bars. a tape machine clicks off. nothing else.)*

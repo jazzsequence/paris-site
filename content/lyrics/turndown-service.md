@@ -15,7 +15,7 @@ when somebody's been turned down a little lower than they were built
 Housekeeping came while they were out
 Nobody saw the cart
 
-### Chorus (flat, no build)
+### Chorus
 Turndown service
 Somebody came by while they were out
 Folded the corner of them back
@@ -39,7 +39,7 @@ Somebody came by while they were out
 Folded the corner of them back
 Left a mint where the loud part was
 
-### Bridge (sung, band drops to bass and voice)
+### Bridge
 I could have told them
 I thought about it for one bar
 But you can't hand a person
@@ -47,16 +47,14 @@ a name they didn't pack
 So I said what was true
 and left the rest on the pillow
 
-### Final Chorus (band returns, last two lines changed)
+### Final Chorus
 Turndown service
 Somebody came by while they were out
 Folded the corner of them back
 I knew whose cart it was
 and I held the door
 
-### Outro (sung, quiet)
+### Outro
 Do not disturb
 Do not disturb
 I did not disturb
-
-*(a door closes. four seconds of room tone, a hallway, a distant ice machine. nothing else.)*

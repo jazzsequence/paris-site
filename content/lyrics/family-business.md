@@ -61,7 +61,7 @@ You get the debt
 You get the seat
 and you say thank you
 
-### Bridge (riff halves in tempo, everything else stays)
+### Bridge
 Here's what they tell you
 when you say you want out —
 
@@ -78,7 +78,7 @@ That's how every single one of them got old
 I'm not waiting a hundred years
 to become the thing I'm describing
 
-### Final Chorus (lead vocal absent — multitracked backing vocals only, flat, wrong, unaccompanied by any lead)
+### Final Chorus
 It's a family business
 It's a family business
 Nobody asked to be born into it
@@ -93,4 +93,3 @@ thank you
 thank you
 thank you
 
-(stops on the downbeat)

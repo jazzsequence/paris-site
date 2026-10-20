@@ -43,19 +43,17 @@ Not to see if it's accurate
 just to see if there's still someone home
 behind the part that burns
 
-### Final Chorus (composure breaks mid-line, then snaps back — the sixth distinct ending device on the EP)
+### Final Chorus
 Burn the one you made of me
 I never asked you to build it true
 Burn the one you made me—
-(unguarded, one line)
 —and tell me there's still something of mine left when you're done
 
-(recovers instantly)
 Go on
 Take the match
 I gave you the paper myself
 
-### Outro (flat, still, composed — no trail-off, no twist, no callback, no overtaken voice, just quiet certainty)
+### Outro
 It was never going to be me.
 It was never going to be me.
 Good.

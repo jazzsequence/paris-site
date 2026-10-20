@@ -57,7 +57,7 @@ Wait your turn
 And try not to notice
 when you start sounding like them
 
-### Outro (circular callback to verse 1, full stop)
+### Outro
 Someday I'll say the thing that needs saying
 and somebody younger will wait their turn
 Not because they're wrong
