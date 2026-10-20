@@ -3,7 +3,7 @@
   "root": {
     "props": {
       "title": "Well Enough",
-      "description": "Well Enough, the new album from PARIS, released by Interscope Records on Hostile Takeover."
+      "description": "Well Enough, the new album from PARIS, on Hostile Takeover, distributed by Interscope Records."
     }
   },
   "content": [
@@ -25,7 +25,7 @@
             "style": "outline"
           }
         ],
-        "meta": "Hostile Takeover, released by Interscope Records · 1997"
+        "meta": "Hostile Takeover, distributed by Interscope Records · 1997"
       }
     },
     {
