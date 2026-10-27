@@ -216,7 +216,13 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
                       <span className="text-xs tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                       <span className="min-w-0">
                         <span lang={langOf(item.title)} className="block truncate text-sm font-semibold">{item.title}</span>
-                        {item.subtitle && <span className="block truncate text-xs text-muted">{item.subtitle}</span>}
+                        {(item.id === currentId || item.subtitle) && (
+                          <span className="flex min-w-0 items-baseline gap-2 text-xs">
+                            {/* Words as well as colour (WCAG 1.4.1). Hidden from screen readers: aria-current already says it. */}
+                            {item.id === currentId && <span aria-hidden="true" className="shrink-0 uppercase tracking-widest">Now playing</span>}
+                            {item.subtitle && <span className="truncate text-muted">{item.subtitle}</span>}
+                          </span>
+                        )}
                       </span>
                     </button>
                     {onRemove && item.id !== currentId && (

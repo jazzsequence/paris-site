@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { expect, userEvent, within } from "storybook/test";
 
 import { PlayerBar, type RepeatMode } from "./PlayerBar";
 
@@ -43,6 +44,16 @@ const queue = [
   { id: "c", title: "Don’t ask what I am", subtitle: "Well Enough" },
 ];
 export const WithQueue: Story = { args: { queue, currentId: "b", onRemove: () => {}, onClear: () => {} } };
+
+/** The queue open, as a visitor sees it: the current track says "Now playing" in words as well as magenta. Check at mobile and desktop widths. */
+export const QueueOpen: Story = {
+  args: { queue, currentId: "b", onRemove: () => {}, onClear: () => {} },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("button", { name: /Queue/ }));
+    await expect(await canvas.findByText("Now playing")).toBeVisible();
+  },
+};
 
 // Shown for a few seconds after a track is added to the queue (the player owns the timer).
 export const TrackAdded: Story = { args: { queue, currentId: "b", notice: "Added Don’t ask what I am to the queue" } };
