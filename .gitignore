@@ -24,3 +24,7 @@ reviewer-approved
 
 # MapLibre worker files copied from node_modules by scripts/copy-maplibre-worker.mjs
 /public/maplibre/
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md
