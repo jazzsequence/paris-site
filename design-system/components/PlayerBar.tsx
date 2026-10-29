@@ -216,7 +216,17 @@ export function PlayerBar({ title, album, cover, elapsed, duration, progress, pl
                       <span className="text-xs tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                       <span className="min-w-0">
                         <span lang={langOf(item.title)} className="block truncate text-sm font-semibold">{item.title}</span>
-                        {item.subtitle && <span className="block truncate text-xs text-muted">{item.subtitle}</span>}
+                        {(item.id === currentId || item.subtitle) && (
+                          <span className="block truncate text-xs text-muted">
+                            {/* Words as well as the magenta (WCAG 1.4.1). aria-hidden: aria-current already says it. */}
+                            {item.id === currentId && (
+                              <span aria-hidden className="font-semibold uppercase tracking-widest text-magenta">
+                                Now playing{item.subtitle && " · "}
+                              </span>
+                            )}
+                            {item.subtitle}
+                          </span>
+                        )}
                       </span>
                     </button>
                     {onRemove && item.id !== currentId && (

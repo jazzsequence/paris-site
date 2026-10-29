@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { expect, userEvent, within } from "storybook/test";
 
 import { PlayerBar, type RepeatMode } from "./PlayerBar";
 
@@ -43,6 +44,22 @@ const queue = [
   { id: "c", title: "Don’t ask what I am", subtitle: "Well Enough" },
 ];
 export const WithQueue: Story = { args: { queue, currentId: "b", onRemove: () => {}, onClear: () => {} } };
+
+const openQueue: Story["play"] = async ({ canvasElement }) => {
+  await userEvent.click(within(canvasElement).getByRole("button", { name: /Queue/ }));
+  await expect(within(canvasElement).getByRole("button", { current: true })).toHaveTextContent("Now playing");
+};
+
+/** The queue open at desktop width. The current track says "Now playing" as well as being magenta (WCAG 1.4.1); other rows are unchanged. */
+export const QueueOpen: Story = { args: { queue, currentId: "b", onRemove: () => {}, onClear: () => {} }, play: openQueue };
+
+/** The same at 360px wide, the narrowest the row has to fit without wrapping. Uses the viewport toolbar's "Phone 360" size. */
+export const QueueOpenMobile: Story = {
+  args: QueueOpen.args,
+  play: openQueue,
+  globals: { viewport: { value: "phone360", isRotated: false } },
+  parameters: { viewport: { options: { phone360: { name: "Phone 360", styles: { width: "360px", height: "640px" }, type: "mobile" } } } },
+};
 
 // Shown for a few seconds after a track is added to the queue (the player owns the timer).
 export const TrackAdded: Story = { args: { queue, currentId: "b", notice: "Added Don’t ask what I am to the queue" } };
