@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { userEvent, within } from "storybook/test";
 
 import { PlayerBar, type RepeatMode } from "./PlayerBar";
 
@@ -43,6 +44,18 @@ const queue = [
   { id: "c", title: "Don’t ask what I am", subtitle: "Well Enough" },
 ];
 export const WithQueue: Story = { args: { queue, currentId: "b", onRemove: () => {}, onClear: () => {} } };
+
+// The queue's open state is internal, so these click the Queue button to show the panel. The current row says "Now playing" in words
+// as well as magenta (WCAG 1.4.1). Checked at 360px, the narrowest the site supports, and at desktop width.
+const openQueue: Story["play"] = async ({ canvasElement }) => {
+  await userEvent.click(within(canvasElement).getByRole("button", { name: /queue/i }));
+};
+export const QueueOpen: Story = { args: { queue, currentId: "b", onRemove: () => {}, onClear: () => {} }, play: openQueue };
+export const QueueOpenNarrow: Story = {
+  ...QueueOpen,
+  parameters: { viewport: { options: { narrow: { name: "360px wide", styles: { width: "360px", height: "740px" } } } } },
+  globals: { viewport: { value: "narrow", isRotated: false } },
+};
 
 // Shown for a few seconds after a track is added to the queue (the player owns the timer).
 export const TrackAdded: Story = { args: { queue, currentId: "b", notice: "Added Don’t ask what I am to the queue" } };
