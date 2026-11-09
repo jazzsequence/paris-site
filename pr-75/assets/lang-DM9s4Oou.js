@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-2s6bX4vc.js";var t;function n(){return(n=e((()=>{t=e=>/[ᄀ-ᇿ㄰-㆏가-힯]/.test(e)?`ko`:void 0})))()}export{t as n,n as t};
